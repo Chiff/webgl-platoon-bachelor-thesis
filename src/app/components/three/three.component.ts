@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {canvas} from 'three/detector';
 
 declare var THREE;
 
