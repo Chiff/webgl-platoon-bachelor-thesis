@@ -1,6 +1,6 @@
 /// <reference path="../../node_modules/@types/three/index.d.ts"/>
 
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
