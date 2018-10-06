@@ -25,7 +25,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/app/engines/three.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -9,8 +9,6 @@ import {BabylonComponent} from './components/babylon/babylon.component';
 const appRoutes: Routes = [
   {path: 'babylon', component: BabylonComponent},
   {path: 'three', component: ThreeComponent},
-  {path: '**', component: ThreeComponent},
-  {path: '', component: ThreeComponent}
 ];
 
 @NgModule({
