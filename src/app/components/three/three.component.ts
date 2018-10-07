@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import * as THREE from 'three-full';
 import Stats from 'three/examples/js/libs/stats.min.js';
+import {Mesh} from 'three';
 
 @Component({
   selector: 'app-three',
@@ -16,6 +17,7 @@ export class ThreeComponent implements OnInit {
   renderer: THREE.Renderer;
   stats: Stats;
   envMap: any;
+  meshes: Mesh[] = [];
 
   constructor() {
   }
@@ -51,11 +53,9 @@ export class ThreeComponent implements OnInit {
     light.position.set(0, 1, 0);
     this.scene.add(light);
 
-    const cnv = document.getElementById('three');
-
     this.renderer = new THREE.WebGLRenderer(<THREE.WebGLRendererParameters>{
       antialias: true,
-      canvas: cnv
+      canvas: document.getElementById('three')
     });
 
     this.renderer.setSize(900, 600);
@@ -69,15 +69,16 @@ export class ThreeComponent implements OnInit {
   loadObject() {
     this.loader = new THREE.GLTFLoader();
     const scene = this.scene;
+    const meshes = this.meshes;
     const envMap = this.envMap;
 
     this.loader.load(
       'assets/kamion.glb',
       (gltf) => {
-
         gltf.scene.traverse(function (child) {
           if (child.isMesh) {
             child.material.envMap = envMap;
+            meshes.push(child);
           }
         });
 
@@ -90,5 +91,9 @@ export class ThreeComponent implements OnInit {
     requestAnimationFrame(() => this.animate());
     this.renderer.render(this.scene, this.camera);
     this.stats.update();
+
+    this.meshes.forEach((item: Mesh) => {
+      item.rotateY(0.005);
+    })
   }
 }
