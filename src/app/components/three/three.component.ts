@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
-import * as THREE from 'three';
-import {OrbitControls} from 'three/examples/js/controls/OrbitControls';
-import GLTFLoader from 'three-gltf-loader';
-
+import * as THREE from 'three-full';
+import Stats from 'three/examples/js/libs/stats.min.js';
 
 @Component({
   selector: 'app-three',
@@ -11,12 +9,13 @@ import GLTFLoader from 'three-gltf-loader';
   styleUrls: ['./three.component.scss']
 })
 export class ThreeComponent implements OnInit {
-  dae: any;
-  loader: GLTFLoader;
+  loader: THREE.GLTFLoader;
   scene: THREE.Scene;
   camera: THREE.Camera;
-  controls: OrbitControls;
+  controls: THREE.OrbitControls;
   renderer: THREE.Renderer;
+  stats: Stats;
+  envMap: any;
 
   constructor() {
   }
@@ -25,33 +24,71 @@ export class ThreeComponent implements OnInit {
     this.createScene();
     this.loadObject();
     this.animate();
+
+    console.log(this);
   }
 
   createScene() {
+    const path = 'assets/skybox/';
+    const format = '.jpg';
+    this.envMap = new THREE.CubeTextureLoader().load([
+      path + 'px' + format, path + 'nx' + format,
+      path + 'py' + format, path + 'ny' + format,
+      path + 'pz' + format, path + 'nz' + format
+    ]);
+
     this.scene = new THREE.Scene();
+    this.scene.background = this.envMap;
+
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.controls = new OrbitControls(this.camera);
+    this.camera.position.set(-2, 1, 3);
+
+    this.controls = new THREE.OrbitControls(this.camera);
+    this.controls.target.set(0, -0.5, -0.5);
+    this.controls.update();
+
+    const light = new THREE.HemisphereLight(0xbbbbff, 0x444422);
+    light.position.set(0, 1, 0);
+    this.scene.add(light);
+
+    const cnv = document.getElementById('three');
 
     this.renderer = new THREE.WebGLRenderer(<THREE.WebGLRendererParameters>{
-      canvas: document.getElementById('three')
+      antialias: true,
+      canvas: cnv
     });
+
+    this.renderer.setSize(900, 600);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+
+    this.stats = new Stats();
+    document.getElementById('stats').appendChild(this.stats.dom);
   }
 
   /** https://threejs.org/docs/#examples/loaders/GLTFLoader */
   loadObject() {
-    this.loader = new GLTFLoader();
+    this.loader = new THREE.GLTFLoader();
+    const scene = this.scene;
+    const envMap = this.envMap;
+
     this.loader.load(
       'assets/kamion.glb',
       (gltf) => {
-        console.log(gltf);
-        this.scene.add(gltf.scene);
+
+        gltf.scene.traverse(function (child) {
+          if (child.isMesh) {
+            child.material.envMap = envMap;
+          }
+        });
+
+        scene.add(gltf.scene);
       }
     );
   }
 
   animate() {
-    const anim = this.animate;
-    requestAnimationFrame(anim);
+    requestAnimationFrame(() => this.animate());
     this.renderer.render(this.scene, this.camera);
+    this.stats.update();
   }
 }
