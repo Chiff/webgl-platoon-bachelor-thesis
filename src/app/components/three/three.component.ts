@@ -94,6 +94,6 @@ export class ThreeComponent implements OnInit {
 
     this.meshes.forEach((item: Mesh) => {
       item.rotateY(0.005);
-    })
+    });
   }
 }
