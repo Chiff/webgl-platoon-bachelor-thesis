@@ -23,6 +23,7 @@
     "@types/three": "^0.92.24",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
+    "three": "^0.97.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
