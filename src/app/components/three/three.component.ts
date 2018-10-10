@@ -21,7 +21,7 @@ export class ThreeComponent implements OnInit {
 
   // ovladanie
   colorChange = false;
-  speed = 10;
+  speed = 0;
 
   constructor() {
   }
@@ -47,7 +47,7 @@ export class ThreeComponent implements OnInit {
     this.scene.background = this.envMap;
 
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.camera.position.set(-2, 1, 3);
+    this.camera.position.set(-2, 2, 5);
 
     this.controls = new THREE.OrbitControls(this.camera, document.getElementById('three'));
     this.controls.target.set(0, -0.5, -0.5);
@@ -75,14 +75,21 @@ export class ThreeComponent implements OnInit {
     const scene = this.scene;
     const meshes = this.meshes;
     const envMap = this.envMap;
+    const camera = this.camera;
 
     this.loader.load(
       'assets/kamion.glb',
       (gltf) => {
-        gltf.scene.traverse(function (child) {
+        gltf.scene.traverse(function (child: Mesh) {
           if (child.isMesh) {
+            // @ts-ignore
             child.material.envMap = envMap;
             meshes.push(child);
+            child.originalPosition = child.position;
+
+            if (child.name === 'kamion') {
+              child.add(camera);
+            }
           }
         });
 
@@ -97,13 +104,17 @@ export class ThreeComponent implements OnInit {
     this.stats.update();
 
     this.meshes.forEach((item: Mesh) => {
+      if (item.name !== 'Plane') {
+        item.position.x += this.speed / 100;
+      }
+
       if (item.name.includes('kolesa')) {
         item.rotateZ((this.speed / 100) * -1);
       }
 
       const rndColor = parseInt(Math.floor(Math.random() * 16777215).toString(16), 16);
 
-      if (item.name === 'naklad' && this.colorChange) {
+      if (item.name === 'kamion_naklad' && this.colorChange) {
         // @ts-ignore
         item.material.color = new THREE.Color(rndColor);
         this.colorChange = false;
