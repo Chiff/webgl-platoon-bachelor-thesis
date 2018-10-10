@@ -5,6 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from './app.component';
 import {ThreeComponent} from './components/three/three.component';
 import {BabylonComponent} from './components/babylon/babylon.component';
+import {FormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [
   {path: 'babylon', component: BabylonComponent},
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],

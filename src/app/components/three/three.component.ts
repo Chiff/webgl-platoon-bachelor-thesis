@@ -19,6 +19,10 @@ export class ThreeComponent implements OnInit {
   envMap: any;
   meshes: Mesh[] = [];
 
+  // ovladanie
+  colorChange = false;
+  speed = 10;
+
   constructor() {
   }
 
@@ -45,7 +49,7 @@ export class ThreeComponent implements OnInit {
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.set(-2, 1, 3);
 
-    this.controls = new THREE.OrbitControls(this.camera);
+    this.controls = new THREE.OrbitControls(this.camera, document.getElementById('three'));
     this.controls.target.set(0, -0.5, -0.5);
     this.controls.update();
 
@@ -93,7 +97,17 @@ export class ThreeComponent implements OnInit {
     this.stats.update();
 
     this.meshes.forEach((item: Mesh) => {
-      item.rotateY(0.005);
+      if (item.name.includes('kolesa')) {
+        item.rotateZ((this.speed / 100) * -1);
+      }
+
+      const rndColor = parseInt(Math.floor(Math.random() * 16777215).toString(16), 16);
+
+      if (item.name === 'naklad' && this.colorChange) {
+        // @ts-ignore
+        item.material.color = new THREE.Color(rndColor);
+        this.colorChange = false;
+      }
     });
   }
 }
