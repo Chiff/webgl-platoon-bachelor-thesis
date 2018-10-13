@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import * as BABYLON from 'babylonjs';
 import 'babylonjs-loaders';
+import Stats from 'three/examples/js/libs/stats.min.js';
 
 @Component({
     selector: 'app-babylon',
@@ -14,6 +15,7 @@ export class BabylonComponent implements OnInit {
     camera: BABYLON.Camera;
     materials: BABYLON.Material[];
     meshes: BABYLON.AbstractMesh[];
+    stats: Stats;
     speed = 0;
     edges = false;
 
@@ -54,6 +56,9 @@ export class BabylonComponent implements OnInit {
             new BABYLON.Vector3(0, 1, 0),
             this.scene
         );
+
+        this.stats = new Stats();
+        document.getElementById('stats').appendChild(this.stats.dom);
     }
 
     loadObject() {
@@ -100,6 +105,8 @@ export class BabylonComponent implements OnInit {
         this.find(this.meshes, 'id', 'kolesa').map((item: BABYLON.Mesh) => {
             item.rotation.z -= this.speed / 100;
         });
+
+        this.stats.update();
     }
 
     find(array: any, key: string, search: string): any[] {
