@@ -15,6 +15,7 @@ export class BabylonComponent implements OnInit {
     materials: BABYLON.Material[];
     meshes: BABYLON.AbstractMesh[];
     speed = 0;
+    edges = false;
 
     constructor() {
     }
@@ -74,7 +75,14 @@ export class BabylonComponent implements OnInit {
                 return material;
             }).filter((item: any) => item !== null);
 
-            this.meshes = scene.meshes;
+            this.meshes = scene.meshes.map((mesh: BABYLON.Mesh) => {
+                const box = mesh;
+
+                box.edgesWidth = 1.0;
+                box.edgesColor = new BABYLON.Color4(0, 0, 1, 1);
+
+                return mesh;
+            });
             this.engine.runRenderLoop(() => this.animate());
         }, (e) => {
             // console.log(e);
@@ -82,20 +90,6 @@ export class BabylonComponent implements OnInit {
             console.log(e);
         });
 
-    }
-
-    find(array: any, key: string, search: string): any[] {
-        return array.filter((item: any) => {
-            return item[key].includes(search);
-        });
-    }
-
-    changeColor(object: BABYLON.Material, r: number, g: number, b: number) {
-        object.diffuseColor = new BABYLON.Color3(r, g, b);
-    }
-
-    setTexture(object: BABYLON.Material, url: string, scene: BABYLON.Scene) {
-        object.diffuseTexture = new BABYLON.Texture(url, scene);
     }
 
     animate() {
@@ -108,10 +102,38 @@ export class BabylonComponent implements OnInit {
         });
     }
 
+    find(array: any, key: string, search: string): any[] {
+        return array.filter((item: any) => {
+            return item[key].includes(search);
+        });
+    }
+
+    changeColor(object: BABYLON.Material, r: number, g: number, b: number) {
+        // @ts-ignore
+        object.diffuseColor = new BABYLON.Color3(r, g, b);
+    }
+
+    setTexture(object: BABYLON.Material, url: string, scene: BABYLON.Scene) {
+        // @ts-ignore
+        object.diffuseTexture = new BABYLON.Texture(url, scene);
+    }
+
     changeMatCol() {
         this.find(this.materials, 'id', 'naklad').map((item => {
             this.changeColor(item, Math.random(), Math.random(), Math.random());
         }));
+    }
+
+    drawEdges() {
+        this.edges = !this.edges;
+
+        this.find(this.meshes, 'id', 'kamion').map((item: BABYLON.Mesh) => {
+            if (this.edges) {
+                item.enableEdgesRendering();
+            } else {
+                item.disableEdgesRendering();
+            }
+        });
     }
 }
 
