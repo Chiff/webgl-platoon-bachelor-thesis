@@ -51,10 +51,21 @@ export class BabylonComponent implements OnInit {
       this.scene
     );
 
-    BABYLON.SceneLoader.Append('assets/', 'kamion.glb', this.scene, (mesh) => {
-
+    BABYLON.SceneLoader.Append('assets/', 'kamion.babylon', this.scene, (newScene: BABYLON.Scene) => {
+      const scene = newScene;
+      console.log(scene.materials);
+      scene.materials.map((material) => {
+        if (!material.id.includes('kamion')) {
+          return;
+        }
+        if (material.id.includes('naklad')) {
+          material.diffuseTexture = new BABYLON.Texture('assets/naklad.png', scene);
+        } else {
+          material.diffuseTexture = new BABYLON.Texture('assets/kamion.png', scene);
+        }
+      });
     }, (e) => {
-      console.log(e);
+      // console.log(e);
     }, (e) => {
       console.log(e);
     });
