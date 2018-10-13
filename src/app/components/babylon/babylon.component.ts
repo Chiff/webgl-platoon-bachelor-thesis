@@ -98,7 +98,7 @@ export class BabylonComponent implements OnInit {
             item.position.x += this.speed / 100;
         });
         this.find(this.meshes, 'id', 'kolesa').map((item: BABYLON.Mesh) => {
-            item.rotation.z += this.speed / 100;
+            item.rotation.z -= this.speed / 100;
         });
     }
 
