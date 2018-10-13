@@ -8,23 +8,23 @@ import {BabylonComponent} from './components/babylon/babylon.component';
 import {FormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [
-  {path: 'babylon', component: BabylonComponent},
-  {path: 'three', component: ThreeComponent},
+    {path: 'babylon', component: BabylonComponent},
+    {path: 'three', component: ThreeComponent},
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ThreeComponent,
-    BabylonComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    RouterModule.forRoot(appRoutes)
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ThreeComponent,
+        BabylonComponent,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        RouterModule.forRoot(appRoutes)
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
