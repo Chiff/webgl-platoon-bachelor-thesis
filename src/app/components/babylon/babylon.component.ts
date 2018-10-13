@@ -26,6 +26,7 @@ export class BabylonComponent implements OnInit {
         this.createScene();
         this.loadObject();
         console.log(this);
+        this.createSkybox()
     }
 
     createScene() {
@@ -59,6 +60,17 @@ export class BabylonComponent implements OnInit {
 
         this.stats = new Stats();
         document.getElementById('stats').appendChild(this.stats.dom);
+    }
+
+    createSkybox() {
+        let skybox = BABYLON.MeshBuilder.CreateBox('skyBox', {size: 1000.0}, this.scene);
+        let skyboxMaterial = new BABYLON.StandardMaterial('skyBox', this.scene);
+        skyboxMaterial.backFaceCulling = false;
+        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture('assets/skybox/skybox', this.scene);
+        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+        skybox.material = skyboxMaterial;
     }
 
     loadObject() {

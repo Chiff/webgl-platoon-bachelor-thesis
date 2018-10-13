@@ -38,9 +38,9 @@ export class ThreeComponent implements OnInit {
         const path = 'assets/skybox/';
         const format = '.jpg';
         this.envMap = new THREE.CubeTextureLoader().load([
-            path + 'px' + format, path + 'nx' + format,
-            path + 'py' + format, path + 'ny' + format,
-            path + 'pz' + format, path + 'nz' + format
+            path + 'skybox_px' + format, path + 'skybox_nx' + format,
+            path + 'skybox_py' + format, path + 'skybox_ny' + format,
+            path + 'skybox_pz' + format, path + 'skybox_nz' + format
         ]);
 
         this.scene = new THREE.Scene();
@@ -122,3 +122,6 @@ export class ThreeComponent implements OnInit {
         });
     }
 }
+
+// todo poriesit problem s window size a scalingom modelu
+// https://stackoverflow.com/questions/15278297/how-to-manage-webgl-three-js-with-variable-screen-size
