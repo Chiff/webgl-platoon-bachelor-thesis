@@ -81,6 +81,7 @@ export class ThreeComponent implements OnInit {
             'assets/kamion.glb',
             (gltf) => {
                 gltf.scene.traverse(function (child) {
+                    console.log(child);
                     if (child.isMesh) {
                         // @ts-ignore
                         child.material.envMap = envMap;

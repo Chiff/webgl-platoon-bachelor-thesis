@@ -8,10 +8,11 @@ Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
 		UVs Precision       :  3
 		Vert Color Precision:  3
 		Mat Weight Precision:  2
-		texture directory   :  D:\škola\3bczs\bakalarka\src\assets\
+		texture directory   :  D:\škola\3bczs\bakalarka\models\
 	Python World class constructor completed
-	processing begun of mesh:  kamion_terrain
-		processing begun of baked material:  kamion_terrain
+	processing begun of mesh:  Plane
+		processing begun of baked material:  Plane
+			Cycles baking texture, type: DIFFUSE, mapped using: UVMap
 		num positions      :  2178
 		num normals        :  2178
 		num uvs            :  4356
@@ -60,4 +61,4 @@ Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
 ========= Writing of scene file started =========
 ========= Writing of scene file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.5925 secs
+elapsed time:  0 min, 10.885 secs

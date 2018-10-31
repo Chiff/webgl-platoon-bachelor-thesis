@@ -63,8 +63,8 @@ export class BabylonComponent implements OnInit {
     }
 
     createSkybox() {
-        let skybox = BABYLON.MeshBuilder.CreateBox('skyBox', {size: 1000.0}, this.scene);
-        let skyboxMaterial = new BABYLON.StandardMaterial('skyBox', this.scene);
+        const skybox = BABYLON.MeshBuilder.CreateBox('skyBox', {size: 1000.0}, this.scene);
+        const skyboxMaterial = new BABYLON.StandardMaterial('skyBox', this.scene);
         skyboxMaterial.backFaceCulling = false;
         skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture('assets/skybox/skybox', this.scene);
         skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
@@ -78,7 +78,6 @@ export class BabylonComponent implements OnInit {
             const scene = newScene;
             console.log(scene);
             this.materials = scene.materials.map((material) => {
-                console.log(material.id);
 
                 if (!material.id.includes('kamion')) {
                     return null;
@@ -88,6 +87,8 @@ export class BabylonComponent implements OnInit {
                     this.changeColor(material, 0.8, 0.6, 0.3);
                 } else if (material.id.includes('cesta')) {
                     this.setTexture(material, 'assets/cesta.png', scene);
+                } else if (material.id.includes('terrain')) {
+                    this.setTexture(material, 'assets/terrain.png', scene);
                 } else {
                     this.setTexture(material, 'assets/kamion.png', scene);
                 }
@@ -115,6 +116,9 @@ export class BabylonComponent implements OnInit {
     animate() {
         this.scene.render();
         this.find(this.meshes, 'id', 'kamion').map((item: BABYLON.Mesh) => {
+            if (item.id.includes('terrain') || item.id.includes('cesta')) {
+                return;
+            }
             item.position.x += this.speed / 100;
         });
         this.find(this.meshes, 'id', 'kolesa').map((item: BABYLON.Mesh) => {
