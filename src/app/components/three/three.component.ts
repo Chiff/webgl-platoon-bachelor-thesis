@@ -80,7 +80,7 @@ export class ThreeComponent implements OnInit {
         this.loader.load(
             'assets/kamion.glb',
             (gltf) => {
-                gltf.scene.traverse(function (child: Mesh) {
+                gltf.scene.traverse(function (child) {
                     if (child.isMesh) {
                         // @ts-ignore
                         child.material.envMap = envMap;

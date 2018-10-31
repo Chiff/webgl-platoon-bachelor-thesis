@@ -26,7 +26,7 @@ export class BabylonComponent implements OnInit {
         this.createScene();
         this.loadObject();
         console.log(this);
-        this.createSkybox()
+        this.createSkybox();
     }
 
     createScene() {
@@ -78,13 +78,16 @@ export class BabylonComponent implements OnInit {
             const scene = newScene;
             console.log(scene);
             this.materials = scene.materials.map((material) => {
+                console.log(material.id);
+
                 if (!material.id.includes('kamion')) {
                     return null;
                 }
                 if (material.id.includes('naklad')) {
                     this.setTexture(material, 'assets/naklad.png', scene);
                     this.changeColor(material, 0.8, 0.6, 0.3);
-                    this.setTexture(material, 'assets/naklad.png', scene);
+                } else if (material.id.includes('cesta')) {
+                    this.setTexture(material, 'assets/cesta.png', scene);
                 } else {
                     this.setTexture(material, 'assets/kamion.png', scene);
                 }
