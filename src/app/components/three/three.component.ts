@@ -27,6 +27,8 @@ export class ThreeComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.clear();
+
         this.createScene();
         this.loadObject();
         this.animate();

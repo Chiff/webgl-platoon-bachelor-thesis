@@ -1,28 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+// import * as BABYLON from '../node_modules/babylonjs/babylon.js';
+// import '../node_modules/babylonjs/es6.js';
+// import '../node_modules/babylonjs-loaders/babylonjs.loaders.min.js';
 
-import * as BABYLON from 'babylonjs';
-import 'babylonjs-loaders';
-import Stats from 'three/examples/js/libs/stats.min.js';
+// import * as Stats from '../node_modules/three/examples/js/libs/stats.min.js';
 
-@Component({
-    selector: 'app-babylon',
-    templateUrl: './babylon.component.html',
-    styleUrls: ['./babylon.component.scss']
-})
-export class BabylonComponent implements OnInit {
-    scene: BABYLON.Scene;
-    engine: BABYLON.Engine;
-    camera: BABYLON.Camera;
-    materials: BABYLON.Material[];
-    meshes: BABYLON.AbstractMesh[];
-    stats: Stats;
-    speed = 0;
-    edges = false;
-
+class BabylonComponent {
     constructor() {
-    }
+        this.scene = null;
+        this.engine = null;
+        this.camera = null;
+        this.materials = null;
+        this.meshes = null;
+        this.stats = null;
+        this.edges = false;
+        this.speed = 0;
 
-    ngOnInit() {
         console.clear();
 
         this.createScene();
@@ -32,7 +24,7 @@ export class BabylonComponent implements OnInit {
     }
 
     createScene() {
-        const canvas = <HTMLCanvasElement>document.getElementById('babylon');
+        const canvas = document.getElementById('babylon');
         this.engine = new BABYLON.Engine(
             canvas,
             true,
@@ -60,8 +52,8 @@ export class BabylonComponent implements OnInit {
             this.scene
         );
 
-        this.stats = new Stats();
-        document.getElementById('stats').appendChild(this.stats.dom);
+        // this.stats = new Stats();
+        // document.getElementById('stats').appendChild(this.stats.dom);
     }
 
     createSkybox() {
@@ -76,7 +68,7 @@ export class BabylonComponent implements OnInit {
     }
 
     loadObject() {
-        BABYLON.SceneLoader.Append('assets/', 'kamion.babylon', this.scene, (newScene: BABYLON.Scene) => {
+        BABYLON.SceneLoader.Append('assets/', 'kamion.babylon', this.scene, (newScene) => {
             const scene = newScene;
             console.log(scene);
             this.materials = scene.materials.map((material) => {
@@ -96,9 +88,9 @@ export class BabylonComponent implements OnInit {
                 }
 
                 return material;
-            }).filter((item: any) => item !== null);
+            }).filter((item) => item !== null);
 
-            this.meshes = scene.meshes.map((mesh: BABYLON.Mesh) => {
+            this.meshes = scene.meshes.map((mesh) => {
                 const box = mesh;
 
                 box.edgesWidth = 1.0;
@@ -117,50 +109,48 @@ export class BabylonComponent implements OnInit {
     animate() {
         this.scene.render();
 
-        this.find(this.meshes, 'id', 'kamion').map((item: BABYLON.Mesh) => {
+        this.find(this.meshes, 'id', 'kamion').map((item) => {
             if (item.id.includes('terrain') || item.id.includes('cesta')) {
                 return;
             }
             item.position.x += this.speed / 100;
         });
 
-        this.find(this.meshes, 'id', 'kolesa').map((item: BABYLON.Mesh) => {
+        this.find(this.meshes, 'id', 'kolesa').map((item) => {
             item.rotation.z -= this.speed / 100;
         });
 
-        this.stats.update();
+        // this.stats.update();
     }
 
     createTerrain() {
-        const terrain: BABYLON.Material[] = [];
+        const terrain = [];
 
-        this.find(this.materials, 'id', 'terrain').map((item: BABYLON.Material) => {
+        this.find(this.materials, 'id', 'terrain').map((item) => {
             terrain.push(item);
         });
 
-        this.find(this.materials, 'id', 'cesta').map((item: BABYLON.Material) => {
+        this.find(this.materials, 'id', 'cesta').map((item) => {
             terrain.push(item);
         });
 
     }
 
-    // moveTerrain(speed: number) {
-    //
-    // }
+    moveTerrain(speed) {
 
-    find(array: any, key: string, search: string): any[] {
-        return array.filter((item: any) => {
+    }
+
+    find(array, key, search) {
+        return array.filter((item) => {
             return item[key].includes(search);
         });
     }
 
-    changeColor(object: BABYLON.Material, r: number, g: number, b: number) {
-        // @ts-ignore
+    changeColor(object, r, g, b) {
         object.diffuseColor = new BABYLON.Color3(r, g, b);
     }
 
-    setTexture(object: BABYLON.Material, url: string, scene: BABYLON.Scene) {
-        // @ts-ignore
+    setTexture(object, url, scene) {
         object.diffuseTexture = new BABYLON.Texture(url, scene);
     }
 
@@ -173,7 +163,7 @@ export class BabylonComponent implements OnInit {
     drawEdges() {
         this.edges = !this.edges;
 
-        this.find(this.meshes, 'id', 'kamion').map((item: BABYLON.Mesh) => {
+        this.find(this.meshes, 'id', 'kamion').map((item) => {
             if (this.edges) {
                 item.enableEdgesRendering();
             } else {
@@ -182,4 +172,8 @@ export class BabylonComponent implements OnInit {
         });
     }
 }
+
+(() => {
+    window.model = new BabylonComponent();
+})()
 
