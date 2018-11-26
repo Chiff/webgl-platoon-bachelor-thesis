@@ -1,7 +1,3 @@
-// import * as BABYLON from '../node_modules/babylonjs/babylon.js';
-// import '../node_modules/babylonjs/es6.js';
-// import '../node_modules/babylonjs-loaders/babylonjs.loaders.min.js';
-
 // import * as Stats from '../node_modules/three/examples/js/libs/stats.min.js';
 
 class BabylonComponent {
@@ -12,8 +8,11 @@ class BabylonComponent {
         this.materials = null;
         this.meshes = null;
         this.stats = null;
+
         this.edges = false;
         this.speed = 0;
+        this.tileCount = 10;
+        this.roadLength = 15.98;
 
         console.clear();
 
@@ -82,7 +81,7 @@ class BabylonComponent {
                 } else if (material.id.includes('cesta')) {
                     this.setTexture(material, 'assets/cesta.png', scene);
                 } else if (material.id.includes('terrain')) {
-                    this.setTexture(material, 'assets/terrain.png', scene);
+                    this.setTexture(material, 'assets/pod.png', scene);
                 } else {
                     this.setTexture(material, 'assets/kamion.png', scene);
                 }
@@ -98,6 +97,9 @@ class BabylonComponent {
 
                 return mesh;
             });
+
+            this.createTerrain(this.tileCount);
+
             this.engine.runRenderLoop(() => this.animate());
         }, (e) => {
             // console.log(e);
@@ -109,35 +111,76 @@ class BabylonComponent {
     animate() {
         this.scene.render();
 
-        this.find(this.meshes, 'id', 'kamion').map((item) => {
-            if (item.id.includes('terrain') || item.id.includes('cesta')) {
-                return;
-            }
-            item.position.x += this.speed / 100;
+        this.find(this.meshes, 'id', 'kolesa').map((item) => {
+            item.rotation.z += this.speed / 100;
         });
 
-        this.find(this.meshes, 'id', 'kolesa').map((item) => {
-            item.rotation.z -= this.speed / 100;
-        });
+        if (this.speed !== 0) this.moveTerrain();
 
         // this.stats.update();
     }
 
-    createTerrain() {
-        const terrain = [];
+    createTerrain(count) {
+        const length = this.roadLength;
+        const t = this.findTerrain();
 
-        this.find(this.materials, 'id', 'terrain').map((item) => {
-            terrain.push(item);
-        });
+        this.terrain = [];
+        this.terrain.push(t.road);
+        this.terrain.push(t.terrain);
 
-        this.find(this.materials, 'id', 'cesta').map((item) => {
-            terrain.push(item);
-        });
+        for (let i = 1; i <= count; i++) {
+            const newRoad = t.road.clone(`terrain${i + 1}cesta1`);
+            const newRoad2 = t.road.clone(`terrain${i + 1}cesta2`);
+            const newTerrain = t.terrain.clone(`terrain${i + 1}terrain1`);
+            const newTerrain2 = t.terrain.clone(`terrain${i + 1}terrain2`);
 
+            newRoad.position.x += i * length;
+            newRoad2.position.x -= i * length;
+
+            newTerrain.position.x += i * length;
+            newTerrain2.position.x -= i * length;
+
+            newRoad.edgesColor = new BABYLON.Color4(1, 0, 0, 1);
+            newRoad2.edgesColor = new BABYLON.Color4(1, 0, 0, 1);
+
+            this.terrain.push(newRoad);
+            this.terrain.push(newRoad2);
+            this.terrain.push(newTerrain);
+            this.terrain.push(newTerrain2);
+        }
     }
 
-    moveTerrain(speed) {
+    findTerrain() {
+        const terrain = {
+            road: null,
+            terrain: null
+        };
 
+        this.find(this.meshes, 'id', 'terrain').map((item) => {
+            terrain.terrain = item;
+        });
+
+        this.find(this.meshes, 'id', 'cesta').map((item) => {
+            terrain.road = item;
+        });
+
+        console.log(terrain);
+
+        return terrain;
+    }
+
+    moveTerrain() {
+        // todo iba jeden krat 'this.find' aby zbytocne nehladal stale to iste
+        this.terrain.forEach((item) => {
+            item.position.x += this.speed / 100;
+
+            // dlzka jedneho * total
+            if (item.position.x >= this.roadLength * this.tileCount + this.roadLength && this.speed > 0)
+                item.position.x -= this.roadLength * this.tileCount * 2 + this.roadLength;
+
+            if (item.position.x <= -(this.roadLength * this.tileCount + this.roadLength) && this.speed < 0)
+                item.position.x += this.roadLength * this.tileCount * 2 + this.roadLength;
+        });
     }
 
     find(array, key, search) {
@@ -163,7 +206,15 @@ class BabylonComponent {
     drawEdges() {
         this.edges = !this.edges;
 
-        this.find(this.meshes, 'id', 'kamion').map((item) => {
+        this.find(this.meshes, 'id', 'kolesa').map((item) => {
+            if (this.edges) {
+                item.enableEdgesRendering();
+            } else {
+                item.disableEdgesRendering();
+            }
+        });
+
+        this.find(this.terrain, 'id', 'cesta').map((item) => {
             if (this.edges) {
                 item.enableEdgesRendering();
             } else {
@@ -175,5 +226,13 @@ class BabylonComponent {
 
 (() => {
     window.model = new BabylonComponent();
-})()
+
+    const el = document.getElementById('babylon')
+    el.addEventListener('contextmenu', function (ev) {
+        ev.preventDefault();
+        return false;
+    }, false);
+})();
+
+
 
