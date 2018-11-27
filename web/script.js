@@ -5,7 +5,7 @@ class BabylonComponent {
         this.scene = null;
         this.engine = null;
         this.camera = null;
-        this.materials = null;
+        this.materials = [];
         this.meshes = null;
         this.stats = null;
 
@@ -41,6 +41,8 @@ class BabylonComponent {
             new BABYLON.Vector3(1, 2, 2),
             this.scene
         );
+
+        this.camera.wheelPrecision = 50;
 
         // this.camera.setTarget(BABYLON.Vector3.Zero());
         this.camera.attachControl(canvas, false);
@@ -78,6 +80,12 @@ class BabylonComponent {
                 if (material.id.includes('naklad')) {
                     this.setTexture(material, 'assets/naklad.png', scene);
                     this.changeColor(material, 0.8, 0.6, 0.3);
+                } else if (material.id.includes('1948')) {
+
+                } else if (material.id.includes('Draw')) {
+
+                } else if (material.id.includes('ogre')) {
+
                 } else if (material.id.includes('cesta')) {
                     this.setTexture(material, 'assets/cesta.png', scene);
                 } else if (material.id.includes('terrain')) {
@@ -111,8 +119,12 @@ class BabylonComponent {
     animate() {
         this.scene.render();
 
-        this.find(this.meshes, 'id', 'kolesa').map((item) => {
+        this.find(this.meshes, 'id', 'kamion_kolesa').map((item) => {
             item.rotation.z += this.speed / 100;
+        });
+
+        this.find(this.meshes, 'id', 'ogre_kolesa').map((item) => {
+            item.rotation.x += this.speed / 100;
         });
 
         if (this.speed !== 0) this.moveTerrain();

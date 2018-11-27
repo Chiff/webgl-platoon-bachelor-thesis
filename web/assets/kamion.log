@@ -57,7 +57,42 @@ Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
 		num colors         :  0
 		num indices        :  54
 	processing begun of camera (UniversalCamera):  Camera
+	processing begun of camera (UniversalCamera):  Camera.001
+	processing begun of mesh:  ogre
+		processing begun of baked material:  ogre
+			Cycles baking texture, type: DIFFUSE, mapped using: ogre
+		num positions      :  13957
+		num normals        :  13957
+		num uvs            :  27914
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  23109
+	processing begun of mesh:  ogre_kolesa.000
+		processing begun of baked material:  ogre_kolesa.000
+			Cycles baking texture, type: DIFFUSE, mapped using: koleso
+		num positions      :  2230
+		num normals        :  2230
+		num uvs            :  4460
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  3240
+	processing begun of mesh:  ogre_kolesa.001
+		mesh is an instance of :  ogre_kolesa.000.  Processing halted.
+	processing begun of mesh:  ogre_kolesa.002
+		mesh is an instance of :  ogre_kolesa.000.  Processing halted.
+	processing begun of mesh:  ogre_kolesa.003
+		processing begun of baked material:  ogre_kolesa.003
+			Cycles baking texture, type: DIFFUSE, mapped using: kolesa_predne
+		num positions      :  1622
+		num normals        :  1622
+		num uvs            :  3244
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2484
+	processing begun of mesh:  ogre_kolesa.007
+		mesh is an instance of :  ogre_kolesa.000.  Processing halted.
+	processing begun of light (POINT):  Lamp
 ========= Writing of scene file started =========
 ========= Writing of scene file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.6907 secs
+elapsed time:  4 min, 18.0704 secs
