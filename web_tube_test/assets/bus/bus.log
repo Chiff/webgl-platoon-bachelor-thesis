@@ -1,0 +1,226 @@
+Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		export scope        :  ALL
+		inline textures     :  false
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		texture directory   :  D:\škola\3bczs\bakalarka\web_tube_test\assets\bus\
+	Python World class constructor completed
+	processing begun of mesh:  bus_telo
+		processing begun of Standard material:  material_body
+		processing begun of Standard material:  blur_lip
+		processing begun of Standard material:  tire
+		processing begun of Standard material:  inner_rim
+		processing begun of Standard material:  rim
+		processing begun of Standard material:  textured_reflect
+		processing begun of Standard material:  taillight2S
+		processing begun of Standard material:  slinrorange
+		processing begun of Standard material:  reverse_light
+		processing begun of Standard material:  slinlorange
+		processing begun of Standard material:  interior
+		processing begun of Standard material:  plastic2
+		processing begun of Standard material:  chrome
+		processing begun of Standard material:  oldhead
+		processing begun of Standard material:  indicator_right
+		processing begun of Standard material:  detail_glass_amb
+		processing begun of Standard material:  bottom
+		processing begun of Standard material:  indicator_left
+		processing begun of Standard material:  detail_glass_cle
+		processing begun of Standard material:  glass
+		processing begun of Standard material:  matte_colors
+		processing begun of Standard material:  numberplate
+		processing begun of Standard material:  lights_gls_oldhe
+		processing begun of Standard material:  lights_gls_noemi
+		registered as also a user of material:  glass
+		processing begun of Standard material:  badge
+		processing begun of multimaterial:  bus.Multimaterial#0
+		num positions      :  7896
+		num normals        :  7896
+		num uvs            :  15792
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  29832
+	processing begun of mesh:  bus_driver
+		registered as also a user of material:  material_body
+		registered as also a user of material:  blur_lip
+		registered as also a user of material:  tire
+		registered as also a user of material:  inner_rim
+		registered as also a user of material:  rim
+		registered as also a user of material:  textured_reflect
+		registered as also a user of material:  taillight2S
+		registered as also a user of material:  slinrorange
+		registered as also a user of material:  reverse_light
+		registered as also a user of material:  slinlorange
+		registered as also a user of material:  interior
+		registered as also a user of material:  plastic2
+		registered as also a user of material:  chrome
+		registered as also a user of material:  oldhead
+		registered as also a user of material:  indicator_right
+		registered as also a user of material:  detail_glass_amb
+		registered as also a user of material:  bottom
+		registered as also a user of material:  indicator_left
+		registered as also a user of material:  detail_glass_cle
+		registered as also a user of material:  glass
+		registered as also a user of material:  matte_colors
+		registered as also a user of material:  numberplate
+		registered as also a user of material:  lights_gls_oldhe
+		registered as also a user of material:  lights_gls_noemi
+		registered as also a user of material:  glass
+		registered as also a user of material:  badge
+		processing begun of multimaterial:  bus.Multimaterial#1
+		num positions      :  8
+		num normals        :  8
+		num uvs            :  16
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  36
+	processing begun of mesh:  bus_koleso_fr
+		registered as also a user of material:  material_body
+		registered as also a user of material:  blur_lip
+		registered as also a user of material:  tire
+		registered as also a user of material:  inner_rim
+		registered as also a user of material:  rim
+		registered as also a user of material:  textured_reflect
+		registered as also a user of material:  taillight2S
+		registered as also a user of material:  slinrorange
+		registered as also a user of material:  reverse_light
+		registered as also a user of material:  slinlorange
+		registered as also a user of material:  interior
+		registered as also a user of material:  plastic2
+		registered as also a user of material:  chrome
+		registered as also a user of material:  oldhead
+		registered as also a user of material:  indicator_right
+		registered as also a user of material:  detail_glass_amb
+		registered as also a user of material:  bottom
+		registered as also a user of material:  indicator_left
+		registered as also a user of material:  detail_glass_cle
+		registered as also a user of material:  glass
+		registered as also a user of material:  matte_colors
+		registered as also a user of material:  numberplate
+		registered as also a user of material:  lights_gls_oldhe
+		registered as also a user of material:  lights_gls_noemi
+		registered as also a user of material:  glass
+		registered as also a user of material:  badge
+		processing begun of multimaterial:  bus.Multimaterial#2
+		num positions      :  1363
+		num normals        :  1363
+		num uvs            :  2726
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4374
+		WARNING: # of 0 area faces found:  1
+	processing begun of mesh:  bus_koleso_rr
+		registered as also a user of material:  material_body
+		registered as also a user of material:  blur_lip
+		registered as also a user of material:  tire
+		registered as also a user of material:  inner_rim
+		registered as also a user of material:  rim
+		registered as also a user of material:  textured_reflect
+		registered as also a user of material:  taillight2S
+		registered as also a user of material:  slinrorange
+		registered as also a user of material:  reverse_light
+		registered as also a user of material:  slinlorange
+		registered as also a user of material:  interior
+		registered as also a user of material:  plastic2
+		registered as also a user of material:  chrome
+		registered as also a user of material:  oldhead
+		registered as also a user of material:  indicator_right
+		registered as also a user of material:  detail_glass_amb
+		registered as also a user of material:  bottom
+		registered as also a user of material:  indicator_left
+		registered as also a user of material:  detail_glass_cle
+		registered as also a user of material:  glass
+		registered as also a user of material:  matte_colors
+		registered as also a user of material:  numberplate
+		registered as also a user of material:  lights_gls_oldhe
+		registered as also a user of material:  lights_gls_noemi
+		registered as also a user of material:  glass
+		registered as also a user of material:  badge
+		processing begun of multimaterial:  bus.Multimaterial#3
+		num positions      :  1362
+		num normals        :  1362
+		num uvs            :  2724
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4374
+		WARNING: # of 0 area faces found:  1
+	processing begun of mesh:  bus_koleso_fl
+		registered as also a user of material:  material_body
+		registered as also a user of material:  blur_lip
+		registered as also a user of material:  tire
+		registered as also a user of material:  inner_rim
+		registered as also a user of material:  rim
+		registered as also a user of material:  textured_reflect
+		registered as also a user of material:  taillight2S
+		registered as also a user of material:  slinrorange
+		registered as also a user of material:  reverse_light
+		registered as also a user of material:  slinlorange
+		registered as also a user of material:  interior
+		registered as also a user of material:  plastic2
+		registered as also a user of material:  chrome
+		registered as also a user of material:  oldhead
+		registered as also a user of material:  indicator_right
+		registered as also a user of material:  detail_glass_amb
+		registered as also a user of material:  bottom
+		registered as also a user of material:  indicator_left
+		registered as also a user of material:  detail_glass_cle
+		registered as also a user of material:  glass
+		registered as also a user of material:  matte_colors
+		registered as also a user of material:  numberplate
+		registered as also a user of material:  lights_gls_oldhe
+		registered as also a user of material:  lights_gls_noemi
+		registered as also a user of material:  glass
+		registered as also a user of material:  badge
+		processing begun of multimaterial:  bus.Multimaterial#4
+		num positions      :  1358
+		num normals        :  1358
+		num uvs            :  2716
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4374
+		WARNING: # of 0 area faces found:  1
+	processing begun of mesh:  bus_koleso_rl
+		registered as also a user of material:  material_body
+		registered as also a user of material:  blur_lip
+		registered as also a user of material:  tire
+		registered as also a user of material:  inner_rim
+		registered as also a user of material:  rim
+		registered as also a user of material:  textured_reflect
+		registered as also a user of material:  taillight2S
+		registered as also a user of material:  slinrorange
+		registered as also a user of material:  reverse_light
+		registered as also a user of material:  slinlorange
+		registered as also a user of material:  interior
+		registered as also a user of material:  plastic2
+		registered as also a user of material:  chrome
+		registered as also a user of material:  oldhead
+		registered as also a user of material:  indicator_right
+		registered as also a user of material:  detail_glass_amb
+		registered as also a user of material:  bottom
+		registered as also a user of material:  indicator_left
+		registered as also a user of material:  detail_glass_cle
+		registered as also a user of material:  glass
+		registered as also a user of material:  matte_colors
+		registered as also a user of material:  numberplate
+		registered as also a user of material:  lights_gls_oldhe
+		registered as also a user of material:  lights_gls_noemi
+		registered as also a user of material:  glass
+		registered as also a user of material:  badge
+		processing begun of multimaterial:  bus.Multimaterial#5
+		num positions      :  1371
+		num normals        :  1371
+		num uvs            :  2742
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4374
+		WARNING: # of 0 area faces found:  1
+	processing begun of camera (UniversalCamera):  Camera
+	processing begun of light (HEMI):  Lamp
+========= Writing of scene file started =========
+========= Writing of scene file completed =========
+========= end of processing =========
+elapsed time:  0 min, 1.5578 secs

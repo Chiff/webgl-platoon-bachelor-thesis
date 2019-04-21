@@ -1,0 +1,252 @@
+Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		export scope        :  ALL
+		inline textures     :  false
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		texture directory   :  D:\škola\3bczs\bakalarka\web_tube_test\assets\truck\
+	Python World class constructor completed
+	processing begun of mesh:  truck_telo
+		processing begun of Standard material:  body
+			Diffuse texture found "Diffuse"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\nodamage.jpg'
+		processing begun of Standard material:  chrome_blur_lip
+			Diffuse texture found "Diffuse.012"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\wheel.jpg'
+		processing begun of Standard material:  wheel_emblem
+			Diffuse texture found "Diffuse.016"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\wheel.jpg'
+			Opacity texture found "Opacity"
+				Image texture found, type:  opacityTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\wheel_a.jpg'
+		processing begun of Standard material:  inner_rim
+			Diffuse texture found "Diffuse.014"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\lights.jpg'
+		processing begun of Standard material:  chrome_rim
+			Diffuse texture found "Diffuse.013"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\wheel.jpg'
+		processing begun of Standard material:  tire
+			Diffuse texture found "Diffuse.015"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\tireA0.jpg'
+		processing begun of Standard material:  taillight2S
+			Diffuse texture found "Diffuse.008"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\lights.jpg'
+		processing begun of Standard material:  reverse_light
+			Diffuse texture found "Diffuse.007"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\lights.jpg'
+		processing begun of Standard material:  indicator_right
+			Diffuse texture found "Diffuse.009"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\lights.jpg'
+		processing begun of Standard material:  indicator_left
+			Diffuse texture found "Diffuse.006"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\lights.jpg'
+		processing begun of Standard material:  interior
+			Diffuse texture found "Diffuse.011"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\nodamage.jpg'
+		processing begun of Standard material:  chrome
+		processing begun of Standard material:  oldhead
+			Diffuse texture found "Diffuse.010"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\lights.jpg'
+		processing begun of Standard material:  glass
+		processing begun of Standard material:  matte_colors
+			Diffuse texture found "Diffuse.003"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\nodamage.jpg'
+		processing begun of Standard material:  numberplate
+			Diffuse texture found "Diffuse.005"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\traffic_.jpg'
+		processing begun of Standard material:  misc
+			Diffuse texture found "Diffuse.004"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\nodamage.jpg'
+		processing begun of Standard material:  lights_gls_oldhe
+			Diffuse texture found "Diffuse.002"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\lights.jpg'
+		processing begun of Standard material:  lights_gls_noemi
+			Diffuse texture found "Diffuse.001"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\truck\\lights.jpg'
+		processing begun of Standard material:  black
+		processing begun of Standard material:  truck-vlecka
+		processing begun of Standard material:  truck-karoseria
+		processing begun of multimaterial:  truck2.Multimaterial#0
+		num positions      :  9241
+		num normals        :  9241
+		num uvs            :  18482
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  39795
+	processing begun of mesh:  truck_driver
+		registered as also a user of material:  body
+		registered as also a user of material:  chrome_blur_lip
+		registered as also a user of material:  wheel_emblem
+		registered as also a user of material:  inner_rim
+		registered as also a user of material:  chrome_rim
+		registered as also a user of material:  tire
+		registered as also a user of material:  taillight2S
+		registered as also a user of material:  reverse_light
+		registered as also a user of material:  indicator_right
+		registered as also a user of material:  indicator_left
+		registered as also a user of material:  interior
+		registered as also a user of material:  chrome
+		registered as also a user of material:  oldhead
+		registered as also a user of material:  glass
+		registered as also a user of material:  matte_colors
+		registered as also a user of material:  numberplate
+		registered as also a user of material:  misc
+		registered as also a user of material:  lights_gls_oldhe
+		registered as also a user of material:  lights_gls_noemi
+		registered as also a user of material:  black
+		registered as also a user of material:  truck-vlecka
+		registered as also a user of material:  truck-karoseria
+		processing begun of multimaterial:  truck2.Multimaterial#1
+		num positions      :  8
+		num normals        :  8
+		num uvs            :  16
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  36
+	processing begun of mesh:  truck_koleso_fl
+		registered as also a user of material:  body
+		registered as also a user of material:  chrome_blur_lip
+		registered as also a user of material:  wheel_emblem
+		registered as also a user of material:  inner_rim
+		registered as also a user of material:  chrome_rim
+		registered as also a user of material:  tire
+		registered as also a user of material:  taillight2S
+		registered as also a user of material:  reverse_light
+		registered as also a user of material:  indicator_right
+		registered as also a user of material:  indicator_left
+		registered as also a user of material:  interior
+		registered as also a user of material:  chrome
+		registered as also a user of material:  oldhead
+		registered as also a user of material:  glass
+		registered as also a user of material:  matte_colors
+		registered as also a user of material:  numberplate
+		registered as also a user of material:  misc
+		registered as also a user of material:  lights_gls_oldhe
+		registered as also a user of material:  lights_gls_noemi
+		registered as also a user of material:  black
+		registered as also a user of material:  truck-vlecka
+		registered as also a user of material:  truck-karoseria
+		processing begun of multimaterial:  truck2.Multimaterial#2
+		num positions      :  1293
+		num normals        :  1293
+		num uvs            :  2586
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4146
+	processing begun of mesh:  truck_koleso_fr
+		registered as also a user of material:  body
+		registered as also a user of material:  chrome_blur_lip
+		registered as also a user of material:  wheel_emblem
+		registered as also a user of material:  inner_rim
+		registered as also a user of material:  chrome_rim
+		registered as also a user of material:  tire
+		registered as also a user of material:  taillight2S
+		registered as also a user of material:  reverse_light
+		registered as also a user of material:  indicator_right
+		registered as also a user of material:  indicator_left
+		registered as also a user of material:  interior
+		registered as also a user of material:  chrome
+		registered as also a user of material:  oldhead
+		registered as also a user of material:  glass
+		registered as also a user of material:  matte_colors
+		registered as also a user of material:  numberplate
+		registered as also a user of material:  misc
+		registered as also a user of material:  lights_gls_oldhe
+		registered as also a user of material:  lights_gls_noemi
+		registered as also a user of material:  black
+		registered as also a user of material:  truck-vlecka
+		registered as also a user of material:  truck-karoseria
+		processing begun of multimaterial:  truck2.Multimaterial#3
+		num positions      :  1293
+		num normals        :  1293
+		num uvs            :  2586
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4146
+	processing begun of mesh:  truck_koleso_rl
+		registered as also a user of material:  body
+		registered as also a user of material:  chrome_blur_lip
+		registered as also a user of material:  wheel_emblem
+		registered as also a user of material:  inner_rim
+		registered as also a user of material:  chrome_rim
+		registered as also a user of material:  tire
+		registered as also a user of material:  taillight2S
+		registered as also a user of material:  reverse_light
+		registered as also a user of material:  indicator_right
+		registered as also a user of material:  indicator_left
+		registered as also a user of material:  interior
+		registered as also a user of material:  chrome
+		registered as also a user of material:  oldhead
+		registered as also a user of material:  glass
+		registered as also a user of material:  matte_colors
+		registered as also a user of material:  numberplate
+		registered as also a user of material:  misc
+		registered as also a user of material:  lights_gls_oldhe
+		registered as also a user of material:  lights_gls_noemi
+		registered as also a user of material:  black
+		registered as also a user of material:  truck-vlecka
+		registered as also a user of material:  truck-karoseria
+		processing begun of multimaterial:  truck2.Multimaterial#4
+		num positions      :  1298
+		num normals        :  1298
+		num uvs            :  2596
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4146
+	processing begun of mesh:  truck_koleso_rr
+		registered as also a user of material:  body
+		registered as also a user of material:  chrome_blur_lip
+		registered as also a user of material:  wheel_emblem
+		registered as also a user of material:  inner_rim
+		registered as also a user of material:  chrome_rim
+		registered as also a user of material:  tire
+		registered as also a user of material:  taillight2S
+		registered as also a user of material:  reverse_light
+		registered as also a user of material:  indicator_right
+		registered as also a user of material:  indicator_left
+		registered as also a user of material:  interior
+		registered as also a user of material:  chrome
+		registered as also a user of material:  oldhead
+		registered as also a user of material:  glass
+		registered as also a user of material:  matte_colors
+		registered as also a user of material:  numberplate
+		registered as also a user of material:  misc
+		registered as also a user of material:  lights_gls_oldhe
+		registered as also a user of material:  lights_gls_noemi
+		registered as also a user of material:  black
+		registered as also a user of material:  truck-vlecka
+		registered as also a user of material:  truck-karoseria
+		processing begun of multimaterial:  truck2.Multimaterial#5
+		num positions      :  1293
+		num normals        :  1293
+		num uvs            :  2586
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  4146
+	processing begun of camera (UniversalCamera):  Camera
+	processing begun of light (HEMI):  Lamp
+========= Writing of scene file started =========
+========= Writing of scene file completed =========
+========= end of processing =========
+elapsed time:  0 min, 1.8062 secs

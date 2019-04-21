@@ -1,27 +1,4 @@
 /**
- * @typedef {Object} Point2D
- * @property {Number} x
- * @property {Number} y
- */
-
-/**
- * @typedef {Object} Point3D
- * @property {Number} x
- * @property {Number} y
- * @property {Number} z
- */
-
-/**
- * @typedef {Object} RoadSettings
- * @property {BABYLON.Vector3[]} path
- * @property {BABYLON.Scene} scene
- * @property {URL} textureUrl
- * @property {Point2D} textureOffset
- * @property {Point2D} textureScale
- * @property {boolean} showCurve - optional
- */
-
-/**
  * @class Road
  * @param {RoadSettings} settings
  * @param {BABYLON.Material} material
@@ -30,7 +7,6 @@
  * @see RoadSettings
  */
 export class Road {
-
     /**
      * @constructor
      * @param {RoadSettings} settings
@@ -56,7 +32,7 @@ export class Road {
      * @return {BABYLON.StandardMaterial} material
      */
     createMaterial() {
-        const mat = new BABYLON.StandardMaterial("mat-" + Date.now(), this.settings.scene);
+        const mat = new BABYLON.StandardMaterial('mat-' + Date.now(), this.settings.scene);
 
         mat.alpha = 1.0;
         mat.diffuseColor = new BABYLON.Color3(0.5, 0.5, 1.0);
@@ -75,23 +51,45 @@ export class Road {
         const curve = new BABYLON.Curve3(this.settings.path);
 
         if (this.settings.showCurve)
-            BABYLON.Mesh.CreateLines("line-" + Date.now(), curve.getPoints(), this.scene);
+            BABYLON.Mesh.CreateLines('line-' + Date.now(), curve.getPoints(), this.scene);
 
         const myShape = [
             new BABYLON.Vector3(0, 0, 0),
-            new BABYLON.Vector3(40, 0, 0),
+            new BABYLON.Vector3(40, 0, 0)
         ];
 
-        this.mesh = BABYLON.MeshBuilder.ExtrudeShape("star",
-            {
-                shape: myShape,
-                path: curve.getPoints(),
-                sideOrientation: BABYLON.Mesh.DOUBLESIDE,
-                updatable: true
-            }, this.scene);
+        this.mesh = BABYLON.MeshBuilder.ExtrudeShape('star', {
+            shape: myShape,
+            path: curve.getPoints(),
+            sideOrientation: BABYLON.Mesh.DOUBLESIDE,
+            updatable: true
+        }, this.scene);
 
         this.mesh.material = this.material;
 
         return curve;
     }
 }
+
+/**
+ * @typedef {Object} Point2D
+ * @property {Number} x
+ * @property {Number} y
+ */
+
+/**
+ * @typedef {Object} Point3D
+ * @property {Number} x
+ * @property {Number} y
+ * @property {Number} z
+ */
+
+/**
+ * @typedef {Object} RoadSettings
+ * @property {BABYLON.Vector3[]} path
+ * @property {BABYLON.Scene} scene
+ * @property {URL} textureUrl
+ * @property {Point2D} textureOffset
+ * @property {Point2D} textureScale
+ * @property {boolean} showCurve - optional
+ */

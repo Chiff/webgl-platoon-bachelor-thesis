@@ -16,15 +16,14 @@ export class CarPathAnim {
     createAnimation() {
         const curve = new BABYLON.Curve3(this.path);
         const curvePoints = curve.getPoints();
-        const line = BABYLON.Mesh.CreateLines("car-path-" + Date.now(), curvePoints, this.scene);
+        const line = BABYLON.Mesh.CreateLines('car-path-' + Date.now(), curvePoints, this.scene);
         const path3d = new BABYLON.Path3D(curvePoints);
         const tangents = path3d.getTangents();  //array of tangents to the curve
         const normals = path3d.getNormals(); //array of normals to the curve
         const binormals = path3d.getBinormals();
 
-
-        const animationPosition = new BABYLON.Animation("animPos", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-        const animationRotation = new BABYLON.Animation("animRot", "rotation", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+        const animationPosition = new BABYLON.Animation('animPos', 'position', 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+        const animationRotation = new BABYLON.Animation('animRot', 'rotation', 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         const keysPosition = [];
         let keysRotation = [];
@@ -38,29 +37,13 @@ export class CarPathAnim {
             keysRotation.push({
                 frame: p,
                 value: BABYLON.Vector3.RotationFromAxis(normals[p], binormals[p], tangents[p])
-            })
-
-
+            });
         }
-        console.log(keysRotation);
-        keysRotation = keysRotation.map(key => {
-            key.value = {
-                x: (-Math.PI / 2) - key.value.x,
-                y: Math.PI + key.value.y,
-                z: (-Math.PI / 2) - key.value.z,
-            };
-            return key;
-        });
-        console.log(this.mesh.rotation);
-        console.log(animationRotation);
-        console.log(keysRotation);
-
 
         animationPosition.setKeys(keysPosition);
         animationRotation.setKeys(keysRotation);
 
-
-        const animationGroup = new BABYLON.AnimationGroup("CarAnim-" + Date.now());
+        const animationGroup = new BABYLON.AnimationGroup('CarAnim-' + Date.now());
         animationGroup.addTargetedAnimation(animationPosition, this.mesh);
         animationGroup.addTargetedAnimation(animationRotation, this.mesh);
 

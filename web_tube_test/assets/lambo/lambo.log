@@ -10,262 +10,213 @@ Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
 		Mat Weight Precision:  2
 		texture directory   :  D:\škola\3bczs\bakalarka\web_tube_test\assets\lambo\
 	Python World class constructor completed
-	processing begun of mesh:  lambo_koleso_rl
-		processing begun of Standard material:  BREMSE1.002
-		processing begun of Standard material:  REIFEN1.002
-		processing begun of Standard material:  BREMSE2.002
-		processing begun of Standard material:  FELGE1.002
-		processing begun of Standard material:  BREMSE1
-		processing begun of Standard material:  REIFEN1
-		processing begun of Standard material:  BREMSE2
+	processing begun of mesh:  lambo_telo
+		processing begun of Standard material:  Body
+		processing begun of Standard material:  Translucent_Glass_Gray
 		processing begun of Standard material:  FELGE1
+		processing begun of Standard material:  REIFEN1
 		processing begun of Standard material:  TEILE1
-		processing begun of Standard material:  MOTOR1
 		processing begun of Standard material:  interior
 			Diffuse texture found "Kd"
 				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
-		processing begun of Standard material:  UNTERBODEN
-		processing begun of Standard material:  LICHTER3
-		processing begun of Standard material:  Body
-		processing begun of Standard material:  Translucent_Glass_Gray
-		processing begun of Standard material:  signs
-			Diffuse texture found "Kd.002"
-				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
-		processing begun of Standard material:  logo
-			Diffuse texture found "Kd.001"
-				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
-		processing begun of Standard material:  LICHTER1
-		processing begun of Standard material:  LICHTER4
-		processing begun of Standard material:  _Black_
-		processing begun of Standard material:  TEILE2
-		processing begun of Standard material:  Glass
-		processing begun of Standard material:  lines
-		processing begun of Standard material:  TEILE4
-		processing begun of Standard material:  TEILE3
-		processing begun of Standard material:  Mirror
-		processing begun of Standard material:  Lambo_045black
-		processing begun of Standard material:  Lambo_045yellow
-		processing begun of Standard material:  FrontColor
-		processing begun of Standard material:  LICHTER2
-		processing begun of Standard material:  LICHTER5
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\ignore\\models\\lambo\\..\\ignore\\models\\lambo\\cadnav.com_model\\Models_E0603A039\\interior_lod0.tga'
 		processing begun of Standard material:  speedometer
 			Diffuse texture found "Kd.003"
 				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
-	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\..\\..\\..\\..\\[Squir]\\aventador-new\\gaudges.jpg'
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\ignore\\models\\lambo\\..\\..\\..\\..\\[Squir]\\aventador-new\\gaudges.jpg'
 			Ambient texture found "Ka"
 				Image texture found, type:  ambientTexture, mapped using: "UVMap"
-	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\..\\..\\..\\..\\[Squir]\\aventador-new\\gaudges.jpg'
-		processing begun of Standard material:  BREMSE1.001
-		processing begun of Standard material:  REIFEN1.001
-		processing begun of Standard material:  BREMSE2.001
-		processing begun of Standard material:  FELGE1.001
-		processing begun of Standard material:  BREMSE1.003
-		processing begun of Standard material:  REIFEN1.003
-		processing begun of Standard material:  BREMSE2.003
-		processing begun of Standard material:  FELGE1.003
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\ignore\\models\\lambo\\..\\..\\..\\..\\[Squir]\\aventador-new\\gaudges.jpg'
+		processing begun of Standard material:  TEILE2
+		processing begun of Standard material:  LICHTER4
+		processing begun of Standard material:  MOTOR1
+		processing begun of Standard material:  LICHTER5
+		processing begun of Standard material:  BREMSE1
+		processing begun of Standard material:  LICHTER1
+		processing begun of Standard material:  LICHTER3
+		processing begun of Standard material:  Glass
+		processing begun of Standard material:  signs
+			Diffuse texture found "Kd.002"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\ignore\\models\\lambo\\..\\ignore\\models\\lambo\\cadnav.com_model\\Models_E0603A039\\interior_lod0.tga'
+		processing begun of Standard material:  logo
+			Diffuse texture found "Kd.001"
+				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\ignore\\models\\lambo\\..\\ignore\\models\\lambo\\cadnav.com_model\\Models_E0603A039\\interior_lod0.tga'
+		processing begun of Standard material:  Lambo_045black
+		processing begun of Standard material:  Lambo_045yellow
+		processing begun of Standard material:  FrontColor
+		processing begun of Standard material:  _Black_
+		processing begun of Standard material:  UNTERBODEN
+		processing begun of Standard material:  BREMSE2
+		processing begun of Standard material:  lines
+		processing begun of Standard material:  TEILE3
+		processing begun of Standard material:  TEILE4
+		processing begun of Standard material:  LICHTER2
+		processing begun of Standard material:  Mirror
 		processing begun of multimaterial:  lambo.Multimaterial#0
-		num positions      :  15947
-		num normals        :  15947
-		num uvs            :  31894
+		num positions      :  299918
+		num normals        :  299918
+		num uvs            :  599836
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  16371
+		num indices        :  481971
+		WARNING: # of 0 area faces found:  32
+	processing begun of mesh:  lambo_driver
+		WARNING: No materials have been assigned: 
+		num positions      :  8
+		num normals        :  8
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  36
 	processing begun of mesh:  lambo_koleso_fl
-		registered as also a user of material:  BREMSE1.002
-		registered as also a user of material:  REIFEN1.002
-		registered as also a user of material:  BREMSE2.002
-		registered as also a user of material:  FELGE1.002
-		registered as also a user of material:  BREMSE1
-		registered as also a user of material:  REIFEN1
-		registered as also a user of material:  BREMSE2
-		registered as also a user of material:  FELGE1
-		registered as also a user of material:  TEILE1
-		registered as also a user of material:  MOTOR1
-		registered as also a user of material:  interior
-		registered as also a user of material:  UNTERBODEN
-		registered as also a user of material:  LICHTER3
 		registered as also a user of material:  Body
 		registered as also a user of material:  Translucent_Glass_Gray
+		registered as also a user of material:  FELGE1
+		registered as also a user of material:  REIFEN1
+		registered as also a user of material:  TEILE1
+		registered as also a user of material:  interior
+		registered as also a user of material:  speedometer
+		registered as also a user of material:  TEILE2
+		registered as also a user of material:  LICHTER4
+		registered as also a user of material:  MOTOR1
+		registered as also a user of material:  LICHTER5
+		registered as also a user of material:  BREMSE1
+		registered as also a user of material:  LICHTER1
+		registered as also a user of material:  LICHTER3
+		registered as also a user of material:  Glass
 		registered as also a user of material:  signs
 		registered as also a user of material:  logo
-		registered as also a user of material:  LICHTER1
-		registered as also a user of material:  LICHTER4
-		registered as also a user of material:  _Black_
-		registered as also a user of material:  TEILE2
-		registered as also a user of material:  Glass
-		registered as also a user of material:  lines
-		registered as also a user of material:  TEILE4
-		registered as also a user of material:  TEILE3
-		registered as also a user of material:  Mirror
 		registered as also a user of material:  Lambo_045black
 		registered as also a user of material:  Lambo_045yellow
 		registered as also a user of material:  FrontColor
+		registered as also a user of material:  _Black_
+		registered as also a user of material:  UNTERBODEN
+		registered as also a user of material:  BREMSE2
+		registered as also a user of material:  lines
+		registered as also a user of material:  TEILE3
+		registered as also a user of material:  TEILE4
 		registered as also a user of material:  LICHTER2
-		registered as also a user of material:  LICHTER5
-		registered as also a user of material:  speedometer
-		registered as also a user of material:  BREMSE1.001
-		registered as also a user of material:  REIFEN1.001
-		registered as also a user of material:  BREMSE2.001
-		registered as also a user of material:  FELGE1.001
-		registered as also a user of material:  BREMSE1.003
-		registered as also a user of material:  REIFEN1.003
-		registered as also a user of material:  BREMSE2.003
-		registered as also a user of material:  FELGE1.003
+		registered as also a user of material:  Mirror
 		processing begun of multimaterial:  lambo.Multimaterial#1
-		num positions      :  15947
-		num normals        :  15947
-		num uvs            :  31894
+		num positions      :  16423
+		num normals        :  16423
+		num uvs            :  32846
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  16371
+		num indices        :  16983
 	processing begun of mesh:  lambo_koleso_fr
-		registered as also a user of material:  BREMSE1.002
-		registered as also a user of material:  REIFEN1.002
-		registered as also a user of material:  BREMSE2.002
-		registered as also a user of material:  FELGE1.002
-		registered as also a user of material:  BREMSE1
-		registered as also a user of material:  REIFEN1
-		registered as also a user of material:  BREMSE2
-		registered as also a user of material:  FELGE1
-		registered as also a user of material:  TEILE1
-		registered as also a user of material:  MOTOR1
-		registered as also a user of material:  interior
-		registered as also a user of material:  UNTERBODEN
-		registered as also a user of material:  LICHTER3
 		registered as also a user of material:  Body
 		registered as also a user of material:  Translucent_Glass_Gray
+		registered as also a user of material:  FELGE1
+		registered as also a user of material:  REIFEN1
+		registered as also a user of material:  TEILE1
+		registered as also a user of material:  interior
+		registered as also a user of material:  speedometer
+		registered as also a user of material:  TEILE2
+		registered as also a user of material:  LICHTER4
+		registered as also a user of material:  MOTOR1
+		registered as also a user of material:  LICHTER5
+		registered as also a user of material:  BREMSE1
+		registered as also a user of material:  LICHTER1
+		registered as also a user of material:  LICHTER3
+		registered as also a user of material:  Glass
 		registered as also a user of material:  signs
 		registered as also a user of material:  logo
-		registered as also a user of material:  LICHTER1
-		registered as also a user of material:  LICHTER4
-		registered as also a user of material:  _Black_
-		registered as also a user of material:  TEILE2
-		registered as also a user of material:  Glass
-		registered as also a user of material:  lines
-		registered as also a user of material:  TEILE4
-		registered as also a user of material:  TEILE3
-		registered as also a user of material:  Mirror
 		registered as also a user of material:  Lambo_045black
 		registered as also a user of material:  Lambo_045yellow
 		registered as also a user of material:  FrontColor
+		registered as also a user of material:  _Black_
+		registered as also a user of material:  UNTERBODEN
+		registered as also a user of material:  BREMSE2
+		registered as also a user of material:  lines
+		registered as also a user of material:  TEILE3
+		registered as also a user of material:  TEILE4
 		registered as also a user of material:  LICHTER2
-		registered as also a user of material:  LICHTER5
-		registered as also a user of material:  speedometer
-		registered as also a user of material:  BREMSE1.001
-		registered as also a user of material:  REIFEN1.001
-		registered as also a user of material:  BREMSE2.001
-		registered as also a user of material:  FELGE1.001
-		registered as also a user of material:  BREMSE1.003
-		registered as also a user of material:  REIFEN1.003
-		registered as also a user of material:  BREMSE2.003
-		registered as also a user of material:  FELGE1.003
+		registered as also a user of material:  Mirror
 		processing begun of multimaterial:  lambo.Multimaterial#2
-		num positions      :  15947
-		num normals        :  15947
-		num uvs            :  31894
+		num positions      :  16513
+		num normals        :  16513
+		num uvs            :  33026
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  16371
-	processing begun of mesh:  lambo_koleso_rr
-		registered as also a user of material:  BREMSE1.002
-		registered as also a user of material:  REIFEN1.002
-		registered as also a user of material:  BREMSE2.002
-		registered as also a user of material:  FELGE1.002
-		registered as also a user of material:  BREMSE1
-		registered as also a user of material:  REIFEN1
-		registered as also a user of material:  BREMSE2
-		registered as also a user of material:  FELGE1
-		registered as also a user of material:  TEILE1
-		registered as also a user of material:  MOTOR1
-		registered as also a user of material:  interior
-		registered as also a user of material:  UNTERBODEN
-		registered as also a user of material:  LICHTER3
+		num indices        :  16983
+	processing begun of mesh:  lambo_koleso_rl
 		registered as also a user of material:  Body
 		registered as also a user of material:  Translucent_Glass_Gray
+		registered as also a user of material:  FELGE1
+		registered as also a user of material:  REIFEN1
+		registered as also a user of material:  TEILE1
+		registered as also a user of material:  interior
+		registered as also a user of material:  speedometer
+		registered as also a user of material:  TEILE2
+		registered as also a user of material:  LICHTER4
+		registered as also a user of material:  MOTOR1
+		registered as also a user of material:  LICHTER5
+		registered as also a user of material:  BREMSE1
+		registered as also a user of material:  LICHTER1
+		registered as also a user of material:  LICHTER3
+		registered as also a user of material:  Glass
 		registered as also a user of material:  signs
 		registered as also a user of material:  logo
-		registered as also a user of material:  LICHTER1
-		registered as also a user of material:  LICHTER4
-		registered as also a user of material:  _Black_
-		registered as also a user of material:  TEILE2
-		registered as also a user of material:  Glass
-		registered as also a user of material:  lines
-		registered as also a user of material:  TEILE4
-		registered as also a user of material:  TEILE3
-		registered as also a user of material:  Mirror
 		registered as also a user of material:  Lambo_045black
 		registered as also a user of material:  Lambo_045yellow
 		registered as also a user of material:  FrontColor
+		registered as also a user of material:  _Black_
+		registered as also a user of material:  UNTERBODEN
+		registered as also a user of material:  BREMSE2
+		registered as also a user of material:  lines
+		registered as also a user of material:  TEILE3
+		registered as also a user of material:  TEILE4
 		registered as also a user of material:  LICHTER2
-		registered as also a user of material:  LICHTER5
-		registered as also a user of material:  speedometer
-		registered as also a user of material:  BREMSE1.001
-		registered as also a user of material:  REIFEN1.001
-		registered as also a user of material:  BREMSE2.001
-		registered as also a user of material:  FELGE1.001
-		registered as also a user of material:  BREMSE1.003
-		registered as also a user of material:  REIFEN1.003
-		registered as also a user of material:  BREMSE2.003
-		registered as also a user of material:  FELGE1.003
+		registered as also a user of material:  Mirror
 		processing begun of multimaterial:  lambo.Multimaterial#3
-		num positions      :  15947
-		num normals        :  15947
-		num uvs            :  31894
+		num positions      :  16446
+		num normals        :  16446
+		num uvs            :  32892
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  16371
-	processing begun of camera (UniversalCamera):  Camera
-	processing begun of mesh:  lambo_telo
-		registered as also a user of material:  BREMSE1.002
-		registered as also a user of material:  REIFEN1.002
-		registered as also a user of material:  BREMSE2.002
-		registered as also a user of material:  FELGE1.002
-		registered as also a user of material:  BREMSE1
-		registered as also a user of material:  REIFEN1
-		registered as also a user of material:  BREMSE2
-		registered as also a user of material:  FELGE1
-		registered as also a user of material:  TEILE1
-		registered as also a user of material:  MOTOR1
-		registered as also a user of material:  interior
-		registered as also a user of material:  UNTERBODEN
-		registered as also a user of material:  LICHTER3
+		num indices        :  17007
+	processing begun of mesh:  lambo_koleso_rr
 		registered as also a user of material:  Body
 		registered as also a user of material:  Translucent_Glass_Gray
+		registered as also a user of material:  FELGE1
+		registered as also a user of material:  REIFEN1
+		registered as also a user of material:  TEILE1
+		registered as also a user of material:  interior
+		registered as also a user of material:  speedometer
+		registered as also a user of material:  TEILE2
+		registered as also a user of material:  LICHTER4
+		registered as also a user of material:  MOTOR1
+		registered as also a user of material:  LICHTER5
+		registered as also a user of material:  BREMSE1
+		registered as also a user of material:  LICHTER1
+		registered as also a user of material:  LICHTER3
+		registered as also a user of material:  Glass
 		registered as also a user of material:  signs
 		registered as also a user of material:  logo
-		registered as also a user of material:  LICHTER1
-		registered as also a user of material:  LICHTER4
-		registered as also a user of material:  _Black_
-		registered as also a user of material:  TEILE2
-		registered as also a user of material:  Glass
-		registered as also a user of material:  lines
-		registered as also a user of material:  TEILE4
-		registered as also a user of material:  TEILE3
-		registered as also a user of material:  Mirror
 		registered as also a user of material:  Lambo_045black
 		registered as also a user of material:  Lambo_045yellow
 		registered as also a user of material:  FrontColor
+		registered as also a user of material:  _Black_
+		registered as also a user of material:  UNTERBODEN
+		registered as also a user of material:  BREMSE2
+		registered as also a user of material:  lines
+		registered as also a user of material:  TEILE3
+		registered as also a user of material:  TEILE4
 		registered as also a user of material:  LICHTER2
-		registered as also a user of material:  LICHTER5
-		registered as also a user of material:  speedometer
-		registered as also a user of material:  BREMSE1.001
-		registered as also a user of material:  REIFEN1.001
-		registered as also a user of material:  BREMSE2.001
-		registered as also a user of material:  FELGE1.001
-		registered as also a user of material:  BREMSE1.003
-		registered as also a user of material:  REIFEN1.003
-		registered as also a user of material:  BREMSE2.003
-		registered as also a user of material:  FELGE1.003
+		registered as also a user of material:  Mirror
 		processing begun of multimaterial:  lambo.Multimaterial#4
-		num positions      :  299770
-		num normals        :  299770
-		num uvs            :  599540
+		num positions      :  16513
+		num normals        :  16513
+		num uvs            :  33026
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  484149
-		WARNING: # of 0 area faces found:  41
-	processing begun of light (HEMI):  Lamp
+		num indices        :  16983
+	processing begun of camera (UniversalCamera):  Camera
+	processing begun of light (POINT):  Lamp
 ========= Writing of scene file started =========
 ========= Writing of scene file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 29.671 secs
+elapsed time:  0 min, 33.1653 secs

@@ -1,0 +1,192 @@
+Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		export scope        :  ALL
+		inline textures     :  false
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		texture directory   :  D:\škola\3bczs\bakalarka\web_tube_test\assets\transporter\
+	Python World class constructor completed
+	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
+	processing begun of mesh:  transporter_telo
+		processing begun of Standard material:  Schwatzebereiche
+		processing begun of Standard material:  Innenraum
+		processing begun of Standard material:  VW_Lack_Blau
+		processing begun of Standard material:  Autoglas
+		processing begun of Standard material:  Spiegel
+		processing begun of Standard material:  Lenkrad
+		processing begun of Standard material:  Lenkrad_2
+		processing begun of Standard material:  Fahrerarmatur
+		processing begun of Standard material:  Scheibenwischer
+		processing begun of Standard material:  Rad_Gummi
+		processing begun of Standard material:  Wheel_Felge
+		processing begun of Standard material:  Autozeichen
+		processing begun of Standard material:  Autozeichen_Ramen
+		processing begun of Standard material:  Blinker
+		processing begun of Standard material:  Licht_rot_2
+		processing begun of Standard material:  Licht_Weiss
+		processing begun of Standard material:  Material.005
+		processing begun of Standard material:  Material.006
+		processing begun of Standard material:  Black
+		processing begun of Standard material:  Sitz_1
+		processing begun of Standard material:  Sitz_2
+		processing begun of multimaterial:  transporter.Multimaterial#0
+		num positions      :  7787
+		num normals        :  7787
+		num uvs            :  15574
+		num uvs2           :  15574
+		num colors         :  31148
+		num indices        :  21168
+	processing begun of mesh:  transporter_driver
+		registered as also a user of material:  Schwatzebereiche
+		registered as also a user of material:  Innenraum
+		registered as also a user of material:  VW_Lack_Blau
+		registered as also a user of material:  Autoglas
+		registered as also a user of material:  Spiegel
+		registered as also a user of material:  Lenkrad
+		registered as also a user of material:  Lenkrad_2
+		registered as also a user of material:  Fahrerarmatur
+		registered as also a user of material:  Scheibenwischer
+		registered as also a user of material:  Rad_Gummi
+		registered as also a user of material:  Wheel_Felge
+		registered as also a user of material:  Autozeichen
+		registered as also a user of material:  Autozeichen_Ramen
+		registered as also a user of material:  Blinker
+		registered as also a user of material:  Licht_rot_2
+		registered as also a user of material:  Licht_Weiss
+		registered as also a user of material:  Material.005
+		registered as also a user of material:  Material.006
+		registered as also a user of material:  Black
+		registered as also a user of material:  Sitz_1
+		registered as also a user of material:  Sitz_2
+		processing begun of multimaterial:  transporter.Multimaterial#1
+		num positions      :  8
+		num normals        :  8
+		num uvs            :  16
+		num uvs2           :  16
+		num colors         :  32
+		num indices        :  36
+	processing begun of mesh:  transporter_koleso_fl
+		registered as also a user of material:  Schwatzebereiche
+		registered as also a user of material:  Innenraum
+		registered as also a user of material:  VW_Lack_Blau
+		registered as also a user of material:  Autoglas
+		registered as also a user of material:  Spiegel
+		registered as also a user of material:  Lenkrad
+		registered as also a user of material:  Lenkrad_2
+		registered as also a user of material:  Fahrerarmatur
+		registered as also a user of material:  Scheibenwischer
+		registered as also a user of material:  Rad_Gummi
+		registered as also a user of material:  Wheel_Felge
+		registered as also a user of material:  Autozeichen
+		registered as also a user of material:  Autozeichen_Ramen
+		registered as also a user of material:  Blinker
+		registered as also a user of material:  Licht_rot_2
+		registered as also a user of material:  Licht_Weiss
+		registered as also a user of material:  Material.005
+		registered as also a user of material:  Material.006
+		registered as also a user of material:  Black
+		registered as also a user of material:  Sitz_1
+		registered as also a user of material:  Sitz_2
+		processing begun of multimaterial:  transporter.Multimaterial#2
+		num positions      :  386
+		num normals        :  386
+		num uvs            :  772
+		num uvs2           :  772
+		num colors         :  1544
+		num indices        :  1404
+	processing begun of mesh:  transporter_koleso_fr
+		registered as also a user of material:  Schwatzebereiche
+		registered as also a user of material:  Innenraum
+		registered as also a user of material:  VW_Lack_Blau
+		registered as also a user of material:  Autoglas
+		registered as also a user of material:  Spiegel
+		registered as also a user of material:  Lenkrad
+		registered as also a user of material:  Lenkrad_2
+		registered as also a user of material:  Fahrerarmatur
+		registered as also a user of material:  Scheibenwischer
+		registered as also a user of material:  Rad_Gummi
+		registered as also a user of material:  Wheel_Felge
+		registered as also a user of material:  Autozeichen
+		registered as also a user of material:  Autozeichen_Ramen
+		registered as also a user of material:  Blinker
+		registered as also a user of material:  Licht_rot_2
+		registered as also a user of material:  Licht_Weiss
+		registered as also a user of material:  Material.005
+		registered as also a user of material:  Material.006
+		registered as also a user of material:  Black
+		registered as also a user of material:  Sitz_1
+		registered as also a user of material:  Sitz_2
+		processing begun of multimaterial:  transporter.Multimaterial#3
+		num positions      :  386
+		num normals        :  386
+		num uvs            :  772
+		num uvs2           :  772
+		num colors         :  1544
+		num indices        :  1404
+	processing begun of mesh:  transporter_koleso_rl
+		registered as also a user of material:  Schwatzebereiche
+		registered as also a user of material:  Innenraum
+		registered as also a user of material:  VW_Lack_Blau
+		registered as also a user of material:  Autoglas
+		registered as also a user of material:  Spiegel
+		registered as also a user of material:  Lenkrad
+		registered as also a user of material:  Lenkrad_2
+		registered as also a user of material:  Fahrerarmatur
+		registered as also a user of material:  Scheibenwischer
+		registered as also a user of material:  Rad_Gummi
+		registered as also a user of material:  Wheel_Felge
+		registered as also a user of material:  Autozeichen
+		registered as also a user of material:  Autozeichen_Ramen
+		registered as also a user of material:  Blinker
+		registered as also a user of material:  Licht_rot_2
+		registered as also a user of material:  Licht_Weiss
+		registered as also a user of material:  Material.005
+		registered as also a user of material:  Material.006
+		registered as also a user of material:  Black
+		registered as also a user of material:  Sitz_1
+		registered as also a user of material:  Sitz_2
+		processing begun of multimaterial:  transporter.Multimaterial#4
+		num positions      :  386
+		num normals        :  386
+		num uvs            :  772
+		num uvs2           :  772
+		num colors         :  1544
+		num indices        :  1404
+	processing begun of mesh:  transporter_koleso_rr
+		registered as also a user of material:  Schwatzebereiche
+		registered as also a user of material:  Innenraum
+		registered as also a user of material:  VW_Lack_Blau
+		registered as also a user of material:  Autoglas
+		registered as also a user of material:  Spiegel
+		registered as also a user of material:  Lenkrad
+		registered as also a user of material:  Lenkrad_2
+		registered as also a user of material:  Fahrerarmatur
+		registered as also a user of material:  Scheibenwischer
+		registered as also a user of material:  Rad_Gummi
+		registered as also a user of material:  Wheel_Felge
+		registered as also a user of material:  Autozeichen
+		registered as also a user of material:  Autozeichen_Ramen
+		registered as also a user of material:  Blinker
+		registered as also a user of material:  Licht_rot_2
+		registered as also a user of material:  Licht_Weiss
+		registered as also a user of material:  Material.005
+		registered as also a user of material:  Material.006
+		registered as also a user of material:  Black
+		registered as also a user of material:  Sitz_1
+		registered as also a user of material:  Sitz_2
+		processing begun of multimaterial:  transporter.Multimaterial#5
+		num positions      :  386
+		num normals        :  386
+		num uvs            :  772
+		num uvs2           :  772
+		num colors         :  1544
+		num indices        :  1404
+	processing begun of light (HEMI):  Hemi
+========= Writing of scene file started =========
+========= Writing of scene file completed =========
+========= end of processing =========
+elapsed time:  0 min, 1.4806 secs
