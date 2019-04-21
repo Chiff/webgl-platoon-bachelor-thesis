@@ -4,8 +4,12 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/ignore" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="pep" level="application" />
+    <orderEntry type="library" name="Oimo" level="application" />
+    <orderEntry type="library" name="babylon.custom.js" level="project" />
   </component>
 </module>
