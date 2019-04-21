@@ -1,7 +1,7 @@
 Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
 ========= Conversion from Blender to Babylon.js =========
 	Scene settings used :
-		export scope        :  ALL
+		export scope        :  SELECTED
 		inline textures     :  false
 		Positions Precision :  4
 		Normals Precision   :  3
@@ -55,7 +55,7 @@ Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
 		num uvs            :  72
 		num uvs2           :  0
 		num colors         :  0
-		num indices        :  54
+		num indices        :  60
 	processing begun of camera (UniversalCamera):  Camera
 	processing begun of camera (UniversalCamera):  Camera.001
 	processing begun of mesh:  ogre
@@ -91,8 +91,57 @@ Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
 		num indices        :  2484
 	processing begun of mesh:  ogre_kolesa.007
 		mesh is an instance of :  ogre_kolesa.000.  Processing halted.
+	processing begun of mesh:  Dodge
+		processing begun of baked material:  Dodge
+			Cycles baking texture, type: DIFFUSE, mapped using: UVMap.001
+		num positions      :  14649
+		num normals        :  14649
+		num uvs            :  29298
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  30459
+	processing begun of mesh:  Dodge_kolesa_fl
+		processing begun of baked material:  Dodge_kolesa_fl
+			Cycles baking texture, type: DIFFUSE, mapped using: UVMap
+			Cycles baking texture, type: NORMAL, mapped using: UVMap
+		num positions      :  886
+		num normals        :  886
+		num uvs            :  1772
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  3222
+	processing begun of mesh:  Dodge_kolesa_fr
+		processing begun of baked material:  Dodge_kolesa_fr
+			Cycles baking texture, type: DIFFUSE, mapped using: UVMap
+			Cycles baking texture, type: NORMAL, mapped using: UVMap
+		num positions      :  886
+		num normals        :  886
+		num uvs            :  1772
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  3222
+	processing begun of mesh:  Dodge_kolesa_rl
+		processing begun of baked material:  Dodge_kolesa_rl
+			Cycles baking texture, type: DIFFUSE, mapped using: UVMap
+			Cycles baking texture, type: NORMAL, mapped using: UVMap
+		num positions      :  886
+		num normals        :  886
+		num uvs            :  1772
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  3222
+	processing begun of mesh:  Dodge_kolesa_rr
+		processing begun of baked material:  Dodge_kolesa_rr
+			Cycles baking texture, type: DIFFUSE, mapped using: UVMap
+			Cycles baking texture, type: NORMAL, mapped using: UVMap
+		num positions      :  886
+		num normals        :  886
+		num uvs            :  1772
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  3222
 	processing begun of light (POINT):  Lamp
 ========= Writing of scene file started =========
 ========= Writing of scene file completed =========
 ========= end of processing =========
-elapsed time:  4 min, 18.0704 secs
+elapsed time:  17 min, 42.9652 secs
