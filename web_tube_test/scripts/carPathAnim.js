@@ -1,7 +1,7 @@
 export class CarPathAnim {
     constructor(path, mesh, speed, scene) {
         this.path = path;
-        this.mesh = mesh;
+        this.meshes = mesh;
         this.scene = scene;
 
         // TODO - implement
@@ -24,9 +24,11 @@ export class CarPathAnim {
 
         const animationPosition = new BABYLON.Animation('animPos', 'position', 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
         const animationRotation = new BABYLON.Animation('animRot', 'rotation', 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+        const animationWheelRotation = new BABYLON.Animation('animWheelRot', 'rotation', 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         const keysPosition = [];
-        let keysRotation = [];
+        const keysRotation = [];
+        const wheelRotation = [];
 
         for (let p = 0; p < curvePoints.length; p++) {
             keysPosition.push({
@@ -38,14 +40,24 @@ export class CarPathAnim {
                 frame: p,
                 value: BABYLON.Vector3.RotationFromAxis(normals[p], binormals[p], tangents[p])
             });
+
+            wheelRotation.push({
+                frame: p,
+                value: new BABYLON.Vector3(p * 0.1, 0, 0)
+            });
         }
 
         animationPosition.setKeys(keysPosition);
         animationRotation.setKeys(keysRotation);
+        animationWheelRotation.setKeys(wheelRotation);
 
         const animationGroup = new BABYLON.AnimationGroup('CarAnim-' + Date.now());
-        animationGroup.addTargetedAnimation(animationPosition, this.mesh);
-        animationGroup.addTargetedAnimation(animationRotation, this.mesh);
+        animationGroup.addTargetedAnimation(animationPosition, this.meshes.body);
+        animationGroup.addTargetedAnimation(animationRotation, this.meshes.body);
+        animationGroup.addTargetedAnimation(animationWheelRotation, this.meshes.kfl);
+        animationGroup.addTargetedAnimation(animationWheelRotation, this.meshes.krl);
+        animationGroup.addTargetedAnimation(animationWheelRotation, this.meshes.kfr);
+        animationGroup.addTargetedAnimation(animationWheelRotation, this.meshes.krr);
 
         animationGroup.speedRatio = this.speed;
         this.animationGroup = animationGroup;

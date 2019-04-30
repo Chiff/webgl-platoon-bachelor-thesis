@@ -45,9 +45,12 @@ export default class Scene {
         const groundMaterial = new BABYLON.StandardMaterial('groundMaterial', this.scene);
 
         groundMaterial.alpha = 1.0;
-        groundMaterial.diffuseColor = new BABYLON.Color3(0.5, 0.5, 1.0);
+        groundMaterial.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
         groundMaterial.backFaceCulling = false;
         groundMaterial.diffuseTexture = new BABYLON.Texture('assets/grass.jpg', this.scene);
+
+        groundMaterial.diffuseTexture.uScale = 10;
+        groundMaterial.diffuseTexture.vScale = 10;
 
         // TODO - 19.4.2019 - create ground with smaller `mapDimension`
         const myGround = BABYLON.Mesh.CreateGroundFromHeightMap(
@@ -95,18 +98,31 @@ export default class Scene {
     createCarPath() {
         const mySinus = [];
         const carPath = [];
-        const radius = 120;
-        const center = {x: 0, y: 0};
-        const step = 300;
-        for (let i = 0; i <= 2 * Math.PI; i += (Math.PI / 2) / step) {
-            const x = (center.x + radius * Math.cos(i)) + (Math.sin(i) * 30);
-            const y = 10 + (Math.sin(i * 5) * 5);
-            const z = (center.y + radius * Math.sin(i)) + (Math.sin(i) * 50);
+
+        // const radius = 120;
+        // const center = {x: 0, y: 0};
+        // const step = 300;
+        // for (let i = 0; i <= 2 * Math.PI; i += (Math.PI / 2) / step) {
+        //     const x = (center.x + radius * Math.cos(i)) + (Math.sin(i) * 30);
+        //     const y = 10 + (Math.sin(i * 5) * 5);
+        //     const z = (center.y + radius * Math.sin(i)) + (Math.sin(i) * 50);
+        //     mySinus.push(new BABYLON.Vector3(x, y, z));
+        //
+        //     const xCar = x + 13 * Math.cos(i);
+        //     const yCar = y * 1.15;
+        //     const zCar = z + 13 * Math.sin(i);
+        //     carPath.push(new BABYLON.Vector3(xCar, yCar, zCar));
+        // }
+
+        for (let i = 0; i < 500; i++) {
+            const x = i;
+            const y = 15;
+            const z = 0;
             mySinus.push(new BABYLON.Vector3(x, y, z));
 
-            const xCar = x + 13 * Math.cos(i);
-            const yCar = y * 1.15;
-            const zCar = z + 13 * Math.sin(i);
+            const xCar = x; //* Math.cos(i);
+            const yCar = y + 1.15; //* 1.15;
+            const zCar = z - 26; //* Math.sin(i);
             carPath.push(new BABYLON.Vector3(xCar, yCar, zCar));
         }
 
@@ -115,7 +131,7 @@ export default class Scene {
     }
 
     loadObject() {
-        let time = 0;
+        let time = -2800;
         vehicleObjects.map((obj) => {
             const vehicle = new Vehicle(this.scene);
 

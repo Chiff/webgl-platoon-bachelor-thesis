@@ -19,14 +19,14 @@ Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
 		processing begun of Standard material:  interior
 			Diffuse texture found "Kd"
 				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
-	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\ignore\\models\\lambo\\..\\ignore\\models\\lambo\\cadnav.com_model\\Models_E0603A039\\interior_lod0.tga'
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\lambo\\..\\ignore\\models\\lambo\\cadnav.com_model\\Models_E0603A039\\interior_lod0.tga'
 		processing begun of Standard material:  speedometer
 			Diffuse texture found "Kd.003"
 				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
-	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\ignore\\models\\lambo\\..\\..\\..\\..\\[Squir]\\aventador-new\\gaudges.jpg'
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\lambo\\..\\..\\..\\..\\[Squir]\\aventador-new\\gaudges.jpg'
 			Ambient texture found "Ka"
 				Image texture found, type:  ambientTexture, mapped using: "UVMap"
-	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\ignore\\models\\lambo\\..\\..\\..\\..\\[Squir]\\aventador-new\\gaudges.jpg'
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\lambo\\..\\..\\..\\..\\[Squir]\\aventador-new\\gaudges.jpg'
 		processing begun of Standard material:  TEILE2
 		processing begun of Standard material:  LICHTER4
 		processing begun of Standard material:  MOTOR1
@@ -38,11 +38,11 @@ Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
 		processing begun of Standard material:  signs
 			Diffuse texture found "Kd.002"
 				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
-	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\ignore\\models\\lambo\\..\\ignore\\models\\lambo\\cadnav.com_model\\Models_E0603A039\\interior_lod0.tga'
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\lambo\\..\\ignore\\models\\lambo\\cadnav.com_model\\Models_E0603A039\\interior_lod0.tga'
 		processing begun of Standard material:  logo
 			Diffuse texture found "Kd.001"
 				Image texture found, type:  diffuseTexture, mapped using: "UVMap"
-	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\ignore\\models\\lambo\\..\\ignore\\models\\lambo\\cadnav.com_model\\Models_E0603A039\\interior_lod0.tga'
+	WARNING: Error encountered processing image file:  , Error:  [Errno 2] No such file or directory: 'D:\\škola\\3bczs\\bakalarka\\models\\lambo\\..\\ignore\\models\\lambo\\cadnav.com_model\\Models_E0603A039\\interior_lod0.tga'
 		processing begun of Standard material:  Lambo_045black
 		processing begun of Standard material:  Lambo_045yellow
 		processing begun of Standard material:  FrontColor
@@ -219,4 +219,4 @@ Exporter version: 5.6.4, Blender version: 2.79 (sub 0)
 ========= Writing of scene file started =========
 ========= Writing of scene file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 33.1653 secs
+elapsed time:  0 min, 36.4326 secs

@@ -4,19 +4,26 @@ import { variables } from './utils.js';
 export class Vehicle {
     constructor(scene) {
         this.scene = scene;
+        this.meshes = {
+            body: null,
+            kfl: null,
+            kfr: null,
+            krl: null,
+            krr: null,
+            cam: null
+        };
     }
 
     load(meshID, objFolder, objFile, customizeMesh) {
         this.meshID = meshID;
 
-
         return new Promise((resolve, reject) => {
             BABYLON.SceneLoader.Append(objFolder, objFile, this.scene, (newScene) => {
                 newScene.meshes.map((mesh) => {
-                    if (mesh.id.includes(meshID)) {
+                    if (mesh.id.includes(meshID + '_telo')) {
                         customizeMesh(mesh);
-                        this.vehicle = mesh;
-                        this.driverCam = this.vehicle.getChildMeshes(true, (node) => node.id.includes('_driver'));
+                        this.meshes.body = mesh;
+                        this.meshes.cam = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_driver'));
                     }
 
                     return mesh;
@@ -34,23 +41,22 @@ export class Vehicle {
     //  - remove window variables and use BabylonGUI
     //  - https://doc.babylonjs.com/how_to/gui
     addFollowPath(carPath, cam) {
-        const vehicle = this.vehicle;
+        const vehicle = this.meshes.body;
 
-        // TODO - 19.4.2019 - access vehicle tires and steer them
-        // const kfl = this.scene.getMeshByID('lambo_koleso_fl');
-        // const kfr = this.scene.getMeshByID('lambo_koleso_fr');
-        // const krl = this.scene.getMeshByID('lambo_koleso_rl');
-        // const krr = this.scene.getMeshByID('lambo_koleso_rr');
+        this.meshes.kfl = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_fl'));
+        this.meshes.kfr = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_fr'));
+        this.meshes.krl = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_rl'));
+        this.meshes.krr = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_rr'));
 
         vehicle.position.x = carPath[0].x;
         vehicle.position.y = carPath[0].y;
         vehicle.position.z = carPath[0].z;
-        window.anim = new CarPathAnim(carPath, vehicle, 2, this.scene, cam);
+        window.anim = new CarPathAnim(carPath, this.meshes, 2, this.scene, cam);
     }
 
     // TODO - 19.4.2019 - camera should follow vehicle rotation
     focusCar(cam) {
-        variables.skySphere.parent = this.vehicle;
-        cam.lockedTarget = this.vehicle;
+        variables.skySphere.parent = this.meshes.body;
+        cam.lockedTarget = this.meshes.body;
     }
 }
