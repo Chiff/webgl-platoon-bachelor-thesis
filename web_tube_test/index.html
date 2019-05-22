@@ -17,7 +17,9 @@
     <!--<script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>-->
     <!--<script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>-->
     <!--<script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>-->
-    <script src="scripts/babylon.custom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="lib/babylon.custom.js"></script>
+    <script src="lib/TreeGenerator.js"></script>
     <script src="main.js" type="module"></script>
     <style>
         canvas {
@@ -29,9 +31,8 @@
 <body>
 <canvas id="renderCanvas"></canvas>
 <canvas id="terrain" style="display:none;"></canvas>
+<div class="controls"></div>
 <img id="imgSave" alt="ctx" width="256" height="256">
-<button onclick="followDriver()">driver</button>
-<button onclick="followCar()">car</button>
 </body>
 </html>
 

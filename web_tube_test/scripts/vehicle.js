@@ -43,20 +43,32 @@ export class Vehicle {
     addFollowPath(carPath, cam) {
         const vehicle = this.meshes.body;
 
-        this.meshes.kfl = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_fl'));
-        this.meshes.kfr = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_fr'));
-        this.meshes.krl = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_rl'));
-        this.meshes.krr = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_rr'));
+        this.meshes.kfl = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_fl'))[0];
+        this.meshes.kfr = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_fr'))[0];
+        this.meshes.krl = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_rl'))[0];
+        this.meshes.krr = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_rr'))[0];
+
+        const wheelSize = this.meshes.kfl.getBoundingInfo().boundingBox.extendSize.y * this.meshes.body.scaling.y * this.meshes.kfl.scaling.y;
 
         vehicle.position.x = carPath[0].x;
         vehicle.position.y = carPath[0].y;
         vehicle.position.z = carPath[0].z;
-        window.anim = new CarPathAnim(carPath, this.meshes, 2, this.scene, cam);
+
+        const heightPath = [];
+        for (let i = 0; i < carPath.length; i++) {
+            heightPath.push(new BABYLON.Vector3(carPath[i].x, (carPath[i].y + wheelSize), carPath[i].z));
+        }
+
+        this.anim = new CarPathAnim(heightPath, this.meshes, 2, this.scene, cam);
     }
 
     // TODO - 19.4.2019 - camera should follow vehicle rotation
     focusCar(cam) {
         variables.skySphere.parent = this.meshes.body;
         cam.lockedTarget = this.meshes.body;
+    }
+
+    changeSpeed(speed) {
+        this.anim.changeSpeed(speed);
     }
 }

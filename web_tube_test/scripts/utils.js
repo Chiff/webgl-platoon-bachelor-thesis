@@ -1,5 +1,5 @@
 export const variables = {
-    mapDimension: 1200,
+    mapDimension: 400,
     skySphere: null,
 
     cameraSettings: {
@@ -16,7 +16,7 @@ export const vehicleObjects = [
         editMesh: (mesh) => {
             mesh.position.y += 20;
             mesh.position.x += 25;
-            mesh.scaling = new BABYLON.Vector3(3, 3, 3);
+            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
         }
     }, {
         meshID: 'transporter',
@@ -24,7 +24,7 @@ export const vehicleObjects = [
         file: 'transporter.babylon',
         editMesh: (mesh) => {
             mesh.position.y += 20;
-            mesh.scaling = new BABYLON.Vector3(3, 3, 3);
+            mesh.scaling = new BABYLON.Vector3(0.8, 0.8, 0.8);
         }
     }, {
         meshID: 'bus',
@@ -33,7 +33,7 @@ export const vehicleObjects = [
         editMesh: (mesh) => {
             mesh.position.y += 20;
             mesh.position.x += 15;
-            mesh.scaling = new BABYLON.Vector3(3, 3, 3);
+            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
         }
     }, {
         meshID: 'truck',
@@ -42,6 +42,6 @@ export const vehicleObjects = [
         editMesh: (mesh) => {
             mesh.position.y += 20;
             mesh.position.x -= 15;
-            mesh.scaling = new BABYLON.Vector3(3, 3, 3);
+            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
         }
     }];

@@ -43,7 +43,7 @@ export class CarPathAnim {
 
             wheelRotation.push({
                 frame: p,
-                value: new BABYLON.Vector3(p * 0.1, 0, 0)
+                value: new BABYLON.Vector3(p * 0.5, 0, 0)
             });
         }
 
@@ -59,7 +59,7 @@ export class CarPathAnim {
         animationGroup.addTargetedAnimation(animationWheelRotation, this.meshes.kfr);
         animationGroup.addTargetedAnimation(animationWheelRotation, this.meshes.krr);
 
-        animationGroup.speedRatio = this.speed;
+        animationGroup.speedRatio = 0.5;
         this.animationGroup = animationGroup;
     }
 
@@ -71,5 +71,9 @@ export class CarPathAnim {
     // TODO - fixme
     stopAnimation() {
         this.animationGroup.play(false);
+    }
+
+    changeSpeed(speed) {
+        this.animationGroup.speedRatio *= speed;
     }
 }

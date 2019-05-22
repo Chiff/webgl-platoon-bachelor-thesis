@@ -55,7 +55,7 @@ export class Road {
 
         const myShape = [
             new BABYLON.Vector3(0, 0, 0),
-            new BABYLON.Vector3(40, 0, 0)
+            new BABYLON.Vector3(15, 0, 0)
         ];
 
         this.mesh = BABYLON.MeshBuilder.ExtrudeShape('star', {
