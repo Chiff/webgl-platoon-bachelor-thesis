@@ -46,17 +46,11 @@ export default class Scene {
     createGround() {
         const groundMaterial = new BABYLON.StandardMaterial('groundMaterial', this.scene);
 
-
         groundMaterial.alpha = 1.0;
         groundMaterial.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
         groundMaterial.backFaceCulling = false;
         groundMaterial.specularColor = new BABYLON.Color3(0.3, 0.3, 0.3);
 
-        // groundMaterial.diffuseTexture = new BABYLON.Texture('assets/grass.jpg', this.scene);
-        // groundMaterial.diffuseTexture.uScale = 12;
-        // groundMaterial.diffuseTexture.vScale = 12;
-
-        // const grassTexture = new BABYLON.GrassProceduralTexture(name + 'textbawl', 512, this.scene);
         groundMaterial.ambientTexture = new BABYLON.Texture('assets/grass.png', this.scene);
         groundMaterial.ambientTexture.uScale = 30;
         groundMaterial.ambientTexture.vScale = 30;
@@ -72,30 +66,23 @@ export default class Scene {
         // myGround.rotation.y +=  Math.PI;
         ground.diffuseColor = BABYLON.Color3.Black();
         ground.material = groundMaterial;
-        ground.maxRange = 1;
+        ground.isPickable = false;
 
         this.ground = ground;
     }
 
+    // TODO - 28.5.2019
+    //  - refactor
     treeTest() {
-        const success = function (s) {
-            console.log(s);
-        };
-        // BABYLON.SceneLoader.Append('assets/foliage/', 'flower.babylon', this.scene, success);
-        // BABYLON.SceneLoader.Append('assets/foliage/', 'bush.babylon', this.scene, success);
-        BABYLON.SceneLoader.Append('assets/foliage/', 'grass.babylon', this.scene, success);
-        BABYLON.SceneLoader.Append('assets/foliage/', 'tree-1-2.babylon', this.scene, success);
-        BABYLON.SceneLoader.Append('assets/foliage/', 'tree-2.babylon', this.scene, success);
+        BABYLON.SceneLoader.Append('assets/foliage/', 'bush.babylon', this.scene);
+        BABYLON.SceneLoader.Append('assets/foliage/', 'grass.babylon', this.scene);
+        BABYLON.SceneLoader.Append('assets/foliage/', 'tree-1.babylon', this.scene);
+        BABYLON.SceneLoader.Append('assets/foliage/', 'tree-2.babylon', this.scene);
 
         const self = this;
         this.scene.executeWhenReady(function () {
             const parentSPS = self.ground;
             const positions = [...parentSPS.getVerticesData(BABYLON.VertexBuffer.PositionKind)];
-
-            let road = self.scene.getMeshByID('road');
-            // road.enableEdgesRendering();
-            // road.edgesWidth = 4.0;
-            // road.edgesColor = new BABYLON.Color4(0, 0, 1, 1);
 
             const myBuilder = function (particle, i, s, y = 0) {
                 if (positions.length < 3) {
@@ -111,47 +98,69 @@ export default class Scene {
                     positions[randomPosition + 2]
                 );
 
-                particle.scaling.y += Math.random() * 0.8 + 0.3;
+                particle.scaling.y = Math.random() + 0.5;
 
                 positions.splice(randomPosition - 9, 12);
-                // if (road.intersectsMesh(particle, false)) {
-                //     console.log('BYE!', particle.position);
-                //     particle.dispose()
-                //     return null;
-                // }
-                // return particle;
+
+                const position = {...particle.position};
+                position.y = -2;
+                const direction = new BABYLON.Vector3(0, 1, 0);
+                const ray = new BABYLON.Ray(position, direction, 100);
+
+                const hit = self.scene.pickWithRay(ray);
+
+                if (hit.pickedMesh && hit.pickedMesh.name === 'road') {
+                    myBuilder(particle,i,s,y);
+                }
             };
 
             // tree 1
             let t = self.scene.getMeshByName('tree-1');
 
-            var SPSTree1 = new BABYLON.SolidParticleSystem('SPSTree1', self.scene, {updatable: false});
-            SPSTree1.addShape(t, 50, {positionFunction: myBuilder});
-            var SPSMeshTree = SPSTree1.buildMesh();
+            const SPSTree1 = new BABYLON.SolidParticleSystem('SPSTree1', self.scene, {updatable: false});
+            SPSTree1.addShape(t, 80, {positionFunction: myBuilder});
+            const SPSMeshTree = SPSTree1.buildMesh();
             SPSMeshTree.material = t.material;
             SPSMeshTree.parent = parentSPS;
+            SPSMeshTree.isPickable = false;
 
             t.dispose();
 
             // tree 2
             let t2 = self.scene.getMeshByName('tree-2');
-            const meshes2 = [t2];
-            for (let i = 0; i < 50; i++) {
-                let tree = t2.clone();
-                meshes2.push(tree);
-            }
 
-            meshes2.forEach((mesh, i) => myBuilder(mesh, null, i, -8));
-            BABYLON.Mesh.MergeMeshes(meshes2);
+            const SPSTree2 = new BABYLON.SolidParticleSystem('SPSTree2', self.scene, {updatable: false});
+            SPSTree2.addShape(t2, 80, {positionFunction: myBuilder});
+            const SPSMeshTree2 = SPSTree2.buildMesh();
+            SPSMeshTree2.material = t2.material;
+            SPSMeshTree2.parent = parentSPS;
+            SPSMeshTree2.isPickable = false;
+
+            t2.dispose();
 
             // grass 1
             let g = self.scene.getMeshByName('grass-1');
 
-            var SPSGrass1 = new BABYLON.SolidParticleSystem('SPSGrass1', self.scene, {updatable: false});
-            SPSGrass1.addShape(g, 300, {positionFunction: myBuilder});
-            var SPSMeshGrass = SPSGrass1.buildMesh();
+            const SPSGrass1 = new BABYLON.SolidParticleSystem('SPSGrass1', self.scene, {updatable: false});
+            SPSGrass1.addShape(g, 350, {positionFunction: myBuilder});
+            const SPSMeshGrass = SPSGrass1.buildMesh();
             SPSMeshGrass.material = t.material;
             SPSMeshGrass.parent = parentSPS;
+            SPSMeshGrass.isPickable = false;
+
+            g.dispose();
+
+            // bush 1
+            let b = self.scene.getMeshByName('bush-1');
+
+            const SPSBush1 = new BABYLON.SolidParticleSystem('SPSBush1', self.scene, {updatable: false});
+            SPSBush1.addShape(b, 350, {positionFunction: myBuilder});
+            const SPSMeshBush = SPSBush1.buildMesh();
+            SPSMeshBush.material = b.material;
+            SPSMeshBush.parent = parentSPS;
+            SPSMeshBush.isPickable = false;
+
+            b.dispose();
         });
     }
 
