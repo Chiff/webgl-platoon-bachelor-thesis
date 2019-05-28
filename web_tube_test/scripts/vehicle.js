@@ -23,7 +23,7 @@ export class Vehicle {
                     if (mesh.id.includes(meshID + '_telo')) {
                         customizeMesh(mesh);
                         this.meshes.body = mesh;
-                        this.meshes.cam = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_driver'));
+                        this.meshes.cam = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_driver'))[0];
                     }
 
                     return mesh;
@@ -63,9 +63,14 @@ export class Vehicle {
     }
 
     // TODO - 19.4.2019 - camera should follow vehicle rotation
-    focusCar(cam) {
+    focusCar(cam, inside) {
         variables.skySphere.parent = this.meshes.body;
-        cam.lockedTarget = this.meshes.body;
+
+        if (!inside) {
+            cam.lockedTarget = this.meshes.body;
+        } else {
+            cam.lockedTarget = this.meshes.cam;
+        }
     }
 
     changeSpeed(speed) {

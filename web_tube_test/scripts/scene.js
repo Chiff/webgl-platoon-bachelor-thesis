@@ -28,18 +28,18 @@ export default class Scene {
 
     createScene() {
         this.scene = new BABYLON.Scene(this.engine);
+        // this.scene.createDefaultEnvironment();
 
         const light = new BABYLON.HemisphericLight('hemi', new BABYLON.Vector3(0, 50, 0), this.scene);
 
         this.createGround();
-        new Road({
+        this.road = new Road({
             path: this.mySinus,
             scene: this.scene,
             textureUrl: 'assets/cesta.png',
             textureScale: {x: 1, y: 6},
             textureOffset: {x: 0.89, y: 0}
         });
-
         this.treeTest();
     }
 
@@ -50,6 +50,7 @@ export default class Scene {
         groundMaterial.alpha = 1.0;
         groundMaterial.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
         groundMaterial.backFaceCulling = false;
+        groundMaterial.specularColor = new BABYLON.Color3(0.3, 0.3, 0.3);
 
         // groundMaterial.diffuseTexture = new BABYLON.Texture('assets/grass.jpg', this.scene);
         // groundMaterial.diffuseTexture.uScale = 12;
@@ -61,50 +62,97 @@ export default class Scene {
         groundMaterial.ambientTexture.vScale = 30;
 
         // TODO - 19.4.2019 - create ground with smaller `mapDimension`
-        const myGround = BABYLON.Mesh.CreateGroundFromHeightMap(
+        const ground = BABYLON.Mesh.CreateGroundFromHeightMap(
             'ground',
             document.getElementById('imgSave').src,
-            variables.mapDimension, variables.mapDimension, 150, 0, 4,
+            variables.mapDimension, variables.mapDimension, 200, 0, 4,
             this.scene,
             false
         );
         // myGround.rotation.y +=  Math.PI;
-        myGround.diffuseColor = BABYLON.Color3.Black();
-        myGround.material = groundMaterial;
-        myGround.maxRange = 1;
+        ground.diffuseColor = BABYLON.Color3.Black();
+        ground.material = groundMaterial;
+        ground.maxRange = 1;
+
+        this.ground = ground;
     }
+
     treeTest() {
-        //leaf material
-        const green = new BABYLON.StandardMaterial('green', this.scene);
-        green.diffuseTexture = new BABYLON.Texture("assets/grass.jpg", this.scene);
+        const success = function (s) {
+            console.log(s);
+        };
+        // BABYLON.SceneLoader.Append('assets/foliage/', 'flower.babylon', this.scene, success);
+        // BABYLON.SceneLoader.Append('assets/foliage/', 'bush.babylon', this.scene, success);
+        BABYLON.SceneLoader.Append('assets/foliage/', 'grass.babylon', this.scene, success);
+        BABYLON.SceneLoader.Append('assets/foliage/', 'tree-1-2.babylon', this.scene, success);
+        BABYLON.SceneLoader.Append('assets/foliage/', 'tree-2.babylon', this.scene, success);
 
-        //trunk and branch material
-        const bark = new BABYLON.StandardMaterial('bark', this.scene);
-        bark.emissiveTexture = new BABYLON.Texture("https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Bark_texture_wood.jpg/800px-Bark_texture_wood.jpg", this.scene);
-        bark.diffuseTexture = new BABYLON.Texture("https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Bark_texture_wood.jpg/800px-Bark_texture_wood.jpg", this.scene);
-        bark.diffuseTexture.uScale = 2.0;//Repeat 5 times on the Vertical Axes
-        bark.diffuseTexture.vScale = 2.0;//Repeat 5 times on the Horizontal Axes
+        const self = this;
+        this.scene.executeWhenReady(function () {
+            const parentSPS = self.ground;
+            const positions = [...parentSPS.getVerticesData(BABYLON.VertexBuffer.PositionKind)];
 
-        //Tree parameters
-        const trunk_height = 20;
-        const trunk_taper = 0.6;
-        const trunk_slices = 5;
-        const boughs = 2; // 1 or 2
-        const forks = 4;
-        const fork_angle = Math.PI / 4;
-        const fork_ratio = 2 / (1 + Math.sqrt(5)); //PHI the golden ratio
-        const branch_angle = Math.PI / 3;
-        const bow_freq = 2;
-        const bow_height = 3.5;
-        const branches = 10;
-        const leaves_on_branch = 5;
-        const leaf_wh_ratio = 0.5;
+            let road = self.scene.getMeshByID('road');
+            // road.enableEdgesRendering();
+            // road.edgesWidth = 4.0;
+            // road.edgesColor = new BABYLON.Color4(0, 0, 1, 1);
 
-        const tree = createTree(trunk_height, trunk_taper, trunk_slices, bark, boughs, forks, fork_angle, fork_ratio, branches, branch_angle, bow_freq, bow_height, leaves_on_branch, leaf_wh_ratio, green, this.scene);
-        tree.position.y = 0;
-        tree.scaling.x = 0.4;
-        tree.scaling.y = 0.4;
-        tree.scaling.z = 0.4;
+            const myBuilder = function (particle, i, s, y = 0) {
+                if (positions.length < 3) {
+                    throw 'OUT OF INDICES!';
+                }
+
+                let randomPosition = Math.round(Math.random() * (positions.length - 90)) + 90;
+                randomPosition -= (randomPosition % 3);
+
+                particle.position = new BABYLON.Vector3(
+                    positions[randomPosition],
+                    positions[randomPosition + 1] + y,
+                    positions[randomPosition + 2]
+                );
+
+                particle.scaling.y += Math.random() * 0.8 + 0.3;
+
+                positions.splice(randomPosition - 9, 12);
+                // if (road.intersectsMesh(particle, false)) {
+                //     console.log('BYE!', particle.position);
+                //     particle.dispose()
+                //     return null;
+                // }
+                // return particle;
+            };
+
+            // tree 1
+            let t = self.scene.getMeshByName('tree-1');
+
+            var SPSTree1 = new BABYLON.SolidParticleSystem('SPSTree1', self.scene, {updatable: false});
+            SPSTree1.addShape(t, 50, {positionFunction: myBuilder});
+            var SPSMeshTree = SPSTree1.buildMesh();
+            SPSMeshTree.material = t.material;
+            SPSMeshTree.parent = parentSPS;
+
+            t.dispose();
+
+            // tree 2
+            let t2 = self.scene.getMeshByName('tree-2');
+            const meshes2 = [t2];
+            for (let i = 0; i < 50; i++) {
+                let tree = t2.clone();
+                meshes2.push(tree);
+            }
+
+            meshes2.forEach((mesh, i) => myBuilder(mesh, null, i, -8));
+            BABYLON.Mesh.MergeMeshes(meshes2);
+
+            // grass 1
+            let g = self.scene.getMeshByName('grass-1');
+
+            var SPSGrass1 = new BABYLON.SolidParticleSystem('SPSGrass1', self.scene, {updatable: false});
+            SPSGrass1.addShape(g, 300, {positionFunction: myBuilder});
+            var SPSMeshGrass = SPSGrass1.buildMesh();
+            SPSMeshGrass.material = t.material;
+            SPSMeshGrass.parent = parentSPS;
+        });
     }
 
     createCamera() {
@@ -113,6 +161,7 @@ export default class Scene {
 
         camera.upperRadiusLimit = variables.cameraSettings.upperLimit;
         camera.lowerRadiusLimit = variables.cameraSettings.lowerLimit;
+        // camera.maxZ = 150;
 
         this.camera = camera;
     }
@@ -190,6 +239,11 @@ export default class Scene {
                     $controls.append('<button id="' + obj.meshID + '">' + obj.meshID + '</button>');
                     $('#' + obj.meshID).click(function () {
                         vehicle.focusCar(cam);
+                    });
+
+                    $controls.append('<button id="' + obj.meshID + 'Cam" disabled>cam</button>');
+                    $('#' + obj.meshID + 'Cam').click(function () {
+                        vehicle.focusCar(cam, true);
                     });
 
                     $controls.append('<button id="' + obj.meshID + 'SpeedUp"> + </button><span> | </span>');

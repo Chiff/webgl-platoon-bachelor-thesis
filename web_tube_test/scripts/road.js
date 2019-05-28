@@ -24,6 +24,7 @@ export class Road {
         this.settings = settings;
         this.material = this.createMaterial();
         this.curve = this.createCurve();
+        this.mesh = null;
     }
 
     /**
@@ -58,7 +59,7 @@ export class Road {
             new BABYLON.Vector3(15, 0, 0)
         ];
 
-        this.mesh = BABYLON.MeshBuilder.ExtrudeShape('star', {
+        this.mesh = BABYLON.MeshBuilder.ExtrudeShape('road', {
             shape: myShape,
             path: curve.getPoints(),
             sideOrientation: BABYLON.Mesh.DOUBLESIDE,
