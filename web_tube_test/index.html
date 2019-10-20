@@ -25,9 +25,19 @@
             width: 100%;
             height: 100%;
         }
+        #fpsLabel {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: white;
+            cursor: default;
+            background: black;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
+<div id="fpsLabel"></div>
 <canvas id="renderCanvas"></canvas>
 <canvas id="terrain" style="display:none;"></canvas>
 <div class="controls"></div>

@@ -12,6 +12,9 @@ export default class Scene {
 
         this.engine.runRenderLoop(() => {
             this.scene.render();
+
+            const fpsLabel = document.getElementById('fpsLabel');
+            fpsLabel.innerHTML = this.engine.getFps().toFixed() + ' fps';
         });
     }
 
@@ -110,7 +113,7 @@ export default class Scene {
                 const hit = self.scene.pickWithRay(ray);
 
                 if (hit.pickedMesh && hit.pickedMesh.name === 'road') {
-                    myBuilder(particle,i,s,y);
+                    myBuilder(particle, i, s, y);
                 }
             };
 
