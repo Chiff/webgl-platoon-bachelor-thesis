@@ -7,6 +7,8 @@ import { createCarPath, getPath } from './path.js';
 export default class Scene {
 
     constructor() {
+        console.log('[Scene] - init');
+
         this.canvas = document.getElementById('renderCanvas');
         this.engine = new BABYLON.Engine(this.canvas, true);
 
