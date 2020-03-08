@@ -1,14 +1,20 @@
 import { Road } from './road.js';
 import { Vehicle } from './vehicle.js';
 import { variables, vehicleObjects } from './utils.js';
-import './height.js';
+import { initTerrainDraw } from './height.js';
+import { createCarPath, getPath } from './path.js';
 
 export default class Scene {
+
     constructor() {
         this.canvas = document.getElementById('renderCanvas');
         this.engine = new BABYLON.Engine(this.canvas, true);
 
         this.init();
+
+        window.addEventListener('resize', () => {
+            this.engine.resize();
+        });
 
         this.engine.runRenderLoop(() => {
             this.scene.render();
@@ -19,7 +25,8 @@ export default class Scene {
     }
 
     init() {
-        this.createCarPath();
+        this.path = getPath();
+        this.carPath = createCarPath(this.path);
 
         this.createScene();
         this.createCamera();
@@ -27,6 +34,7 @@ export default class Scene {
         variables.skySphere = this.createSkySphere();
 
         this.loadObject();
+
     }
 
     createScene() {
@@ -37,7 +45,7 @@ export default class Scene {
 
         this.createGround();
         this.road = new Road({
-            path: this.mySinus,
+            path: this.path,
             scene: this.scene,
             textureUrl: 'assets/cesta.png',
             textureScale: {x: 1, y: 6},
@@ -47,6 +55,8 @@ export default class Scene {
     }
 
     createGround() {
+        initTerrainDraw(this.scene);
+
         const groundMaterial = new BABYLON.StandardMaterial('groundMaterial', this.scene);
 
         groundMaterial.alpha = 1.0;
@@ -84,26 +94,35 @@ export default class Scene {
 
         const self = this;
         this.scene.executeWhenReady(function () {
-            const parentSPS = self.ground;
-            const positions = [...parentSPS.getVerticesData(BABYLON.VertexBuffer.PositionKind)];
+            const parentSPS = self.scene.getMeshByName('roadVegetation');
+            const positions = parentSPS.createSurfacePoints(0.06);
 
             const myBuilder = function (particle, i, s, y = 0) {
                 if (positions.length < 3) {
-                    throw 'OUT OF INDICES!';
+                    return;
+                    // throw 'OUT OF INDICES!';
                 }
 
-                let randomPosition = Math.round(Math.random() * (positions.length - 90)) + 90;
+                let randomPosition = Math.round(Math.random() * positions.length) - 1;
                 randomPosition -= (randomPosition % 3);
 
-                particle.position = new BABYLON.Vector3(
-                    positions[randomPosition],
-                    positions[randomPosition + 1] + y,
-                    positions[randomPosition + 2]
-                );
+                try {
+                    particle.position = new BABYLON.Vector3(
+                        positions[randomPosition].x,
+                        positions[randomPosition].y + y,
+                        positions[randomPosition].z
+                    );
+                } catch (e) {
+                    console.log(positions);
+                    console.log(positions[randomPosition]);
+                }
 
-                particle.scaling.y = Math.random() + 0.5;
+                const scale = Math.random() + 0.2;
+                particle.scaling.x = scale;
+                particle.scaling.y = scale;
+                particle.scaling.z = scale;
 
-                positions.splice(randomPosition - 9, 12);
+                // positions.splice(randomPosition - 9, 12);
 
                 const position = {...particle.position};
                 position.y = -2;
@@ -112,16 +131,25 @@ export default class Scene {
 
                 const hit = self.scene.pickWithRay(ray);
 
-                if (hit.pickedMesh && hit.pickedMesh.name === 'road') {
+                if (hit.pickedMesh && hit.pickedMesh.name !== 'roadVegetation') {
                     myBuilder(particle, i, s, y);
                 }
+
+                particle.position.y = 2;
+            };
+
+            const shapeCount = {
+                tree1: Math.floor(positions.length * 0.1 * 0.08),
+                tree2: Math.floor(positions.length * 0.1 * 0.15),
+                grass1: Math.floor(positions.length * 0.1 * 0.42),
+                bush1: Math.floor(positions.length * 0.1 * 0.35)
             };
 
             // tree 1
             let t = self.scene.getMeshByName('tree-1');
 
             const SPSTree1 = new BABYLON.SolidParticleSystem('SPSTree1', self.scene, {updatable: false});
-            SPSTree1.addShape(t, 80, {positionFunction: myBuilder});
+            SPSTree1.addShape(t, shapeCount.tree1, {positionFunction: myBuilder});
             const SPSMeshTree = SPSTree1.buildMesh();
             SPSMeshTree.material = t.material;
             SPSMeshTree.parent = parentSPS;
@@ -133,7 +161,7 @@ export default class Scene {
             let t2 = self.scene.getMeshByName('tree-2');
 
             const SPSTree2 = new BABYLON.SolidParticleSystem('SPSTree2', self.scene, {updatable: false});
-            SPSTree2.addShape(t2, 80, {positionFunction: myBuilder});
+            SPSTree2.addShape(t2, shapeCount.tree2, {positionFunction: myBuilder});
             const SPSMeshTree2 = SPSTree2.buildMesh();
             SPSMeshTree2.material = t2.material;
             SPSMeshTree2.parent = parentSPS;
@@ -145,7 +173,7 @@ export default class Scene {
             let g = self.scene.getMeshByName('grass-1');
 
             const SPSGrass1 = new BABYLON.SolidParticleSystem('SPSGrass1', self.scene, {updatable: false});
-            SPSGrass1.addShape(g, 350, {positionFunction: myBuilder});
+            SPSGrass1.addShape(g, shapeCount.grass1, {positionFunction: myBuilder});
             const SPSMeshGrass = SPSGrass1.buildMesh();
             SPSMeshGrass.material = t.material;
             SPSMeshGrass.parent = parentSPS;
@@ -157,7 +185,7 @@ export default class Scene {
             let b = self.scene.getMeshByName('bush-1');
 
             const SPSBush1 = new BABYLON.SolidParticleSystem('SPSBush1', self.scene, {updatable: false});
-            SPSBush1.addShape(b, 350, {positionFunction: myBuilder});
+            SPSBush1.addShape(b, shapeCount.bush1, {positionFunction: myBuilder});
             const SPSMeshBush = SPSBush1.buildMesh();
             SPSMeshBush.material = b.material;
             SPSMeshBush.parent = parentSPS;
@@ -168,18 +196,23 @@ export default class Scene {
     }
 
     createCamera() {
-        const camera = new BABYLON.ArcRotateCamera('Camera', 3 * Math.PI / 2, Math.PI / 2, 30, BABYLON.Vector3.Zero(), this.scene);
+        const CAMERA_ALPHA = 6.49;
+        const CAMERA_BETA = 1.28;
+        const CAMERA_RADIUS = 60;
+
+        const camera = new BABYLON.ArcRotateCamera('Camera', CAMERA_ALPHA, CAMERA_BETA, CAMERA_RADIUS, new BABYLON.Vector3(2, 1, -12), this.scene);
         camera.attachControl(this.canvas, true);
 
         camera.upperRadiusLimit = variables.cameraSettings.upperLimit;
         camera.lowerRadiusLimit = variables.cameraSettings.lowerLimit;
+        camera.allowUpsideDown = false;
         // camera.maxZ = 150;
 
         this.camera = camera;
     }
 
     createSkySphere() {
-        const skySphere = BABYLON.Mesh.CreateSphere('skySphere', 160, 150, this.scene);
+        const skySphere = BABYLON.Mesh.CreateSphere('skySphere', 1, 300, this.scene);
         skySphere.isPickable = false;
 
         const skySphereMaterial = new BABYLON.StandardMaterial('skySphereMaterial', this.scene);
@@ -191,45 +224,6 @@ export default class Scene {
         skySphere.material = skySphereMaterial;
 
         return skySphere;
-    }
-
-    // TODO - 19.4.2019
-    //  - extract path to util.js
-    //  - autoAdjust path by ground dimensions
-    createCarPath() {
-        const mySinus = [];
-        const carPath = [];
-
-        // const radius = 120;
-        // const center = {x: 0, y: 0};
-        // const step = 300;
-        // for (let i = 0; i <= 2 * Math.PI; i += (Math.PI / 2) / step) {
-        //     const x = (center.x + radius * Math.cos(i)) + (Math.sin(i) * 30);
-        //     const y = 10 + (Math.sin(i * 5) * 5);
-        //     const z = (center.y + radius * Math.sin(i)) + (Math.sin(i) * 50);
-        //     mySinus.push(new BABYLON.Vector3(x, y, z));
-        //
-        //     const xCar = x + 13 * Math.cos(i);
-        //     const yCar = y * 1.15;
-        //     const zCar = z + 13 * Math.sin(i);
-        //     carPath.push(new BABYLON.Vector3(xCar, yCar, zCar));
-        // }
-
-        for (let i = 0; i < variables.mapDimension; i++) {
-            const x = -variables.mapDimension / 2 + i;
-            const y = 0.2;
-            const z = 0;
-            mySinus.push(new BABYLON.Vector3(x, y, z));
-
-            const xCar = x; //* Math.cos(i);
-            const yCar = y; //* 1.15;
-            const zCar = z - 10; //* Math.sin(i);
-            if (i > 60 && i < variables.mapDimension - 60)
-                carPath.push(new BABYLON.Vector3(xCar, yCar, zCar));
-        }
-
-        this.carPath = carPath;
-        this.mySinus = mySinus;
     }
 
     loadObject() {
@@ -244,22 +238,22 @@ export default class Scene {
                     const $controls = $('.controls');
 
                     $controls.append('<button id="' + obj.meshID + 'SpeedDown"> - </button>');
-                    $('#' + obj.meshID + 'SpeedDown').click(function () {
+                    $('#' + obj.meshID + 'SpeedDown').click(() => {
                         vehicle.changeSpeed(0.85);
                     });
 
                     $controls.append('<button id="' + obj.meshID + '">' + obj.meshID + '</button>');
-                    $('#' + obj.meshID).click(function () {
+                    $('#' + obj.meshID).click(() => {
                         vehicle.focusCar(cam);
                     });
 
-                    $controls.append('<button id="' + obj.meshID + 'Cam" disabled>cam</button>');
-                    $('#' + obj.meshID + 'Cam').click(function () {
+                    $controls.append('<button id="' + obj.meshID + 'Cam">cam</button>');
+                    $('#' + obj.meshID + 'Cam').click(() => {
                         vehicle.focusCar(cam, true);
                     });
 
                     $controls.append('<button id="' + obj.meshID + 'SpeedUp"> + </button><span> | </span>');
-                    $('#' + obj.meshID + 'SpeedUp').click(function () {
+                    $('#' + obj.meshID + 'SpeedUp').click(() => {
                         vehicle.changeSpeed(1.15);
                     });
                 }, time += 3000);

@@ -1,7 +1,7 @@
 import Scene from './scripts/scene.js';
 
 (() => {
-    new Scene();
+    window.SCENE = new Scene();
 })();
 
 window.followDriver = () => {

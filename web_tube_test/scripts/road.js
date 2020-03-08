@@ -38,10 +38,12 @@ export class Road {
         mat.alpha = 1.0;
         mat.diffuseColor = new BABYLON.Color3(0.5, 0.5, 1.0);
         mat.backFaceCulling = false;
+
+
         mat.diffuseTexture = new BABYLON.Texture(this.settings.textureUrl, this.settings.scene);
+
         mat.diffuseTexture.uOffset = this.settings.textureOffset.x;
         mat.diffuseTexture.vOffset = this.settings.textureOffset.y;
-
         mat.diffuseTexture.uScale = this.settings.textureScale.x;
         mat.diffuseTexture.vScale = this.settings.textureScale.y;
 
@@ -50,23 +52,50 @@ export class Road {
 
     createCurve() {
         const curve = new BABYLON.Curve3(this.settings.path);
+        const invisibleMaterial = new BABYLON.Material('invisibleMaterial', this.scene);
+        invisibleMaterial.alpha = 0;
 
         if (this.settings.showCurve)
             BABYLON.Mesh.CreateLines('line-' + Date.now(), curve.getPoints(), this.scene);
 
-        const myShape = [
-            new BABYLON.Vector3(0, 0, 0),
-            new BABYLON.Vector3(15, 0, 0)
+        const roadShape = [
+            new BABYLON.Vector3(-10, 0.05, 0),
+            new BABYLON.Vector3(5, 0.05, 0)
+        ];
+        const shieldShape = [
+            new BABYLON.Vector3(-17, 0, 0),
+            new BABYLON.Vector3(12, 0, 0)
+        ];
+        const vegetationShape = [
+            new BABYLON.Vector3(-40, 0, 0),
+            new BABYLON.Vector3(55, 0, 0)
         ];
 
         this.mesh = BABYLON.MeshBuilder.ExtrudeShape('road', {
-            shape: myShape,
+            shape: roadShape,
             path: curve.getPoints(),
             sideOrientation: BABYLON.Mesh.DOUBLESIDE,
             updatable: true
         }, this.scene);
-
         this.mesh.material = this.material;
+
+        const roadShield = BABYLON.MeshBuilder.ExtrudeShape('roadShield', {
+            shape: shieldShape,
+            path: curve.getPoints(),
+            sideOrientation: BABYLON.Mesh.BACKSIDE,
+            updatable: true
+        }, this.scene);
+        roadShield.material = invisibleMaterial;
+        roadShield.position.y = -2;
+
+        const roadVegetation = BABYLON.MeshBuilder.ExtrudeShape('roadVegetation', {
+            shape: vegetationShape,
+            path: curve.getPoints(),
+            sideOrientation: BABYLON.Mesh.DOUBLESIDE,
+            updatable: true
+        }, this.scene);
+        roadVegetation.material = invisibleMaterial;
+        roadVegetation.position.y = -1;
 
         return curve;
     }

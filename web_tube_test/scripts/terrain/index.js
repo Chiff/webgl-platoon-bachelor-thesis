@@ -1,26 +1,9 @@
-// window.onload = terrainGeneration;
 import generateTerrainMap from './canvasTerrain.js';
 
+export const MAP_CANVAS = () => document.getElementById('terrain');
+export const VOX_CANVAS = () => document.getElementById('voxelview');
 
-var mapCanvas = document.getElementById('terrain'),
-    // imgSave = document.getElementById('imgSave'),
-    settings = {
-        roughness: 8,
-        mapDimension: 256,
-        unitSize: 1,
-        mapType: 1,
-        smoothness: 0.1,
-        smoothIterations: 0,
-        genShadows: false,
-        sunX: -100,
-        sunY: -100,
-        sunZ: 4,
-        render: function () {
-            terrainGeneration();
-        }
-    };
-
-export default function terrainGeneration(settings) {
+export function terrainGeneration(settings) {
     "use strict";
     // Set these variables to adjust how the map is generated
     var mapDimension,
@@ -33,9 +16,9 @@ export default function terrainGeneration(settings) {
         sunZ = settings.sunZ,
         mapType = 0,
         map = 0,
-        mapCanvas = document.getElementById('terrain'),
+        mapCanvas = MAP_CANVAS(),
         mapCtx = mapCanvas.getContext("2d"),
-        voxCanvas = document.getElementById('voxelview');
+        voxCanvas = VOX_CANVAS();
 
     // init
     roughness = parseInt(settings.roughness, 10);
