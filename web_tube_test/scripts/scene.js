@@ -64,7 +64,7 @@ export default class Scene {
         groundMaterial.alpha = 1.0;
         groundMaterial.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
         groundMaterial.backFaceCulling = false;
-        groundMaterial.specularColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+        groundMaterial.specularColor = BABYLON.Color3.Black();
 
         groundMaterial.ambientTexture = new BABYLON.Texture('assets/grass.png', this.scene);
         groundMaterial.ambientTexture.uScale = 30;
@@ -154,6 +154,7 @@ export default class Scene {
             SPSTree1.addShape(t, shapeCount.tree1, {positionFunction: myBuilder});
             const SPSMeshTree = SPSTree1.buildMesh();
             SPSMeshTree.material = t.material;
+            SPSMeshTree.material.specularColor = BABYLON.Color3.Black();
             SPSMeshTree.parent = parentSPS;
             SPSMeshTree.isPickable = false;
 
@@ -166,6 +167,7 @@ export default class Scene {
             SPSTree2.addShape(t2, shapeCount.tree2, {positionFunction: myBuilder});
             const SPSMeshTree2 = SPSTree2.buildMesh();
             SPSMeshTree2.material = t2.material;
+            SPSMeshTree2.material.specularColor = BABYLON.Color3.Black();
             SPSMeshTree2.parent = parentSPS;
             SPSMeshTree2.isPickable = false;
 
@@ -178,6 +180,7 @@ export default class Scene {
             SPSGrass1.addShape(g, shapeCount.grass1, {positionFunction: myBuilder});
             const SPSMeshGrass = SPSGrass1.buildMesh();
             SPSMeshGrass.material = t.material;
+            SPSMeshGrass.material.specularColor = BABYLON.Color3.Black();
             SPSMeshGrass.parent = parentSPS;
             SPSMeshGrass.isPickable = false;
 
@@ -190,6 +193,7 @@ export default class Scene {
             SPSBush1.addShape(b, shapeCount.bush1, {positionFunction: myBuilder});
             const SPSMeshBush = SPSBush1.buildMesh();
             SPSMeshBush.material = b.material;
+            SPSMeshBush.material.specularColor = BABYLON.Color3.Black();
             SPSMeshBush.parent = parentSPS;
             SPSMeshBush.isPickable = false;
 

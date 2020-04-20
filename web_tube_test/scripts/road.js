@@ -37,6 +37,7 @@ export class Road {
 
         mat.alpha = 1.0;
         mat.diffuseColor = new BABYLON.Color3(0.5, 0.5, 1.0);
+        mat.specularColor = new BABYLON.Color3(0, 0, 0);
         mat.backFaceCulling = false;
 
 
