@@ -12,6 +12,7 @@ export class Road {
      * @param {RoadSettings} settings
      */
     constructor(settings) {
+        this.settings = settings;
         this.changeSettings(settings);
     }
 
@@ -21,7 +22,6 @@ export class Road {
      * @param {RoadSettings} settings
      */
     changeSettings(settings) {
-        this.settings = settings;
         this.material = this.createMaterial();
         this.curve = this.createCurve();
         this.mesh = null;
@@ -37,7 +37,7 @@ export class Road {
 
         mat.alpha = 1.0;
         mat.diffuseColor = new BABYLON.Color3(0.5, 0.5, 1.0);
-        mat.specularColor = new BABYLON.Color3(0, 0, 0);
+        mat.specularColor = new BABYLON.Color3(0.3, 0.3, 0.3);
         mat.backFaceCulling = false;
 
 
@@ -68,7 +68,7 @@ export class Road {
             new BABYLON.Vector3(12, 0, 0)
         ];
         const vegetationShape = [
-            new BABYLON.Vector3(-40, 0, 0),
+            new BABYLON.Vector3(-60, 0, 0),
             new BABYLON.Vector3(55, 0, 0)
         ];
 

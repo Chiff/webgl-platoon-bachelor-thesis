@@ -1,3 +1,5 @@
+import { variables } from './utils.js';
+
 export class CarPathAnim {
     constructor(path, mesh, speed, scene) {
         this.path = path;
@@ -13,10 +15,14 @@ export class CarPathAnim {
         this.startAnimation();
     }
 
-    createAnimation() {
+    createAnimation(showLine) {
         const curve = new BABYLON.Curve3(this.path);
         const curvePoints = curve.getPoints();
-        const line = BABYLON.Mesh.CreateLines('car-path-' + Date.now(), curvePoints, this.scene);
+
+        if(variables.debug){
+            BABYLON.Mesh.CreateLines('car-path-' + Date.now(), curvePoints, this.scene);
+        }
+
         const path3d = new BABYLON.Path3D(curvePoints);
         const tangents = path3d.getTangents();  //array of tangents to the curve
         const normals = path3d.getNormals(); //array of normals to the curve

@@ -1,5 +1,4 @@
 import { CarPathAnim } from './carPathAnim.js';
-import { variables } from './utils.js';
 
 export class Vehicle {
     constructor(scene) {
@@ -37,9 +36,6 @@ export class Vehicle {
         });
     }
 
-    // TODO - 19.4.2019
-    //  - remove window variables and use BabylonGUI
-    //  - https://doc.babylonjs.com/how_to/gui
     addFollowPath(carPath, cam) {
         const vehicle = this.meshes.body;
 
@@ -64,8 +60,6 @@ export class Vehicle {
 
     // TODO - 19.4.2019 - camera should follow vehicle rotation
     focusCar(cam, inside) {
-        variables.skySphere.parent = this.meshes.body;
-
         if (!inside) {
             cam.lockedTarget = this.meshes.body;
         } else {

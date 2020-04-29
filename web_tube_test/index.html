@@ -3,43 +3,39 @@
 <head>
     <meta charset="utf-8">
     <title>BabylonJs - Basic Element-Creating Scene</title>
-    <script src="lib/jquery_3_4_1.slim.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Sen&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.babylonjs.com/babylon.max.js"></script>
     <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
     <script src="main.js" type="module"></script>
-    <style>
-        canvas {
-            width: 100%;
-            height: 100%;
-        }
-
-        #fpsLabel {
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            color: white;
-            cursor: default;
-            background: black;
-            padding: 10px;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .main {
-            flex-grow: 4;
-        }
-
-        .side {
-            flex-basis: 256px;
-        }
-    </style>
 </head>
 <body>
-<div id="fpsLabel"></div>
-<div class="container">
+
+<form id="inputForm">
+    <h2>Setup</h2>
+    <div class="input-group">
+        <label for="selectPath">Cesta</label>
+        <select id="selectPath" name="url"></select>
+    </div>
+    <div class="input-group">
+        <label for="dist">Ziadana vzdialenost (m)</label>
+        <input type="number" min="0" max="500" id="dist" name="dist" value="5">
+    </div>
+    <div class="input-group">
+        <label for="debug">Debug info</label>
+        <select id="debug" name="debug">
+            <option value="false" selected>false</option>
+            <option value="true">true</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <span><input type="submit" value="Run simulation"></span>
+    </div>
+</form>
+
+<div id="container">
+    <div id="fpsLabel"></div>
     <div class="main">
         <canvas id="renderCanvas"></canvas>
     </div>
@@ -47,6 +43,20 @@
         <div class="controls"></div>
         <img id="imgSave" alt="ctx" width="256" height="256">
         <canvas id="terrain" style="width: 256px; height: 256px;"></canvas>
+    </div>
+</div>
+
+<div id="loading">
+    <div class="loader">
+        <span class="loader-block"></span>
+        <span class="loader-block"></span>
+        <span class="loader-block"></span>
+        <span class="loader-block"></span>
+        <span class="loader-block"></span>
+        <span class="loader-block"></span>
+        <span class="loader-block"></span>
+        <span class="loader-block"></span>
+        <span class="loader-block"></span>
     </div>
 </div>
 </body>

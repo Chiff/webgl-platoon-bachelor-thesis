@@ -1,20 +1,47 @@
-// TODO - 8. 3. 2020 - toto bude z API
+import { variables } from './utils.js';
+
+export const availablePaths = [{
+    name: 'Rovinka',
+    url: 'assets/rovinka.json'
+}, {
+    name: 'Okruh',
+    url: 'assets/okruh.json'
+}, {
+    name: 'Had',
+    url: 'assets/had.json'
+}];
+
 export function getPath() {
-    const path = [];
+    return variables.pathInfo.points.map(point => new BABYLON.Vector3(point.x, point.y, point.z));
 
-    const step = 300;
-    const center = {x: 0, y: 0};
-    const radius = 100;
-
-    for (let i = 0; i <= 2 * Math.PI; i += (Math.PI / 2) / step) {
-        const x = (center.x + radius * Math.cos(i)) + (Math.sin(i) * 30);
-        // const y = 10 + (Math.sin(i * 5) * 5);
-        const y = 0;
-        const z = (center.y + radius * Math.sin(i)) + (Math.sin(i) * 50);
-        path.push(new BABYLON.Vector3(x, y, z));
-    }
-
-    return path;
+    // manualna generacia jednotlivych bodov
+    // const path = [];
+    //
+    // const step = 300;
+    // const center = {x: 0, y: 0};
+    // const radius = 100;
+    //
+    // const parts = variables.mapDimension / step;
+    // const start = -variables.mapDimension / 2;
+    // for (let i = 0; i < step; i += 1) {
+    //     const x = start + parts * i;
+    //
+    //     path.push({
+    //         x: x,
+    //         y: 0,
+    //         z: Math.sin(x / 35) * 15
+    //     });
+    // }
+    //
+    // for (let i = 0; i <= 2 * Math.PI; i += (Math.PI / 2) / step) {
+    //     const x = (center.x + radius * Math.sin(i)) + (Math.cos(i) * 30);
+    //     // const y = 10 + (Math.sin(i * 5) * 5);
+    //     const y = 0;
+    //     const z = (center.y + radius * Math.sin(i)) + (Math.sin(i) * 50);
+    //     path.push(new BABYLON.Vector3(x, y, z));
+    // }
+    //
+    // return path.map(point => new BABYLON.Vector3(point.x, point.y, point.z));
 }
 
 export function createGroundPath(path, scene) {
@@ -33,8 +60,8 @@ export function createGroundPath(path, scene) {
     const positions = mesh.getVerticesData(BABYLON.VertexBuffer.PositionKind);
 
     const result = [];
-    for (let i = 0; i < positions.length; i+=3) {
-        result.push(new BABYLON.Vector3(positions[i],positions[i+1],positions[i+2]));
+    for (let i = 0; i < positions.length; i += 3) {
+        result.push(new BABYLON.Vector3(positions[i], positions[i + 1], positions[i + 2]));
     }
 
     mesh.dispose();

@@ -1,0 +1,221 @@
+@-webkit-keyframes pulse {
+    0%, 40% {
+        background: #fff
+    }
+
+    to {
+        background: #333
+    }
+}
+
+@-webkit-keyframes show {
+    0%, 40% {
+        opacity: 0
+    }
+
+    41%, to {
+        opacity: 1
+    }
+}
+
+@keyframes pulse {
+    0%, 40% {
+        background: #fdfdfd
+    }
+
+    to {
+        background: #333
+    }
+}
+
+@keyframes show {
+    0%, 40% {
+        opacity: 0
+    }
+
+    41%, to {
+        opacity: 1
+    }
+}
+
+body, html {
+    background: #333;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: 'Sen', sans-serif
+}
+
+canvas {
+    width: 100%;
+    height: 100%
+}
+
+#container {
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%)
+}
+
+.input-group * {
+    box-sizing: border-box
+}
+
+.input-group > :first-child {
+    margin-bottom: 5px;
+    display: block
+}
+
+.input-group input[type=submit], .input-group > :nth-child(2), button {
+    border: 2px solid transparent;
+    padding: 6px 14px;
+    background: #888;
+    border-radius: 4px;
+    color: #fff
+}
+
+.input-group input[type=submit], .input-group > :nth-child(2) {
+    width: 400px;
+    margin-bottom: 15px
+}
+
+.input-group input[type=submit], button {
+    cursor: pointer;
+    transition: background-color .5s ease;
+    font-weight: 700
+}
+
+.input-group input[type=submit]:hover, button:hover {
+    border: 2px solid #fff;
+    background: #fff;
+    color: #333
+}
+
+button + button {
+    margin-left: 3px
+}
+
+#fpsLabel {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    color: #fff;
+    cursor: default;
+    background: #000;
+    padding: 10px;
+    display: none
+}
+
+#loading {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #333;
+    z-index: 999
+}
+
+#inputForm, #loading .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
+}
+
+#loading .loader {
+    width: 118px;
+    height: 118px
+}
+
+.loader-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    opacity: 0;
+    width: 2em;
+    height: 2em;
+    background: #fdfdfd;
+    -webkit-animation: show .88s step-end infinite alternate, pulse .88s linear infinite alternate;
+    animation: show .88s step-end infinite alternate, pulse .88s linear infinite alternate
+}
+
+.loader-block:nth-child(1) {
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-animation-delay: .065s;
+    animation-delay: .065s
+}
+
+.loader-block:nth-child(2) {
+    -moz-transform: translate(2.66667em, 0);
+    -ms-transform: translate(2.66667em, 0);
+    -webkit-transform: translate(2.66667em, 0);
+    transform: translate(2.66667em, 0);
+    -webkit-animation-delay: .13s;
+    animation-delay: .13s
+}
+
+.loader-block:nth-child(3) {
+    -moz-transform: translate(5.33333em, 0);
+    -ms-transform: translate(5.33333em, 0);
+    -webkit-transform: translate(5.33333em, 0);
+    transform: translate(5.33333em, 0);
+    -webkit-animation-delay: .195s;
+    animation-delay: .195s
+}
+
+.loader-block:nth-child(4) {
+    -moz-transform: translate(0, 2.66667em);
+    -ms-transform: translate(0, 2.66667em);
+    -webkit-transform: translate(0, 2.66667em);
+    transform: translate(0, 2.66667em);
+    -webkit-animation-delay: .325s;
+    animation-delay: .325s
+}
+
+.loader-block:nth-child(5) {
+    -moz-transform: translate(2.66667em, 2.66667em);
+    -ms-transform: translate(2.66667em, 2.66667em);
+    -webkit-transform: translate(2.66667em, 2.66667em);
+    transform: translate(2.66667em, 2.66667em);
+    -webkit-animation-delay: .13s;
+    animation-delay: .13s
+}
+
+.loader-block:nth-child(6) {
+    -moz-transform: translate(5.33333em, 2.66667em);
+    -ms-transform: translate(5.33333em, 2.66667em);
+    -webkit-transform: translate(5.33333em, 2.66667em);
+    transform: translate(5.33333em, 2.66667em);
+    -webkit-animation-delay: .455s;
+    animation-delay: .455s
+}
+
+.loader-block:nth-child(7) {
+    -moz-transform: translate(0, 5.33333em);
+    -ms-transform: translate(0, 5.33333em);
+    -webkit-transform: translate(0, 5.33333em);
+    transform: translate(0, 5.33333em);
+    -webkit-animation-delay: .39s;
+    animation-delay: .39s
+}
+
+.loader-block:nth-child(8) {
+    -moz-transform: translate(2.66667em, 5.33333em);
+    -ms-transform: translate(2.66667em, 5.33333em);
+    -webkit-transform: translate(2.66667em, 5.33333em);
+    transform: translate(2.66667em, 5.33333em);
+    -webkit-animation-delay: .26s;
+    animation-delay: .26s
+}
+
+.loader-block:nth-child(9) {
+    -moz-transform: translate(5.33333em, 5.33333em);
+    -ms-transform: translate(5.33333em, 5.33333em);
+    -webkit-transform: translate(5.33333em, 5.33333em);
+    transform: translate(5.33333em, 5.33333em)
+}

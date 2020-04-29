@@ -1,10 +1,19 @@
 export const variables = {
-    mapDimension: 400,
-    skySphere: null,
-
+    mapDimension: 512,
+    debug: false,
     cameraSettings: {
         upperLimit: 1200,
         lowerLimit: 0
+    },
+
+    pathInfo: {
+        url: null,
+        name: null,
+        points: null,
+        scale: {
+            x: null,
+            y: null
+        }
     }
 };
 
@@ -24,7 +33,7 @@ export const vehicleObjects = [
         file: 'transporter.babylon',
         editMesh: (mesh) => {
             mesh.position.y += 20;
-            mesh.scaling = new BABYLON.Vector3(0.8, 0.8, 0.8);
+            mesh.scaling = new BABYLON.Vector3(0.92, 0.92, 0.92);
         }
     }, {
         meshID: 'bus',
@@ -33,7 +42,7 @@ export const vehicleObjects = [
         editMesh: (mesh) => {
             mesh.position.y += 20;
             mesh.position.x += 15;
-            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
+            mesh.scaling = new BABYLON.Vector3(1.05, 1.05, 1.05);
         }
     }, {
         meshID: 'truck',
@@ -121,4 +130,15 @@ BABYLON.Mesh.prototype.createSurfacePoints = function (pointDensity) {
         }
     }
     return points;
+};
+
+export const getFormData = ($form) => {
+    const unindexed_array = $form.serializeArray();
+    const indexed_array = {};
+
+    $.map(unindexed_array, function (n, i) {
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
 };

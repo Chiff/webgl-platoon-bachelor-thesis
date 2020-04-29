@@ -5,38 +5,48 @@ import { initTerrainDraw } from './height.js';
 import { createCarPath, getPath } from './path.js';
 
 export default class Scene {
-
-    constructor() {
+    constructor(params) {
         console.log('[Scene] - init');
 
-        this.canvas = document.getElementById('renderCanvas');
-        this.engine = new BABYLON.Engine(this.canvas, true);
+        this.params = this.setParams(params);
+        this.setCanvas();
 
         this.init();
+        this.setEvents();
 
-        window.addEventListener('resize', () => {
-            this.engine.resize();
-        });
+        if (variables.debug) {
+            $('#fpsLabel').show();
+        }
 
         this.engine.runRenderLoop(() => {
             this.scene.render();
 
-            const fpsLabel = document.getElementById('fpsLabel');
-            fpsLabel.innerHTML = this.engine.getFps().toFixed() + ' fps';
+            if (variables.debug) {
+                const fpsLabel = document.getElementById('fpsLabel');
+                fpsLabel.innerHTML = this.engine.getFps().toFixed() + ' fps';
+            }
         });
     }
 
     init() {
+        this.engine = new BABYLON.Engine(this.canvas, true);
+
         this.path = getPath();
         this.carPath = createCarPath(this.path);
 
         this.createScene();
         this.createCamera();
 
-        variables.skySphere = this.createSkySphere();
+        this.createSkyBox();
 
         this.loadObject();
 
+        this.scene.executeWhenReady(e => {
+            setTimeout(() => {
+                $('#loading').hide();
+                this.engine.resize();
+            }, 1000);
+        });
     }
 
     createScene() {
@@ -51,30 +61,31 @@ export default class Scene {
             scene: this.scene,
             textureUrl: 'assets/cesta.png',
             textureScale: {x: 1, y: 6},
-            textureOffset: {x: 0.89, y: 0}
+            textureOffset: {x: 0.89, y: 0},
+            showCurve: variables.debug
         });
         this.treeTest();
     }
 
     createGround() {
-        initTerrainDraw(this.scene);
+        initTerrainDraw(this.scene, this.path);
 
         const groundMaterial = new BABYLON.StandardMaterial('groundMaterial', this.scene);
 
         groundMaterial.alpha = 1.0;
         groundMaterial.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
         groundMaterial.backFaceCulling = false;
-        groundMaterial.specularColor = BABYLON.Color3.Black();
+        groundMaterial.specularColor = new BABYLON.Color3(0.035, 0.047, 0.020);
 
         groundMaterial.ambientTexture = new BABYLON.Texture('assets/grass.png', this.scene);
-        groundMaterial.ambientTexture.uScale = 30;
-        groundMaterial.ambientTexture.vScale = 30;
+        groundMaterial.ambientTexture.uScale = 50;
+        groundMaterial.ambientTexture.vScale = 50;
 
         // TODO - 19.4.2019 - create ground with smaller `mapDimension`
         const ground = BABYLON.Mesh.CreateGroundFromHeightMap(
             'ground',
             document.getElementById('imgSave').src,
-            variables.mapDimension, variables.mapDimension, 200, 0, 4,
+            variables.mapDimension, variables.mapDimension, 200, 0, 5,
             this.scene,
             false
         );
@@ -217,23 +228,19 @@ export default class Scene {
         this.camera = camera;
     }
 
-    createSkySphere() {
-        const skySphere = BABYLON.Mesh.CreateSphere('skySphere', 1, 300, this.scene);
-        skySphere.isPickable = false;
-
-        const skySphereMaterial = new BABYLON.StandardMaterial('skySphereMaterial', this.scene);
-        skySphereMaterial.backFaceCulling = false;
-        skySphereMaterial.reflectionTexture = new BABYLON.Texture('assets/sky.jpg', this.scene);
-        skySphereMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.PROJECTION_MODE;
-        skySphereMaterial.diffuseColor = BABYLON.Color3.Black();
-        skySphereMaterial.specularColor = BABYLON.Color3.Black();
-        skySphere.material = skySphereMaterial;
-
-        return skySphere;
+    createSkyBox() {
+        var skybox = BABYLON.MeshBuilder.CreateBox('skyBox', {size: 1000.0}, this.scene);
+        var skyboxMaterial = new BABYLON.StandardMaterial('skyBox', this.scene);
+        skyboxMaterial.backFaceCulling = false;
+        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture('assets/skybox/skybox', this.scene);
+        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+        skybox.material = skyboxMaterial;
     }
 
     loadObject() {
-        let time = -2800;
+        let time = -1000;
         vehicleObjects.map((obj) => {
             const vehicle = new Vehicle(this.scene);
             const cam = this.camera;
@@ -253,11 +260,6 @@ export default class Scene {
                         vehicle.focusCar(cam);
                     });
 
-                    $controls.append('<button id="' + obj.meshID + 'Cam">cam</button>');
-                    $('#' + obj.meshID + 'Cam').click(() => {
-                        vehicle.focusCar(cam, true);
-                    });
-
                     $controls.append('<button id="' + obj.meshID + 'SpeedUp"> + </button><span> | </span>');
                     $('#' + obj.meshID + 'SpeedUp').click(() => {
                         vehicle.changeSpeed(1.15);
@@ -265,5 +267,43 @@ export default class Scene {
                 }, time += 3000);
             }).catch(e => console.error(e));
         });
+    }
+
+    setEvents() {
+        window.addEventListener('resize', () => {
+            this.engine.resize();
+        });
+
+        $('#renderCanvas').on('touchmove', function (e) {
+            e.preventDefault();
+            return false;
+        });
+
+        $('body').on('contextmenu', '#renderCanvas', function (e) {
+            return false;
+        });
+    }
+
+    setParams(params) {
+        // noinspection EqualityComparisonWithCoercionJS
+        variables.pathInfo.url = params.url;
+        variables.pathInfo.name = params.pathSettings.name;
+        variables.pathInfo.points = params.pathSettings.points;
+        variables.pathInfo.scale = params.pathSettings.scale || {x: 1, y: 1};
+        variables.debug = params.debug == 'true';
+
+        // TODO - 29/04/2020 - distance
+        return {
+            pathSettings: params.pathSettings,
+            dist: parseInt(params.dist)
+        };
+    }
+
+    setCanvas() {
+        this.canvas = document.getElementById('renderCanvas');
+
+        const w = window.innerWidth;
+        this.canvas.style.height = ((w / 2) - 50) + 'px';
+        this.canvas.style.width = w + 'px';
     }
 }
