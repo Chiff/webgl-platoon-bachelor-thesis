@@ -58,6 +58,10 @@ export class Vehicle {
         this.anim = new CarPathAnim(heightPath, this.meshes, 2, this.scene, cam);
     }
 
+    start(startPoint) {
+        this.anim.startAnimation(startPoint)
+    }
+
     // TODO - 19.4.2019 - camera should follow vehicle rotation
     focusCar(cam, inside) {
         if (!inside) {

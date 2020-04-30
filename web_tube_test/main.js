@@ -1,5 +1,6 @@
 import Scene from './scripts/scene.js';
 import { availablePaths, getFormData } from './scripts/utils.js';
+import { resetCameraPositon } from './scripts/camera.js';
 
 const loadPaths = () => {
     availablePaths.forEach(json => {
@@ -34,19 +35,5 @@ $('#inputForm').submit(function (e) {
     return false;
 });
 
-window.followDriver = () => {
-    window.sceneCamera.lockedTarget = window.sceneDriver;
-
-    window.sceneCamera.upperRadiusLimit = 0.1;
-    window.sceneCamera.lowerRadiusLimit = 0.1;
-    window.sceneCamera.direction = window.sceneDriver.rotation;
-};
-
-window.followCar = () => {
-    window.sceneCamera.lockedTarget = window.sceneCar;
-
-    window.sceneCamera.upperRadiusLimit = 1000;
-    window.sceneCamera.lowerRadiusLimit = 15;
-};
-
+window.freeCam = resetCameraPositon;
 window.restart = () => location.reload();

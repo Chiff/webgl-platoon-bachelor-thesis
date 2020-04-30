@@ -223,3 +223,8 @@ button + button {
 .controls {
     text-align: center;
 }
+
+.small {
+    font-size: 9px;
+    color: #aaa
+}

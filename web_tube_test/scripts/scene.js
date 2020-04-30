@@ -3,6 +3,7 @@ import { Vehicle } from './vehicle.js';
 import { variables, vehicleObjects } from './utils.js';
 import { initTerrainDraw } from './height.js';
 import { createCarPath, getPath } from './path.js';
+import { createCamera, resetCameraPositon } from './camera.js';
 
 export default class Scene {
     constructor(params) {
@@ -35,7 +36,7 @@ export default class Scene {
         this.carPath = createCarPath(this.path);
 
         this.createScene();
-        this.createCamera();
+        createCamera(this);
 
         this.createSkyBox();
 
@@ -45,6 +46,7 @@ export default class Scene {
             setTimeout(() => {
                 $('#loading').hide();
                 this.engine.resize();
+                resetCameraPositon();
             }, 1000);
         });
     }
@@ -213,10 +215,6 @@ export default class Scene {
     }
 
     createCamera() {
-        const CAMERA_ALPHA = 6.49;
-        const CAMERA_BETA = 1.28;
-        const CAMERA_RADIUS = 60;
-
         const camera = new BABYLON.ArcRotateCamera('Camera', CAMERA_ALPHA, CAMERA_BETA, CAMERA_RADIUS, new BABYLON.Vector3(2, 1, -12), this.scene);
         camera.attachControl(this.canvas, true);
 
@@ -240,31 +238,31 @@ export default class Scene {
     }
 
     loadObject() {
-        let time = -1000;
+        let time = 0;
         vehicleObjects.map((obj, i) => {
             const vehicle = new Vehicle(this.scene);
             const cam = this.camera;
             vehicle.load(obj.meshID, obj.folder, obj.file, obj.editMesh).then(() => {
-                setTimeout(() => {
+                vehicle.addFollowPath(this.carPath);
+                const $controls = $('.controls');
 
-                    vehicle.addFollowPath(this.carPath);
-                    const $controls = $('.controls');
+                $controls.append('<button id="' + obj.meshID + 'SpeedDown" style="margin-left: 10px;"> - </button>');
+                $('#' + obj.meshID + 'SpeedDown').click(() => {
+                    vehicle.changeSpeed(0.85);
+                });
 
-                    $controls.append('<button id="' + obj.meshID + 'SpeedDown" style="margin-left: 10px;"> - </button>');
-                    $('#' + obj.meshID + 'SpeedDown').click(() => {
-                        vehicle.changeSpeed(0.85);
-                    });
+                $controls.append('<button id="' + obj.meshID + '">' + obj.meshID + '</button>');
+                $('#' + obj.meshID).click(() => {
+                    vehicle.focusCar(cam);
+                });
 
-                    $controls.append('<button id="' + obj.meshID + '">' + obj.meshID + '</button>');
-                    $('#' + obj.meshID).click(() => {
-                        vehicle.focusCar(cam);
-                    });
+                $controls.append('<button id="' + obj.meshID + 'SpeedUp"> + </button>');
+                $('#' + obj.meshID + 'SpeedUp').click(() => {
+                    vehicle.changeSpeed(1.15);
+                });
 
-                    $controls.append('<button id="' + obj.meshID + 'SpeedUp"> + </button>');
-                    $('#' + obj.meshID + 'SpeedUp').click(() => {
-                        vehicle.changeSpeed(1.15);
-                    });
-                }, time += 3000);
+                vehicle.start(time);
+                time += this.params.dist;
             }).catch(e => console.error(e));
         });
     }

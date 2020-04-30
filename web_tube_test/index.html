@@ -19,8 +19,8 @@
         <select id="selectPath" name="url"></select>
     </div>
     <div class="input-group">
-        <label for="dist">Ziadana vzdialenost (m)</label>
-        <input type="number" min="0" max="500" id="dist" name="dist" value="5">
+        <label for="dist">Ziadana vzdialenost (m) <span class="small">max = 75 (300 frames, 4 cars => 75 dist)</span></label>
+        <input type="number" min="0" max="75" id="dist" name="dist" value="10">
     </div>
     <div class="input-group">
         <label for="debug">Debug info</label>
@@ -42,6 +42,7 @@
     <div class="side">
         <div class="controls">
             <button onclick="restart()">Nova simulacia</button>
+            <button onclick="freeCam()">Reset camera</button>
         </div>
         <img id="imgSave" alt="ctx" width="256" height="256">
         <canvas id="terrain" style="width: 256px; height: 256px;"></canvas>

@@ -12,14 +12,13 @@ export class CarPathAnim {
         window.speed = this.speed;
 
         this.createAnimation();
-        this.startAnimation();
     }
 
-    createAnimation(showLine) {
+    createAnimation() {
         const curve = new BABYLON.Curve3(this.path);
         const curvePoints = curve.getPoints();
 
-        if(variables.debug){
+        if (variables.debug) {
             BABYLON.Mesh.CreateLines('car-path-' + Date.now(), curvePoints, this.scene);
         }
 
@@ -70,8 +69,9 @@ export class CarPathAnim {
     }
 
 
-    startAnimation() {
+    startAnimation(startPoint = 0) {
         this.animationGroup.play(true);
+        this.animationGroup.goToFrame(startPoint)
     }
 
     // TODO - fixme
