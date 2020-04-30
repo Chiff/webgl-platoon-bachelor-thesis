@@ -1,16 +1,5 @@
 import { variables } from './utils.js';
 
-export const availablePaths = [{
-    name: 'Rovinka',
-    url: 'assets/rovinka.json'
-}, {
-    name: 'Okruh',
-    url: 'assets/okruh.json'
-}, {
-    name: 'Had',
-    url: 'assets/had.json'
-}];
-
 export function getPath() {
     return variables.pathInfo.points.map(point => new BABYLON.Vector3(point.x, point.y, point.z));
 

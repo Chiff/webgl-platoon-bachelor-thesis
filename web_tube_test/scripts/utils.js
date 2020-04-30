@@ -17,43 +17,50 @@ export const variables = {
     }
 };
 
-export const vehicleObjects = [
-    {
-        meshID: 'lambo',
-        folder: 'assets/lambo/',
-        file: 'lambo.babylon',
-        editMesh: (mesh) => {
-            mesh.position.y += 20;
-            mesh.position.x += 25;
-            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
-        }
-    }, {
-        meshID: 'transporter',
-        folder: 'assets/transporter/',
-        file: 'transporter.babylon',
-        editMesh: (mesh) => {
-            mesh.position.y += 20;
-            mesh.scaling = new BABYLON.Vector3(0.92, 0.92, 0.92);
-        }
-    }, {
-        meshID: 'bus',
-        folder: 'assets/bus/',
-        file: 'bus.babylon',
-        editMesh: (mesh) => {
-            mesh.position.y += 20;
-            mesh.position.x += 15;
-            mesh.scaling = new BABYLON.Vector3(1.05, 1.05, 1.05);
-        }
-    }, {
-        meshID: 'truck',
-        folder: 'assets/truck/',
-        file: 'truck2.babylon',
-        editMesh: (mesh) => {
-            mesh.position.y += 20;
-            mesh.position.x -= 15;
-            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
-        }
-    }];
+export const availablePaths = [{
+    name: 'Had',
+    url: 'assets/had.json'
+}, {
+    name: 'Rovinka',
+    url: 'assets/rovinka.json'
+}, {
+    name: 'Okruh',
+    url: 'assets/okruh.json'
+}];
+
+export const vehicleObjects = [{
+    meshID: 'lambo',
+    folder: 'assets/lambo/',
+    file: 'lambo.babylon',
+    editMesh: (mesh) => {
+        mesh.position.y -= 20;
+        mesh.scaling = new BABYLON.Vector3(1, 1, 1);
+    }
+}, {
+    meshID: 'transporter',
+    folder: 'assets/transporter/',
+    file: 'transporter.babylon',
+    editMesh: (mesh) => {
+        mesh.position.y -= 20;
+        mesh.scaling = new BABYLON.Vector3(0.92, 0.92, 0.92);
+    }
+}, {
+    meshID: 'bus',
+    folder: 'assets/bus/',
+    file: 'bus.babylon',
+    editMesh: (mesh) => {
+        mesh.position.y -= 20;
+        mesh.scaling = new BABYLON.Vector3(1.05, 1.05, 1.05);
+    }
+}, {
+    meshID: 'truck',
+    folder: 'assets/truck/',
+    file: 'truck2.babylon',
+    editMesh: (mesh) => {
+        mesh.position.y -= 20;
+        mesh.scaling = new BABYLON.Vector3(1, 1, 1);
+    }
+}];
 
 BABYLON.Mesh.prototype.createSurfacePoints = function (pointDensity) {
     const positions = this.getVerticesData(BABYLON.VertexBuffer.PositionKind);

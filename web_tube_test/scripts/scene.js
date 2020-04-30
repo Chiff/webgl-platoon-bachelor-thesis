@@ -241,7 +241,7 @@ export default class Scene {
 
     loadObject() {
         let time = -1000;
-        vehicleObjects.map((obj) => {
+        vehicleObjects.map((obj, i) => {
             const vehicle = new Vehicle(this.scene);
             const cam = this.camera;
             vehicle.load(obj.meshID, obj.folder, obj.file, obj.editMesh).then(() => {
@@ -250,7 +250,7 @@ export default class Scene {
                     vehicle.addFollowPath(this.carPath);
                     const $controls = $('.controls');
 
-                    $controls.append('<button id="' + obj.meshID + 'SpeedDown"> - </button>');
+                    $controls.append('<button id="' + obj.meshID + 'SpeedDown" style="margin-left: 10px;"> - </button>');
                     $('#' + obj.meshID + 'SpeedDown').click(() => {
                         vehicle.changeSpeed(0.85);
                     });
@@ -260,7 +260,7 @@ export default class Scene {
                         vehicle.focusCar(cam);
                     });
 
-                    $controls.append('<button id="' + obj.meshID + 'SpeedUp"> + </button><span> | </span>');
+                    $controls.append('<button id="' + obj.meshID + 'SpeedUp"> + </button>');
                     $('#' + obj.meshID + 'SpeedUp').click(() => {
                         vehicle.changeSpeed(1.15);
                     });

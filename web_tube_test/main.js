@@ -1,6 +1,5 @@
 import Scene from './scripts/scene.js';
-import { availablePaths } from './scripts/path.js';
-import { getFormData } from './scripts/utils.js';
+import { availablePaths, getFormData } from './scripts/utils.js';
 
 const loadPaths = () => {
     availablePaths.forEach(json => {
@@ -49,3 +48,5 @@ window.followCar = () => {
     window.sceneCamera.upperRadiusLimit = 1000;
     window.sceneCamera.lowerRadiusLimit = 15;
 };
+
+window.restart = () => location.reload();

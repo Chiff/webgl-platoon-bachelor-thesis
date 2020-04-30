@@ -219,3 +219,7 @@ button + button {
     -webkit-transform: translate(5.33333em, 5.33333em);
     transform: translate(5.33333em, 5.33333em)
 }
+
+.controls {
+    text-align: center;
+}
