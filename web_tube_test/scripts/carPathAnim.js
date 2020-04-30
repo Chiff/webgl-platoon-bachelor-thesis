@@ -71,7 +71,10 @@ export class CarPathAnim {
 
     startAnimation(startPoint = 0) {
         this.animationGroup.play(true);
-        this.animationGroup.goToFrame(startPoint)
+
+        // 300 = pocet frames => percenta => startpoint (0 az 75) => realny pocet frames
+        const magic = (300 / 100) * startPoint * new BABYLON.Curve3(this.path).getPoints().length
+        this.animationGroup.goToFrame(magic)
     }
 
     // TODO - fixme

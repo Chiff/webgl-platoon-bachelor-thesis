@@ -246,20 +246,24 @@ export default class Scene {
                 vehicle.addFollowPath(this.carPath);
                 const $controls = $('.controls');
 
-                $controls.append('<button id="' + obj.meshID + 'SpeedDown" style="margin-left: 10px;"> - </button>');
-                $('#' + obj.meshID + 'SpeedDown').click(() => {
-                    vehicle.changeSpeed(0.85);
-                });
+                if (this.params.debug) {
+                    $controls.append('<button id="' + obj.meshID + 'SpeedDown" style="margin-left: 10px;"> - </button>');
+                    $('#' + obj.meshID + 'SpeedDown').click(() => {
+                        vehicle.changeSpeed(0.85);
+                    });
+                }
 
                 $controls.append('<button id="' + obj.meshID + '">' + obj.meshID + '</button>');
                 $('#' + obj.meshID).click(() => {
                     vehicle.focusCar(cam);
                 });
 
-                $controls.append('<button id="' + obj.meshID + 'SpeedUp"> + </button>');
-                $('#' + obj.meshID + 'SpeedUp').click(() => {
-                    vehicle.changeSpeed(1.15);
-                });
+                if (this.params.debug) {
+                    $controls.append('<button id="' + obj.meshID + 'SpeedUp"> + </button>');
+                    $('#' + obj.meshID + 'SpeedUp').click(() => {
+                        vehicle.changeSpeed(1.15);
+                    });
+                }
 
                 vehicle.start(time);
                 time += this.params.dist;
