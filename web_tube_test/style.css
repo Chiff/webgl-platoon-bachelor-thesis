@@ -85,10 +85,15 @@ canvas {
     font-weight: 700
 }
 
-.input-group input[type=submit]:hover, button:hover {
+.input-group input[type=submit], button:hover {
     border: 2px solid #fff;
     background: #fff;
     color: #333
+}
+
+.input-group input[type=submit]:hover {
+    background: #888;
+    color: #fff
 }
 
 button + button {
