@@ -62,7 +62,7 @@ export default class Scene {
             path: this.path,
             scene: this.scene,
             textureUrl: 'assets/cesta.png',
-            textureScale: {x: 1, y: 6},
+            textureScale: {x: 1, y: 12},
             textureOffset: {x: 0.89, y: 0},
             showCurve: variables.debug
         });
