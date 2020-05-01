@@ -30,9 +30,9 @@ export class CarPathAnim {
         const carTimeline = gsap.timeline();
         carTimeline.repeat(0);
         carTimeline.repeatDelay(0);
-        carTimeline.delay((carNumber) / (variables.distanceInSecond / 2));
+        carTimeline.delay((carNumber) / (variables.distanceInSecond));
         carTimeline.timeScale(variables.pathInfo.timeScale);
-        carTimeline.pause()
+        carTimeline.pause();
 
         for (let p = 0; p < roadPathPoints.length; p++) {
             const speedAtTime = framePath.getPointAt(p / roadPathPoints.length).y;
@@ -67,7 +67,10 @@ export class CarPathAnim {
 
         if (variables.debug) {
             BABYLON.Mesh.CreateLines('car-path-' + Date.now(), roadPathPoints, this.scene);
-            BABYLON.Mesh.CreateLines('car-speed-' + Date.now(), frameCurve.getPoints(), this.scene);
+            this.speedLine = BABYLON.Mesh.CreateLines('car-speed-' + Date.now(), frameCurve.getPoints(), this.scene);
+            this.speedLine.scaling = new BABYLON.Vector3((variables.mapDimension) / frameCurve.getPoints().length, 1, 1);
+            this.speedLine.position.x = variables.mapDimension /4
+
         }
     }
 

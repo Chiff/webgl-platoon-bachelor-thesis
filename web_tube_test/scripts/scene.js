@@ -46,7 +46,6 @@ export default class Scene {
             setTimeout(() => {
                 this.engine.resize();
                 resetCameraPositon();
-                $('#loading').hide();
                 this.loadObject();
             }, 1000);
         });
@@ -253,14 +252,15 @@ export default class Scene {
 
 
             Promise.all(promises).then(d => {
-                d.forEach(vehicle => vehicle.start());
+                d.forEach(vehicle => vehicle.start(d));
 
 
                 $(document).on('animationStart', function (e, vehicle) {
+                    $('#loading').hide();
                     vehicle.focusCar();
                 });
                 $(document).on('animationEnd', function (e, vehicle) {
-                    d.forEach(vehicle => vehicle.start());
+                    d.forEach(vehicle => vehicle.start(d));
                 });
             });
         });

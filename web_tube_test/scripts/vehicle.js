@@ -5,6 +5,7 @@ export class Vehicle {
     constructor(scene, camera) {
         this.scene = scene;
         this.camera = camera;
+        this.otherCars = null;
         this.meshes = {
             body: null,
             kfl: null,
@@ -77,7 +78,8 @@ export class Vehicle {
         this.hide();
     }
 
-    start() {
+    start(otherCars) {
+        this.otherCars = otherCars;
         this.anim.startAnimation();
     }
 
@@ -106,6 +108,12 @@ export class Vehicle {
     // TODO - 19.4.2019 - camera should follow vehicle rotation
     focusCar() {
         this.camera.lockedTarget = this.meshes.body;
+        if (this.anim.speedLine) {
+            this.otherCars.forEach(car => {
+                car.anim.speedLine.color = new BABYLON.Color3(1, 1, 1);
+            });
+            this.anim.speedLine.color = new BABYLON.Color3(255, 0, 0);
+        }
     }
 }
 
