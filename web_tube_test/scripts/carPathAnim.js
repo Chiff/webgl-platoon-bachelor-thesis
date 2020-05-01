@@ -1,88 +1,77 @@
 import { variables } from './utils.js';
+import { getVehicle } from './data.js';
 
 export class CarPathAnim {
-    constructor(path, mesh, speed, scene) {
+    constructor(path, mesh, speed, scene, carNumber) {
         this.path = path;
         this.meshes = mesh;
         this.scene = scene;
+        this.carTimeline = null;
 
-        // TODO - implement
-        this.speed = speed;
-
-        window.speed = this.speed;
-
-        this.createAnimation();
+        this.turboAnimation(carNumber);
     }
 
-    createAnimation() {
-        const curve = new BABYLON.Curve3(this.path);
-        const curvePoints = curve.getPoints();
+    startAnimation() {
+        this.carTimeline.restart(true);
+    }
 
-        if (variables.debug) {
-            BABYLON.Mesh.CreateLines('car-path-' + Date.now(), curvePoints, this.scene);
-        }
+    turboAnimation(carNumber) {
+        const roadPath = new BABYLON.Curve3(this.path);
+        const roadPathPoints = roadPath.getPoints();
+        const path3d = new BABYLON.Path3D(roadPathPoints);
 
-        const path3d = new BABYLON.Path3D(curvePoints);
-        const tangents = path3d.getTangents();  //array of tangents to the curve
-        const normals = path3d.getNormals(); //array of normals to the curve
+        const tangents = path3d.getTangents();
+        const normals = path3d.getNormals();
         const binormals = path3d.getBinormals();
 
-        const animationPosition = new BABYLON.Animation('animPos', 'position', 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-        const animationRotation = new BABYLON.Animation('animRot', 'rotation', 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-        const animationWheelRotation = new BABYLON.Animation('animWheelRot', 'rotation', 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+        const frameCurve = new BABYLON.Curve3(getVehicle(carNumber).map((e, i) => new BABYLON.Vector3(i - variables.mapDimension / 2, e, 0)));
+        const framePath = new BABYLON.Path3D(frameCurve.getPoints());
 
-        const keysPosition = [];
-        const keysRotation = [];
-        const wheelRotation = [];
+        const carTimeline = gsap.timeline();
+        carTimeline.repeat(0);
+        carTimeline.repeatDelay(0);
+        carTimeline.delay((carNumber) / (variables.distanceInSecond / 2));
+        carTimeline.timeScale(variables.pathInfo.timeScale);
+        carTimeline.pause()
 
-        for (let p = 0; p < curvePoints.length; p++) {
-            keysPosition.push({
-                frame: p,
-                value: curvePoints[p]
-            });
+        for (let p = 0; p < roadPathPoints.length; p++) {
+            const speedAtTime = framePath.getPointAt(p / roadPathPoints.length).y;
+            const duration = this.speedToTime(speedAtTime);
 
-            keysRotation.push({
-                frame: p,
-                value: BABYLON.Vector3.RotationFromAxis(normals[p], binormals[p], tangents[p])
-            });
+            const point = roadPathPoints[p];
+            carTimeline.to(this.meshes.body.position, {
+                x: point.x,
+                y: point.y,
+                z: point.z,
+                duration
+            }, 'point' + p);
 
-            wheelRotation.push({
-                frame: p,
-                value: new BABYLON.Vector3(p * 0.5, 0, 0)
-            });
+
+            const rotation = BABYLON.Vector3.RotationFromAxis(normals[p], binormals[p], tangents[p]);
+            carTimeline.to(this.meshes.body.rotation, {
+                x: rotation.x,
+                y: rotation.y,
+                z: rotation.z,
+                duration
+            }, 'point' + p);
+
+
+            const wheelRotation = {x: p * 0.5, duration};
+            carTimeline.to(this.meshes.kfl.rotation, wheelRotation, 'point' + p);
+            carTimeline.to(this.meshes.kfr.rotation, wheelRotation, 'point' + p);
+            carTimeline.to(this.meshes.krl.rotation, wheelRotation, 'point' + p);
+            carTimeline.to(this.meshes.krr.rotation, wheelRotation, 'point' + p);
         }
 
-        animationPosition.setKeys(keysPosition);
-        animationRotation.setKeys(keysRotation);
-        animationWheelRotation.setKeys(wheelRotation);
+        this.carTimeline = carTimeline;
 
-        const animationGroup = new BABYLON.AnimationGroup('CarAnim-' + Date.now());
-        animationGroup.addTargetedAnimation(animationPosition, this.meshes.body);
-        animationGroup.addTargetedAnimation(animationRotation, this.meshes.body);
-        animationGroup.addTargetedAnimation(animationWheelRotation, this.meshes.kfl);
-        animationGroup.addTargetedAnimation(animationWheelRotation, this.meshes.krl);
-        animationGroup.addTargetedAnimation(animationWheelRotation, this.meshes.kfr);
-        animationGroup.addTargetedAnimation(animationWheelRotation, this.meshes.krr);
-
-        animationGroup.speedRatio = 0.5;
-        this.animationGroup = animationGroup;
+        if (variables.debug) {
+            BABYLON.Mesh.CreateLines('car-path-' + Date.now(), roadPathPoints, this.scene);
+            BABYLON.Mesh.CreateLines('car-speed-' + Date.now(), frameCurve.getPoints(), this.scene);
+        }
     }
 
-
-    startAnimation(startPoint = 0) {
-        this.animationGroup.play(true);
-
-        // 300 = pocet frames => percenta => startpoint (0 az 75) => realny pocet frames
-        const magic = (300 / 100) * startPoint * new BABYLON.Curve3(this.path).getPoints().length
-        this.animationGroup.goToFrame(magic)
-    }
-
-    // TODO - fixme
-    stopAnimation() {
-        this.animationGroup.play(false);
-    }
-
-    changeSpeed(speed) {
-        this.animationGroup.speedRatio *= speed;
+    speedToTime(speed) {
+        return variables.distanceInSecond / speed;
     }
 }

@@ -1,5 +1,6 @@
 {
     "name": "Rovinka",
+    "timeScale": 0.8,
     "scale": {
         "x": 1,
         "y": -1

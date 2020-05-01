@@ -1,8 +1,10 @@
 import { CarPathAnim } from './carPathAnim.js';
+import { vehicleObjects } from './utils.js';
 
 export class Vehicle {
-    constructor(scene) {
+    constructor(scene, camera) {
         this.scene = scene;
+        this.camera = camera;
         this.meshes = {
             body: null,
             kfl: null,
@@ -36,7 +38,7 @@ export class Vehicle {
         });
     }
 
-    addFollowPath(carPath, cam) {
+    addFollowPath(carPath, carNumber) {
         const vehicle = this.meshes.body;
 
         this.meshes.kfl = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_fl'))[0];
@@ -55,23 +57,64 @@ export class Vehicle {
             heightPath.push(new BABYLON.Vector3(carPath[i].x, (carPath[i].y + wheelSize), carPath[i].z));
         }
 
-        this.anim = new CarPathAnim(heightPath, this.meshes, 2, this.scene, cam);
+        this.anim = new CarPathAnim(heightPath, this.meshes, 2, this.scene, carNumber);
+        this.anim.carTimeline.eventCallback('onStart', () => {
+            this.show();
+
+            if (carNumber === 0) {
+                $(document).trigger('animationStart', this);
+            }
+        });
+        this.anim.carTimeline.eventCallback('onComplete', () => {
+            this.hide();
+
+            if (carNumber + 1 === vehicleObjects.length) {
+                $(document).trigger('animationEnd', this);
+            }
+        });
+
+
+        this.hide();
     }
 
-    start(startPoint) {
-        this.anim.startAnimation(startPoint)
+    start() {
+        this.anim.startAnimation();
     }
+
+    setOpacity(number) {
+        this.meshes.body.visibility = number;
+        this.meshes.kfl.visibility = number;
+        this.meshes.kfr.visibility = number;
+        this.meshes.krl.visibility = number;
+        this.meshes.krr.visibility = number;
+    }
+
+    hide() {
+        this.setOpacity(0);
+    }
+
+    show() {
+        this.setOpacity(1);
+    }
+
+    // TODO - 30/04/2020 - implement
+    // setColor() {
+    //     this.meshes.body.diffuseColor = new BABYLON.Color3(255, 0, 0);
+    // }
+
 
     // TODO - 19.4.2019 - camera should follow vehicle rotation
-    focusCar(cam, inside) {
-        if (!inside) {
-            cam.lockedTarget = this.meshes.body;
-        } else {
-            cam.lockedTarget = this.meshes.cam;
-        }
-    }
-
-    changeSpeed(speed) {
-        this.anim.changeSpeed(speed);
+    focusCar() {
+        this.camera.lockedTarget = this.meshes.body;
     }
 }
+
+export const onVehicleLoad = (vehicle, obj, i, carPathAnim, isDebug) => {
+    vehicle.addFollowPath(carPathAnim, i);
+    const $controls = $('.controls');
+
+    $controls.append('<button id="' + obj.meshID + '">' + obj.meshID + '</button>');
+    $('#' + obj.meshID).click(() => {
+        vehicle.focusCar();
+    });
+};

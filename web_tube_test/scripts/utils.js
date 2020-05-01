@@ -1,5 +1,6 @@
 export const variables = {
     mapDimension: 512,
+    distanceInSecond: 2,
     debug: false,
     cameraSettings: {
         upperLimit: 1200,
@@ -10,6 +11,7 @@ export const variables = {
         url: null,
         name: null,
         points: null,
+        timeScale: null,
         scale: {
             x: null,
             y: null
@@ -17,12 +19,12 @@ export const variables = {
     }
 };
 
-export const availablePaths = [{
-    name: 'Had',
-    url: 'assets/had.json'
-}, {
+export const availablePaths = [ {
     name: 'Rovinka',
     url: 'assets/rovinka.json'
+},{
+    name: 'Had',
+    url: 'assets/had.json'
 }, {
     name: 'Okruh',
     url: 'assets/okruh.json'

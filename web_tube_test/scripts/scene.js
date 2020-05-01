@@ -1,9 +1,10 @@
 import { Road } from './road.js';
-import { Vehicle } from './vehicle.js';
+import { onVehicleLoad, Vehicle } from './vehicle.js';
 import { variables, vehicleObjects } from './utils.js';
 import { initTerrainDraw } from './height.js';
 import { createCarPath, getPath } from './path.js';
 import { createCamera, resetCameraPositon } from './camera.js';
+import { loadData } from './data.js';
 
 export default class Scene {
     constructor(params) {
@@ -40,13 +41,13 @@ export default class Scene {
 
         this.createSkyBox();
 
-        this.loadObject();
 
         this.scene.executeWhenReady(e => {
             setTimeout(() => {
-                $('#loading').hide();
                 this.engine.resize();
                 resetCameraPositon();
+                $('#loading').hide();
+                this.loadObject();
             }, 1000);
         });
     }
@@ -238,37 +239,33 @@ export default class Scene {
     }
 
     loadObject() {
-        let time = 0;
-        vehicleObjects.map((obj, i) => {
-            const vehicle = new Vehicle(this.scene);
-            const cam = this.camera;
-            vehicle.load(obj.meshID, obj.folder, obj.file, obj.editMesh).then(() => {
-                vehicle.addFollowPath(this.carPath);
-                const $controls = $('.controls');
+        loadData(this.params.dist).then(() => {
+            const promises = [];
+            vehicleObjects.map((obj, i) => {
+                const vehicle = new Vehicle(this.scene, this.camera);
 
-                if (this.params.debug) {
-                    $controls.append('<button id="' + obj.meshID + 'SpeedDown" style="margin-left: 10px;"> - </button>');
-                    $('#' + obj.meshID + 'SpeedDown').click(() => {
-                        vehicle.changeSpeed(0.85);
-                    });
-                }
+                const p = vehicle.load(obj.meshID, obj.folder, obj.file, obj.editMesh);
+                p.then(() => {
+                    onVehicleLoad(vehicle, obj, i, this.carPath, this.params.debug);
+                }).catch(e => console.error(e));
+                promises.push(p);
+            });
 
-                $controls.append('<button id="' + obj.meshID + '">' + obj.meshID + '</button>');
-                $('#' + obj.meshID).click(() => {
-                    vehicle.focusCar(cam);
+
+            Promise.all(promises).then(d => {
+                d.forEach(vehicle => vehicle.start());
+
+
+                $(document).on('animationStart', function (e, vehicle) {
+                    vehicle.focusCar();
                 });
-
-                if (this.params.debug) {
-                    $controls.append('<button id="' + obj.meshID + 'SpeedUp"> + </button>');
-                    $('#' + obj.meshID + 'SpeedUp').click(() => {
-                        vehicle.changeSpeed(1.15);
-                    });
-                }
-
-                vehicle.start(time);
-                time += this.params.dist;
-            }).catch(e => console.error(e));
+                $(document).on('animationEnd', function (e, vehicle) {
+                    d.forEach(vehicle => vehicle.start());
+                });
+            });
         });
+
+
     }
 
     setEvents() {
@@ -284,6 +281,10 @@ export default class Scene {
         $('body').on('contextmenu', '#renderCanvas', function (e) {
             return false;
         });
+
+        gsap.defaults({
+            ease: 'none'
+        });
     }
 
     setParams(params) {
@@ -292,6 +293,7 @@ export default class Scene {
         variables.pathInfo.name = params.pathSettings.name;
         variables.pathInfo.points = params.pathSettings.points;
         variables.pathInfo.scale = params.pathSettings.scale || {x: 1, y: 1};
+        variables.pathInfo.timeScale = params.pathSettings.timeScale || 1;
         variables.debug = params.debug == 'true';
 
         // TODO - 29/04/2020 - distance
