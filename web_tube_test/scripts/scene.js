@@ -296,10 +296,11 @@ export default class Scene {
         variables.pathInfo.timeScale = params.pathSettings.timeScale || 1;
         variables.debug = params.debug == 'true';
 
-        // TODO - 29/04/2020 - distance
+        variables.dist = params.dist || 20
+        variables.simScale = params.simScale || 0
+
         return {
             pathSettings: params.pathSettings,
-            dist: parseInt(params.dist)
         };
     }
 

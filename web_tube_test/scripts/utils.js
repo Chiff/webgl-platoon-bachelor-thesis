@@ -1,10 +1,20 @@
 export const variables = {
     mapDimension: 512,
+
+    dist: 20,
+    simScale: null,
     distanceInSecond: 2,
+
     debug: false,
     cameraSettings: {
         upperLimit: 1200,
         lowerLimit: 0
+    },
+
+    serverInfo: {
+        url: 'https://147.175.121.229',
+        ws_url: 'ws://147.175.121.229:8081',
+        api_key: 'bc3d8dc1-e6f6-4ad6-bc31-85c25b814fcb'
     },
 
     pathInfo: {
@@ -19,10 +29,10 @@ export const variables = {
     }
 };
 
-export const availablePaths = [ {
+export const availablePaths = [{
     name: 'Rovinka',
     url: 'assets/rovinka.json'
-},{
+}, {
     name: 'Had',
     url: 'assets/had.json'
 }, {

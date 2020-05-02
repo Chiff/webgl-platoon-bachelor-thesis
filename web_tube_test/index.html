@@ -20,8 +20,12 @@
         <select id="selectPath" name="url"></select>
     </div>
     <div class="input-group">
-        <label for="dist">Ziadana vzdialenost (dist/frame) <span class="small">min: 5, max: 75</span></label>
+        <label for="dist">Ziadana vzdialenost <span class="small">min: 5, max: 75</span></label>
         <input type="number" min="5" max="75" id="dist" name="dist" value="20">
+    </div>
+    <div class="input-group">
+        <label for="simScale">Override sim time scale <span class="small">0: off, max: 10.00</span></label>
+        <input type="number" min="0" max="10" step="0.01" id="simScale" name="simScale" value="0">
     </div>
     <div class="input-group">
         <label for="debug">Debug info</label>
