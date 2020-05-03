@@ -12,9 +12,15 @@ export const variables = {
     },
 
     serverInfo: {
-        url: 'https://147.175.121.229',
-        ws_url: 'ws://147.175.121.229:8081',
-        api_key: 'bc3d8dc1-e6f6-4ad6-bc31-85c25b814fcb'
+        url: 'https://147.175.121.229/',
+        api_key: 'bc3d8dc1-e6f6-4ad6-bc31-85c25b814fcb',
+        paths: {
+            RUN_FILE: {api: 'api/matlab/run/existing', type: 'POST'},
+            RUN_SCRIPT: {api: 'api/matlab/run/upload-script', type: 'POST'},
+            SIMULINK_LOCK: {api: 'api/simulink/lock', type: 'POST'},
+            SIMULINK_RUN: {api: 'api/simulink/simple-simulation', type: 'POST'},
+            SIMULINK_RELEASE: {api: 'api/simulink/release', type: 'POST'}
+        }
     },
 
     pathInfo: {
