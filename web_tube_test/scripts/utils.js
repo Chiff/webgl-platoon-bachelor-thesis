@@ -11,6 +11,9 @@ export const variables = {
         lowerLimit: 0
     },
 
+    offlineMode: false,
+    offlineDataPath: 'assets/test.json',
+
     serverInfo: {
         url: 'https://147.175.121.229/',
         api_key: 'bc3d8dc1-e6f6-4ad6-bc31-85c25b814fcb',

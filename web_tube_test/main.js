@@ -1,7 +1,6 @@
 import Scene from './scripts/scene.js';
 import { availablePaths, getFormData } from './scripts/utils.js';
 import { resetCameraPositon } from './scripts/camera.js';
-import { loadData } from './scripts/data.js';
 
 const loadPaths = () => {
     availablePaths.forEach(json => {
@@ -17,8 +16,6 @@ $(document).ready(function () {
     $('#container').hide();
     $('#loading').hide();
     $('#fpsLabel').hide();
-
-    loadData(6);
 });
 
 $('#inputForm').submit(function (e) {

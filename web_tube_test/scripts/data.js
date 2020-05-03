@@ -1,6 +1,5 @@
 import { variables } from './utils.js';
 
-export const DATA_URL = 'assets/test.json';
 export let SIMULATION_DATA = {
     frames: -1,
     dist: -1,
@@ -23,7 +22,17 @@ export const MATLAB_SCRIPTS = {
     })
 };
 
-export const loadData = (gap) => {
+// promise result is ignored
+export const loadData = (gap) => new Promise(resolve => {
+
+    if (variables.offlineMode) {
+        return $.get(variables.offlineDataPath, function (data) {
+            console.log(data);
+            parseData(data);
+            resolve(data);
+        });
+    }
+
     runFile(MATLAB_FILES.INIT).then((data) => {
         console.warn('[runFile]', data);
 
@@ -46,35 +55,42 @@ export const loadData = (gap) => {
         return runScript(MATLAB_SCRIPTS.getData());
     }).then((data) => {
         console.warn('[runScript - getData]', data);
-    });
+        parseData(data);
+        resolve(data);
+    }).catch(() => {
+        alert('Nastala chyba pri ziskavani dat zo servisu - pouzivam offline data set');
 
-    return new Promise(resolve => {
-        $.get(DATA_URL, function (data) {
+        return $.get(variables.offlineDataPath, function (data) {
             console.log(data);
-
-            const parsed = {};
-
-            data.speeds.forEach(frame => {
-                const frameNumber = frame[0];
-                const s1 = frame[2];
-                const s2 = frame[3];
-                const s3 = frame[4];
-                const s4 = frame[5];
-                parsed[frameNumber] = [s1, s2, s3, s4];
-            });
-
-            SIMULATION_DATA = {
-                frames: data.frames,
-                dist: data.dist,
-                points: parsed
-            };
-
+            parseData(data);
             resolve(data);
         });
     });
-};
+});
 
 export const getVehicle = (number) => Object.values(SIMULATION_DATA.points).map(e => e[number]);
+
+const parseData = (data) => {
+    console.log(data);
+
+    const parsed = {};
+
+    data.speeds.forEach(frame => {
+        const frameNumber = frame[0];
+        const s1 = frame[2];
+        const s2 = frame[3];
+        const s3 = frame[4];
+        const s4 = frame[5];
+        parsed[frameNumber] = [s1, s2, s3, s4];
+    });
+
+    SIMULATION_DATA = {
+        frames: data.frames,
+        dist: data.dist,
+        points: parsed
+    };
+};
+
 
 const runFile = (MATLAB_FILE) => new Promise((resolve, reject) => {
     $.ajax({
