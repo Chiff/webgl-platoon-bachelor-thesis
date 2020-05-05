@@ -21,6 +21,8 @@ export const variables = {
             RUN_FILE: {api: 'api/matlab/run/existing', type: 'POST'},
             RUN_SCRIPT: {api: 'api/matlab/run/upload-script', type: 'POST'},
             SIMULINK_LOCK: {api: 'api/simulink/lock', type: 'POST'},
+            SIMULINK_LIST: {api: 'api/simulink/block/list', type: 'POST'},
+            SIMULINK_SET_PARAM: {api: 'api/simulink/block/set-param', type: 'POST'},
             SIMULINK_RUN: {api: 'api/simulink/simple-simulation', type: 'POST'},
             SIMULINK_RELEASE: {api: 'api/simulink/release', type: 'POST'}
         }

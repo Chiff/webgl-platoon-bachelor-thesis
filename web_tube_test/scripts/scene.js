@@ -238,7 +238,7 @@ export default class Scene {
     }
 
     loadObject() {
-        loadData(this.params.dist).then(() => {
+        loadData().then(() => {
             const promises = [];
             vehicleObjects.map((obj, i) => {
                 const vehicle = new Vehicle(this.scene, this.camera);
