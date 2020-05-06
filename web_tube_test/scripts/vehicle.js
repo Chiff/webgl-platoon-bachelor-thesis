@@ -1,5 +1,5 @@
 import { CarPathAnim } from './carPathAnim.js';
-import { vehicleObjects } from './utils.js';
+import { variables, vehicleObjects } from './utils.js';
 
 export class Vehicle {
     constructor(scene, camera) {
@@ -114,6 +114,13 @@ export class Vehicle {
             });
             this.anim.speedLine.color = new BABYLON.Color3(255, 0, 0);
         }
+
+        this.otherCars.forEach((car, i) => {
+            const $car = $(`${variables.chartId} .c3-line-car${i + 1}`);
+
+            $car.css('stroke-width', this.meshID === car.meshID ? '5px' : '1px');
+            $car.css('z-index', this.meshID === car.meshID ? '9999' : '1');
+        });
     }
 }
 

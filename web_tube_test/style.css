@@ -233,3 +233,6 @@ button + button {
     font-size: 9px;
     color: #aaa
 }
+.c3-tooltip td {
+    color: #222;
+}

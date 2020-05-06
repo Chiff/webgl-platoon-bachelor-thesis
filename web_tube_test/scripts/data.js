@@ -50,16 +50,73 @@ export const loadData = () => new Promise(resolve => {
         return runSimulink(variables.serverInfo.paths.SIMULINK_RELEASE, SIMULINK_FILES.PLATOON);
     }).then((data) => {
         console.warn('[SIMULINK_RELEASE]', data);
-        resolve(parseData(response.return));
+
+        const d = parseData(response.return);
+        drawChart(d);
+        resolve(d);
     }).catch((error) => {
         console.error(error);
         alert('Nastala chyba pri ziskavani dat zo servisu - pouzivam offline data set');
 
         return $.get(variables.offlineDataPath, function (data) {
-            resolve(parseData(data));
+            const d = parseData(data);
+            drawChart(d);
+            resolve(d);
         });
     });
 });
+
+const drawChart = (data) => {
+    console.warn(data);
+
+    const points = Object.values(data.points);
+    const xp = [], c1p = [], c2p = [], c3p = [], c4p = [];
+
+    for (let i = 0; i < points.length; i += 3) {
+        xp.push(i.toString());
+        c1p.push(parseFloat(points[i][0].toFixed(2)));
+        c2p.push(parseFloat(points[i][1].toFixed(2)));
+        c3p.push(parseFloat(points[i][2].toFixed(2)));
+        c4p.push(parseFloat(points[i][3].toFixed(2)));
+    }
+
+    const x = ['x', ...xp];
+    const car1 = ['car1', ...c1p];
+    const car2 = ['car2', ...c2p];
+    const car3 = ['car3', ...c3p];
+    const car4 = ['car4', ...c4p];
+
+    c3.generate({
+        bindto: variables.chartId,
+        size: {
+            height: 200
+        },
+        data: {
+            x: 'x',
+            columns: [x,car1, car2, car3, car4],
+            type: 'spline',
+            colors: {
+                car1: '#ff0000',
+                car2: '#00ff00',
+                car3: '#0000ff',
+                car4: '#ffa500'
+            }
+        },
+        axis: {
+            x: {
+                label: 'Time'
+            },
+            y: {
+                label: 'Speed'
+            }
+        },
+        tooltip: {
+            format: {
+                title: function (d) { return 'Speed at frame #' + d; }
+            }
+        }
+    });
+};
 
 export const getVehicle = (number) => Object.values(SIMULATION_DATA.points).map(e => e[number]);
 
@@ -71,8 +128,6 @@ const parseData = (data) => {
 
     if (typeof data.speeds === 'string')
         data.speeds = JSON.parse(data.speeds);
-
-    console.log(data);
 
     data.speeds.forEach((frame, i) => {
         const s1 = frame[1];
@@ -88,7 +143,6 @@ const parseData = (data) => {
         points: parsed
     };
 
-    console.log(SIMULATION_DATA);
     return SIMULATION_DATA;
 };
 

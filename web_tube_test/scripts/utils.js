@@ -1,5 +1,6 @@
 export const variables = {
     mapDimension: 512,
+    chartId: '#chart',
 
     dist: 20,
     simScale: null,
