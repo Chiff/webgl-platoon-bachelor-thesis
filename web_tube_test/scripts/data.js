@@ -25,9 +25,9 @@ export const loadData = () => new Promise(resolve => {
 
     if (variables.offlineMode) {
         return $.get(variables.offlineDataPath, function (data) {
-            console.log(data);
-            parseData(data);
-            resolve(data);
+            const d = parseData(data);
+            drawChart(d);
+            resolve(d);
         });
     }
 
@@ -50,7 +50,6 @@ export const loadData = () => new Promise(resolve => {
         return runSimulink(variables.serverInfo.paths.SIMULINK_RELEASE, SIMULINK_FILES.PLATOON);
     }).then((data) => {
         console.warn('[SIMULINK_RELEASE]', data);
-
         const d = parseData(response.return);
         drawChart(d);
         resolve(d);
@@ -72,7 +71,7 @@ const drawChart = (data) => {
     const points = Object.values(data.points);
     const xp = [], c1p = [], c2p = [], c3p = [], c4p = [];
 
-    for (let i = 0; i < points.length; i += 3) {
+    for (let i = 0; i < points.length; i += variables.skipFrames) {
         xp.push(i.toString());
         c1p.push(parseFloat(points[i][0].toFixed(2)));
         c2p.push(parseFloat(points[i][1].toFixed(2)));
@@ -86,14 +85,14 @@ const drawChart = (data) => {
     const car3 = ['car3', ...c3p];
     const car4 = ['car4', ...c4p];
 
-    c3.generate({
+    window.c = c3.generate({
         bindto: variables.chartId,
         size: {
             height: 200
         },
         data: {
             x: 'x',
-            columns: [x,car1, car2, car3, car4],
+            columns: [x, car1, car2, car3, car4],
             type: 'spline',
             colors: {
                 car1: '#ff0000',
@@ -112,7 +111,9 @@ const drawChart = (data) => {
         },
         tooltip: {
             format: {
-                title: function (d) { return 'Speed at frame #' + d; }
+                title: function (d) {
+                    return 'Speed at frame #' + d;
+                }
             }
         }
     });
@@ -128,6 +129,15 @@ const parseData = (data) => {
 
     if (typeof data.speeds === 'string')
         data.speeds = JSON.parse(data.speeds);
+
+
+    for (let i = 0; i < variables.startFrames; i++) {
+        data.speeds.unshift(data.speeds[0]);
+    }
+
+    for (let i = 0; i < variables.startFrames; i++) {
+        data.speeds.push(data.speeds[0]);
+    }
 
     data.speeds.forEach((frame, i) => {
         const s1 = frame[1];

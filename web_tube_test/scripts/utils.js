@@ -2,9 +2,13 @@ export const variables = {
     mapDimension: 512,
     chartId: '#chart',
 
-    dist: 20,
+    dist: null,
     simScale: null,
-    distanceInSecond: 2,
+
+    totalPathPoints: 200,
+    startFrames: 50,
+    skipFrames: 2,
+    distByFrame: 10,
 
     debug: false,
     cameraSettings: {
@@ -12,7 +16,7 @@ export const variables = {
         lowerLimit: 0
     },
 
-    offlineMode: false,
+    offlineMode: true,
     offlineDataPath: 'assets/test.json',
 
     serverInfo: {
@@ -42,11 +46,11 @@ export const variables = {
 };
 
 export const availablePaths = [{
-    name: 'Rovinka',
-    url: 'assets/rovinka.json'
-}, {
     name: 'Had',
     url: 'assets/had.json'
+}, {
+    name: 'Rovinka',
+    url: 'assets/rovinka.json'
 }, {
     name: 'Okruh',
     url: 'assets/okruh.json'

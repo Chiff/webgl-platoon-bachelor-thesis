@@ -1,5 +1,5 @@
 import { CarPathAnim } from './carPathAnim.js';
-import { variables, vehicleObjects } from './utils.js';
+import { variables } from './utils.js';
 
 export class Vehicle {
     constructor(scene, camera) {
@@ -59,28 +59,34 @@ export class Vehicle {
         }
 
         this.anim = new CarPathAnim(heightPath, this.meshes, 2, this.scene, carNumber);
-        this.anim.carTimeline.eventCallback('onStart', () => {
-            this.show();
 
-            if (carNumber === 0) {
-                $(document).trigger('animationStart', this);
-            }
-        });
+        // manual restart is required because GSAP infinite repeat overrides its totalDuration
         this.anim.carTimeline.eventCallback('onComplete', () => {
-            this.hide();
-
-            if (carNumber + 1 === vehicleObjects.length) {
-                $(document).trigger('animationEnd', this);
-            }
+            this.start(null, carNumber);
         });
-
-
-        this.hide();
     }
 
-    start(otherCars) {
-        this.otherCars = otherCars;
+    start(otherCars, i) {
         this.anim.startAnimation();
+
+        // otherCars is used only first time
+        if (otherCars) {
+            this.otherCars = otherCars;
+
+            const MAGIC_MULTIPLIER = 7.5
+            const goal = (otherCars.length - i - 1) * variables.dist * MAGIC_MULTIPLIER;
+            const possibleStartingPoints = [];
+            for (let i = 0; i < variables.totalPathPoints; i += variables.skipFrames) {
+                possibleStartingPoints.push(i);
+            }
+
+            const closest = possibleStartingPoints.reduce(function(prev, curr) {
+                return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
+            });
+
+            console.warn(closest, goal, variables.skipFrames);
+            this.anim.carTimeline.seek('point' + closest);
+        }
     }
 
     setOpacity(number) {
@@ -99,13 +105,6 @@ export class Vehicle {
         this.setOpacity(1);
     }
 
-    // TODO - 30/04/2020 - implement
-    // setColor() {
-    //     this.meshes.body.diffuseColor = new BABYLON.Color3(255, 0, 0);
-    // }
-
-
-    // TODO - 19.4.2019 - camera should follow vehicle rotation
     focusCar() {
         this.camera.lockedTarget = this.meshes.body;
         if (this.anim.speedLine) {

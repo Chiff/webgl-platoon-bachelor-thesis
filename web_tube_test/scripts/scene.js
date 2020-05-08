@@ -240,6 +240,7 @@ export default class Scene {
     loadObject() {
         loadData().then(() => {
             const promises = [];
+
             vehicleObjects.map((obj, i) => {
                 const vehicle = new Vehicle(this.scene, this.camera);
 
@@ -252,16 +253,8 @@ export default class Scene {
 
 
             Promise.all(promises).then(d => {
-                d.forEach(vehicle => vehicle.start(d));
-
-
-                $(document).on('animationStart', function (e, vehicle) {
-                    $('#loading').hide();
-                    vehicle.focusCar();
-                });
-                $(document).on('animationEnd', function (e, vehicle) {
-                    d.forEach(vehicle => vehicle.start(d));
-                });
+                d.forEach((vehicle, i) => vehicle.start(d, i));
+                $('#loading').hide();
             });
         });
 
@@ -283,7 +276,7 @@ export default class Scene {
         });
 
         gsap.defaults({
-            ease: 'none'
+            ease: 'linear'
         });
     }
 
@@ -296,11 +289,13 @@ export default class Scene {
         variables.pathInfo.timeScale = params.pathSettings.timeScale || 1;
         variables.debug = params.debug == 'true';
 
-        variables.dist = params.dist || 20
-        variables.simScale = params.simScale || 0
+        variables.dist = params.dist || 20;
+        variables.simScale = params.simScale || 0;
+
+        variables.offlineMode = params.offlineMode == 'true';
 
         return {
-            pathSettings: params.pathSettings,
+            pathSettings: params.pathSettings
         };
     }
 

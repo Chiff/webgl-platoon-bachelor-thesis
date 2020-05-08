@@ -16,6 +16,7 @@ export class CarPathAnim {
     }
 
     turboAnimation(carNumber) {
+        // path
         const roadPath = new BABYLON.Curve3(this.path);
         const roadPathPoints = roadPath.getPoints();
         const path3d = new BABYLON.Path3D(roadPathPoints);
@@ -24,18 +25,24 @@ export class CarPathAnim {
         const normals = path3d.getNormals();
         const binormals = path3d.getBinormals();
 
+
+        // speeds
         const frameCurve = new BABYLON.Curve3(getVehicle(carNumber).map((e, i) => new BABYLON.Vector3(i - variables.mapDimension / 2, e, 0)));
         const framePath = new BABYLON.Path3D(frameCurve.getPoints());
 
+
+        //animation
         const carTimeline = gsap.timeline();
-        carTimeline.repeat(0);
-        carTimeline.repeatDelay(0);
-        carTimeline.delay(((carNumber) / variables.distanceInSecond));
+
         const customTimeScale = parseFloat(variables.simScale);
         carTimeline.timeScale(customTimeScale ? customTimeScale : variables.pathInfo.timeScale);
+
+        carTimeline.totalDuration(19 * (customTimeScale ? customTimeScale : variables.pathInfo.timeScale));
+
         carTimeline.pause();
 
-        for (let p = 0; p < roadPathPoints.length; p++) {
+        // speed to path
+        for (let p = 0; p < roadPathPoints.length; p += variables.skipFrames) {
             const speedAtTime = framePath.getPointAt(p / roadPathPoints.length).y;
             const duration = this.speedToTime(speedAtTime);
 
@@ -75,6 +82,6 @@ export class CarPathAnim {
     }
 
     speedToTime(speed) {
-        return variables.distanceInSecond / speed;
+        return variables.distByFrame / speed;
     }
 }
