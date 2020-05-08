@@ -251,14 +251,11 @@ export default class Scene {
                 promises.push(p);
             });
 
-
             Promise.all(promises).then(d => {
                 d.forEach((vehicle, i) => vehicle.start(d, i));
                 $('#loading').hide();
             });
         });
-
-
     }
 
     setEvents() {

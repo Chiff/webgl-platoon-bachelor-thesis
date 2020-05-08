@@ -22,7 +22,6 @@ export const SIMULINK_FILES = {
 
 // promise result is ignored
 export const loadData = () => new Promise(resolve => {
-
     if (variables.offlineMode) {
         return $.get(variables.offlineDataPath, function (data) {
             const d = parseData(data);
@@ -31,15 +30,13 @@ export const loadData = () => new Promise(resolve => {
         });
     }
 
-    const gap = variables.dist;
     let response = null;
-
     acquireLock(SIMULINK_FILES.PLATOON).then(() => {
         console.warn('[acquireLock] success');
         return runSimulink(variables.serverInfo.paths.SIMULINK_LIST, SIMULINK_FILES.PLATOON);
     }).then((data) => {
-        // console.warn('[SIMULINK_LIST]', data);
-        // return Promise.all(parameters.map((e) => mapParams(e, gap)));
+        console.warn('[SIMULINK_LIST]', data);
+        // return Promise.all(parameters.map((e) => mapParams(e, variables.dist)));
         return new Promise(resolve => resolve('TODO - SET DISTANCE PARAMETER!'));
     }).then((data) => {
         console.warn('[parameters]', data);
