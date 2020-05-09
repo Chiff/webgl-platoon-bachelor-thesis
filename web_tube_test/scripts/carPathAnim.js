@@ -34,11 +34,7 @@ export class CarPathAnim {
         //animation
         const carTimeline = gsap.timeline();
 
-        const customTimeScale = parseFloat(variables.simScale);
-        carTimeline.timeScale(customTimeScale ? customTimeScale : variables.pathInfo.timeScale);
-
-        carTimeline.totalDuration(19 * (customTimeScale ? customTimeScale : variables.pathInfo.timeScale));
-
+        carTimeline.repeat(0);
         carTimeline.pause();
 
         // speed to path
@@ -71,6 +67,11 @@ export class CarPathAnim {
             carTimeline.to(this.meshes.krr.rotation, wheelRotation, 'point' + p);
         }
 
+
+        const customTimeScale = parseFloat(variables.simScale);
+        const MAGIC_AVG_DURATION = 19;
+        carTimeline.timeScale(customTimeScale ? customTimeScale : variables.pathInfo.timeScale);
+        carTimeline.totalDuration(MAGIC_AVG_DURATION * (customTimeScale ? customTimeScale : variables.pathInfo.timeScale))
         this.carTimeline = carTimeline;
 
         if (variables.debug) {
