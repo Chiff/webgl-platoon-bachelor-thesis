@@ -6,6 +6,8 @@ export class Vehicle {
         this.scene = scene;
         this.camera = camera;
         this.otherCars = null;
+        this.meshID = null;
+        this.vehicleID = null;
         this.meshes = {
             body: null,
             kfl: null,
@@ -16,8 +18,9 @@ export class Vehicle {
         };
     }
 
-    load(meshID, objFolder, objFile, customizeMesh) {
+    load(meshID,vehicleID, objFolder, objFile, customizeMesh) {
         this.meshID = meshID;
+        this.vehicleID = vehicleID;
 
         return new Promise((resolve, reject) => {
             BABYLON.SceneLoader.Append(objFolder, objFile, this.scene, (newScene) => {
@@ -117,8 +120,8 @@ export class Vehicle {
         this.otherCars.forEach((car, i) => {
             const $car = $(`${variables.chartId} .c3-line-car${i + 1}`);
 
-            $car.css('stroke-width', this.meshID === car.meshID ? '5px' : '1px');
-            $car.css('z-index', this.meshID === car.meshID ? '9999' : '1');
+            $car.css('stroke-width', this.vehicleID === car.vehicleID ? '5px' : '1px');
+            $car.css('z-index', this.vehicleID === car.vehicleID ? '9999' : '1');
         });
     }
 }
@@ -127,8 +130,8 @@ export const onVehicleLoad = (vehicle, obj, i, carPathAnim, isDebug) => {
     vehicle.addFollowPath(carPathAnim, i);
     const $controls = $('.controls');
 
-    $controls.append('<button id="' + obj.meshID + '">' + obj.meshID + '</button>');
-    $('#' + obj.meshID).click(() => {
+    $controls.append('<button id="' + obj.vehicleID + '">' + obj.vehicleID + '</button>');
+    $('#' + obj.vehicleID).click(() => {
         vehicle.focusCar();
     });
 };

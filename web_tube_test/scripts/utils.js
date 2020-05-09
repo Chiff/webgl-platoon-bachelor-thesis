@@ -58,32 +58,40 @@ export const availablePaths = [{
 
 export const vehicleObjects = [{
     meshID: 'lambo',
+    vehicleID: 'lambo',
     folder: 'assets/lambo/',
     file: 'lambo.babylon',
+    order: 4,
     editMesh: (mesh) => {
         mesh.position.y -= 20;
         mesh.scaling = new BABYLON.Vector3(1, 1, 1);
     }
 }, {
     meshID: 'transporter',
+    vehicleID: 'transporter',
     folder: 'assets/transporter/',
     file: 'transporter.babylon',
+    order: 3,
     editMesh: (mesh) => {
         mesh.position.y -= 20;
         mesh.scaling = new BABYLON.Vector3(0.92, 0.92, 0.92);
     }
 }, {
     meshID: 'bus',
+    vehicleID: 'bus',
     folder: 'assets/bus/',
     file: 'bus.babylon',
+    order: 1,
     editMesh: (mesh) => {
         mesh.position.y -= 20;
         mesh.scaling = new BABYLON.Vector3(1.05, 1.05, 1.05);
     }
 }, {
     meshID: 'truck',
+    vehicleID: 'truck',
     folder: 'assets/truck/',
     file: 'truck2.babylon',
+    order: 2,
     editMesh: (mesh) => {
         mesh.position.y -= 20;
         mesh.scaling = new BABYLON.Vector3(1, 1, 1);

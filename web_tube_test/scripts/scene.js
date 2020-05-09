@@ -241,10 +241,15 @@ export default class Scene {
         loadData().then(() => {
             const promises = [];
 
-            vehicleObjects.map((obj, i) => {
+            const objs = vehicleObjects;
+            objs.sort((v1, v2) => {
+                return v1.order - v2.order;
+            });
+console.warn(objs)
+            objs.forEach((obj, i) => {
                 const vehicle = new Vehicle(this.scene, this.camera);
 
-                const p = vehicle.load(obj.meshID, obj.folder, obj.file, obj.editMesh);
+                const p = vehicle.load(obj.meshID, obj.vehicleID, obj.folder, obj.file, obj.editMesh);
                 p.then(() => {
                     onVehicleLoad(vehicle, obj, i, this.carPath, this.params.debug);
                 }).catch(e => console.error(e));

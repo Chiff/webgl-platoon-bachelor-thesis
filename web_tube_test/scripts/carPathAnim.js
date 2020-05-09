@@ -67,11 +67,10 @@ export class CarPathAnim {
             carTimeline.to(this.meshes.krr.rotation, wheelRotation, 'point' + p);
         }
 
-
         const customTimeScale = parseFloat(variables.simScale);
         const MAGIC_AVG_DURATION = 19;
-        carTimeline.timeScale(customTimeScale ? customTimeScale : variables.pathInfo.timeScale);
-        carTimeline.totalDuration(MAGIC_AVG_DURATION * (customTimeScale ? customTimeScale : variables.pathInfo.timeScale))
+        carTimeline.duration(MAGIC_AVG_DURATION * (customTimeScale ? customTimeScale : variables.pathInfo.timeScale));
+
         this.carTimeline = carTimeline;
 
         if (variables.debug) {
