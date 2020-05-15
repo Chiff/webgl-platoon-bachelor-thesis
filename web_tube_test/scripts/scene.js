@@ -1,5 +1,5 @@
 import { Road } from './road.js';
-import { onVehicleLoad, Vehicle } from './vehicle.js';
+import { carSort, onVehicleLoad, Vehicle } from './vehicle.js';
 import { variables, vehicleObjects } from './utils.js';
 import { initTerrainDraw } from './height.js';
 import { createCarPath, getPath } from './path.js';
@@ -242,10 +242,8 @@ export default class Scene {
             const promises = [];
 
             const objs = vehicleObjects;
-            objs.sort((v1, v2) => {
-                return v1.order - v2.order;
-            });
-console.warn(objs)
+            objs.sort(carSort);
+
             objs.forEach((obj, i) => {
                 const vehicle = new Vehicle(this.scene, this.camera);
 

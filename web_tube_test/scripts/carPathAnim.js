@@ -37,6 +37,19 @@ export class CarPathAnim {
         carTimeline.repeat(0);
         carTimeline.pause();
 
+        // chart point for each roadPathPoint
+        const chartName = variables.chartCars[carNumber].name;
+        const chartIndexes = [];
+        const allChartPoints = variables.chartCars[carNumber].data;
+        const step = (allChartPoints.length - 1) / (variables.totalPathPoints);
+
+        for (let i = 0; i < variables.totalPathPoints; i++) {
+            const index = Math.round(step * i);
+            chartIndexes.push(index);
+        }
+
+        chartIndexes.push(allChartPoints.length - 1);
+
         // speed to path
         for (let p = 0; p < roadPathPoints.length; p += variables.skipFrames) {
             const speedAtTime = framePath.getPointAt(p / roadPathPoints.length).y;
@@ -48,7 +61,24 @@ export class CarPathAnim {
                 y: point.y,
                 z: point.z,
                 duration
-            }, 'point' + p);
+            }, 'point' + p).call(() => {
+                $(`.c3-shapes-${chartName} circle.c3-shape-${chartIndexes[p]}`).animate({
+                    r: 2.5
+                }, {
+                    duration: 400,
+                    step: (now) => {
+                        $(this).attr('r', now);
+                    }
+                });
+                $(`.c3-shapes-${chartName} circle.c3-shape-${chartIndexes[(p + variables.skipFrames) % variables.totalPathPoints]}`).animate({
+                    r: 9
+                }, {
+                    duration: duration,
+                    step: (now) => {
+                        $(this).attr('r', now);
+                    }
+                });
+            });
 
 
             const rotation = BABYLON.Vector3.RotationFromAxis(normals[p], binormals[p], tangents[p]);

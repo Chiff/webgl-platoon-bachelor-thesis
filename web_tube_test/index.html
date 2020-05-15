@@ -17,35 +17,35 @@
 <body>
 
 <form id="inputForm">
-    <h2>Setup</h2>
+    <h2>INTERAKTÍVNY WEBGL MODEL AUTOMOBILU V KOLÓNE</h2>
     <div class="input-group">
         <label for="selectPath">Cesta</label>
         <select id="selectPath" name="url"></select>
     </div>
     <div class="input-group">
-        <label for="dist">Ziadana vzdialenost <span class="small">min: 1.0, max: 15.0</span></label>
+        <label for="dist">Odstup vozidiel <span class="small">min: 1.0, max: 15.0</span></label>
         <input type="number" min="1" max="15" step="0.01" id="dist" name="dist" value="1">
     </div>
     <div class="input-group">
-        <label for="simScale">Override sim time scale <span class="small">0: off, max: 10.00</span></label>
+        <label for="simScale">Zrýchlenie animácie <span class="small">vypnuté: 0.00, max: 10.00</span></label>
         <input type="number" min="0" max="10" step="0.01" id="simScale" name="simScale" value="0">
     </div>
     <div class="input-group">
-        <label for="offlineMode">Offline mode</label>
+        <label for="offlineMode">Offline mód</label>
         <select id="offlineMode" name="offlineMode">
             <option value="false" selected>false</option>
             <option value="true">true</option>
         </select>
     </div>
     <div class="input-group">
-        <label for="debug">Debug info</label>
+        <label for="debug">Debug mód</label>
         <select id="debug" name="debug">
-            <option value="false" selected>false</option>
-            <option value="true">true</option>
+            <option value="false" selected>Vypnutý</option>
+            <option value="true">Zapnutý</option>
         </select>
     </div>
     <div class="input-group">
-        <span><input type="submit" value="Run simulation"></span>
+        <span><input type="submit" value="Spustiť simuláciu"></span>
     </div>
 </form>
 
@@ -59,6 +59,7 @@
         <div class="controls">
             <button onclick="restart()">Nova simulacia</button>
             <button onclick="freeCam()">Reset camera</button>
+            <button onclick="defocus()">Defocus</button>
         </div>
         <img id="imgSave" alt="ctx" width="256" height="256">
         <canvas id="terrain" style="width: 256px; height: 256px;"></canvas>

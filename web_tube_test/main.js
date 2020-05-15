@@ -1,5 +1,5 @@
 import Scene from './scripts/scene.js';
-import { availablePaths, getFormData } from './scripts/utils.js';
+import { availablePaths, getFormData, variables } from './scripts/utils.js';
 import { resetCameraPositon } from './scripts/camera.js';
 
 const loadPaths = () => {
@@ -30,6 +30,7 @@ $('#inputForm').submit(function (e) {
     $.get(params.url, function (e) {
         params.pathSettings = e;
         window.SCENE = new Scene(params);
+        window.vars = variables;
     });
 
     return false;
@@ -37,3 +38,4 @@ $('#inputForm').submit(function (e) {
 
 window.freeCam = resetCameraPositon;
 window.restart = () => location.reload();
+window.defocus = () => variables.chart.focus(variables.chartCars.map(e => e.name))

@@ -1,6 +1,5 @@
 export const variables = {
     mapDimension: 512,
-    chartId: '#chart',
 
     dist: null,
     simScale: null,
@@ -42,7 +41,11 @@ export const variables = {
             x: null,
             y: null
         }
-    }
+    },
+
+    chartId: '#chart',
+    chart: null,
+    chartCars: null
 };
 
 export const availablePaths = [{
@@ -61,6 +64,7 @@ export const vehicleObjects = [{
     vehicleID: 'lambo',
     folder: 'assets/lambo/',
     file: 'lambo.babylon',
+    chartColor: '#ff0000',
     order: 4,
     editMesh: (mesh) => {
         mesh.position.y -= 20;
@@ -71,6 +75,7 @@ export const vehicleObjects = [{
     vehicleID: 'transporter',
     folder: 'assets/transporter/',
     file: 'transporter.babylon',
+    chartColor: '#00ff00',
     order: 3,
     editMesh: (mesh) => {
         mesh.position.y -= 20;
@@ -81,6 +86,7 @@ export const vehicleObjects = [{
     vehicleID: 'bus',
     folder: 'assets/bus/',
     file: 'bus.babylon',
+    chartColor: '#0000ff',
     order: 1,
     editMesh: (mesh) => {
         mesh.position.y -= 20;
@@ -91,6 +97,7 @@ export const vehicleObjects = [{
     vehicleID: 'truck',
     folder: 'assets/truck/',
     file: 'truck2.babylon',
+    chartColor: '#ffa500',
     order: 2,
     editMesh: (mesh) => {
         mesh.position.y -= 20;

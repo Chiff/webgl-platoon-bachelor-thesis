@@ -1,4 +1,5 @@
-import { variables } from './utils.js';
+import { variables, vehicleObjects } from './utils.js';
+import { carSort } from './vehicle.js';
 
 export let SIMULATION_DATA = {
     frames: -1,
@@ -63,26 +64,30 @@ export const loadData = () => new Promise(resolve => {
 });
 
 const drawChart = (data) => {
-    console.warn(data);
+    // console.warn(data);
 
     const points = Object.values(data.points);
-    const xp = [], c1p = [], c2p = [], c3p = [], c4p = [];
+    const xp = [];
+
+    variables.chartCars = vehicleObjects.map(e => ({name: e.vehicleID, color: e.chartColor, order: e.order, data: []}));
+    variables.chartCars.sort(carSort);
+
 
     for (let i = 0; i < points.length; i += variables.skipFrames) {
         xp.push(i.toString());
-        c1p.push(parseFloat(points[i][0].toFixed(2)));
-        c2p.push(parseFloat(points[i][1].toFixed(2)));
-        c3p.push(parseFloat(points[i][2].toFixed(2)));
-        c4p.push(parseFloat(points[i][3].toFixed(2)));
+        variables.chartCars[0].data.push(parseFloat(points[i][0].toFixed(2)));
+        variables.chartCars[1].data.push(parseFloat(points[i][1].toFixed(2)));
+        variables.chartCars[2].data.push(parseFloat(points[i][2].toFixed(2)));
+        variables.chartCars[3].data.push(parseFloat(points[i][3].toFixed(2)));
     }
 
     const x = ['x', ...xp];
-    const car1 = ['car1', ...c1p];
-    const car2 = ['car2', ...c2p];
-    const car3 = ['car3', ...c3p];
-    const car4 = ['car4', ...c4p];
+    const car1 = [variables.chartCars[0].name, ...variables.chartCars[0].data];
+    const car2 = [variables.chartCars[1].name, ...variables.chartCars[1].data];
+    const car3 = [variables.chartCars[2].name, ...variables.chartCars[2].data];
+    const car4 = [variables.chartCars[3].name, ...variables.chartCars[3].data];
 
-    window.c = c3.generate({
+    variables.chart = c3.generate({
         bindto: variables.chartId,
         size: {
             height: 200
@@ -92,10 +97,10 @@ const drawChart = (data) => {
             columns: [x, car1, car2, car3, car4],
             type: 'spline',
             colors: {
-                car1: '#ff0000',
-                car2: '#00ff00',
-                car3: '#0000ff',
-                car4: '#ffa500'
+                [variables.chartCars[0].name]: variables.chartCars[0].color,
+                [variables.chartCars[1].name]: variables.chartCars[1].color,
+                [variables.chartCars[2].name]: variables.chartCars[2].color,
+                [variables.chartCars[3].name]: variables.chartCars[3].color
             }
         },
         axis: {
@@ -214,7 +219,27 @@ const acquireLock = (SIMULINK_FILE) => new Promise((resolve, reject) => {
     }).catch(e => reject(e));
 });
 
-// $.ajax({type:'POST', url: 'https://147.175.121.229/api/simulink/block/set-param', data: {block:'bounce/Memory', param: 'InitialCondition', value: 0, api_key: 'a2efddcf-adfc-484f-a17b-5c3d676cacb6'}})
+// https://www.mathworks.com/matlabcentral/answers/330745-matlab-engine-api-for-python-changing-parameters-of-the-running-simulation
+// http://www.ece.northwestern.edu/local-apps/matlabhelp/toolbox/simulink/slref/set_param.html
+
+// $.ajax({
+//     type: 'POST',
+//     url: 'https://147.175.121.229/api/simulink/block/set-param',
+//     data: {
+//         block: "1",
+//         param: "Value",
+//         value: "-3",
+//         api_key: 'a2efddcf-adfc-484f-a17b-5c3d676cacb6'
+//     }
+// });
+
+// WS TEST
+// api_key: "a2efddcf-adfc-484f-a17b-5c3d676cacb6"
+// block_to_change: 1
+// command: "set_param"
+// param: "Value"
+// ret_vals: ["Position"]
+// value: "-3"
 const setParam = (SIMULINK_FILE, block, param, value) => new Promise((resolve, reject) => {
     const data = {
         api_key: variables.serverInfo.api_key,

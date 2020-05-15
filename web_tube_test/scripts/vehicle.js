@@ -18,7 +18,7 @@ export class Vehicle {
         };
     }
 
-    load(meshID,vehicleID, objFolder, objFile, customizeMesh) {
+    load(meshID, vehicleID, objFolder, objFile, customizeMesh) {
         this.meshID = meshID;
         this.vehicleID = vehicleID;
 
@@ -76,18 +76,17 @@ export class Vehicle {
         if (otherCars) {
             this.otherCars = otherCars;
 
-            const MAGIC_MULTIPLIER = 7.5
+            const MAGIC_MULTIPLIER = 7.5;
             const goal = (otherCars.length - i - 1) * variables.dist * MAGIC_MULTIPLIER;
             const possibleStartingPoints = [];
             for (let i = 0; i < variables.totalPathPoints; i += variables.skipFrames) {
                 possibleStartingPoints.push(i);
             }
 
-            const closest = possibleStartingPoints.reduce(function(prev, curr) {
+            const closest = possibleStartingPoints.reduce(function (prev, curr) {
                 return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
             });
 
-            console.warn(closest, goal, variables.skipFrames);
             this.anim.carTimeline.seek('point' + closest);
         }
     }
@@ -117,12 +116,7 @@ export class Vehicle {
             this.anim.speedLine.color = new BABYLON.Color3(255, 0, 0);
         }
 
-        this.otherCars.forEach((car, i) => {
-            const $car = $(`${variables.chartId} .c3-line-car${i + 1}`);
-
-            $car.css('stroke-width', this.vehicleID === car.vehicleID ? '5px' : '1px');
-            $car.css('z-index', this.vehicleID === car.vehicleID ? '9999' : '1');
-        });
+        variables.chart.focus(this.vehicleID)
     }
 }
 
@@ -134,4 +128,8 @@ export const onVehicleLoad = (vehicle, obj, i, carPathAnim, isDebug) => {
     $('#' + obj.vehicleID).click(() => {
         vehicle.focusCar();
     });
+};
+
+export const carSort = (v1, v2) => {
+    return v1.order - v2.order;
 };
