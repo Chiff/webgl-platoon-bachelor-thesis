@@ -116,7 +116,7 @@ export class Vehicle {
             this.anim.speedLine.color = new BABYLON.Color3(255, 0, 0);
         }
 
-        variables.chart.focus(this.vehicleID)
+        variables.chart.focus(this.vehicleID);
     }
 }
 

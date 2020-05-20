@@ -59,51 +59,59 @@ export const availablePaths = [{
     url: 'assets/okruh.json'
 }];
 
-export const vehicleObjects = [{
-    meshID: 'lambo',
-    vehicleID: 'lambo',
-    folder: 'assets/lambo/',
-    file: 'lambo.babylon',
-    chartColor: '#ff0000',
-    order: 4,
-    editMesh: (mesh) => {
-        mesh.position.y -= 20;
-        mesh.scaling = new BABYLON.Vector3(1, 1, 1);
+export const vehicleObjects = [
+    {
+        meshID: 'lambo',
+        vehicleID: 'lambo',
+        folder: 'assets/lambo/',
+        file: 'lambo.babylon',
+        chartColor: '#ff0000',
+        order: 4,
+        editMesh: (mesh, scene) => {
+            mesh.position.y -= 20;
+            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
+            // scene.getMaterialByName('lambo.Body').diffuseColor.r = 0;
+
+            console.log(mesh)
+        }
+    },
+    {
+        meshID: 'transporter',
+        vehicleID: 'transporter',
+        folder: 'assets/transporter/',
+        file: 'transporter.babylon',
+        chartColor: '#00ff00',
+        order: 3,
+        editMesh: (mesh, scene) => {
+            mesh.position.y -= 20;
+            mesh.scaling = new BABYLON.Vector3(0.92, 0.92, 0.92);
+        }
+    },
+    {
+        meshID: 'bus',
+        vehicleID: 'bus',
+        folder: 'assets/bus/',
+        file: 'bus.babylon',
+        chartColor: '#0000ff',
+        order: 1,
+        editMesh: (mesh, scene) => {
+            mesh.position.y -= 20;
+            mesh.scaling = new BABYLON.Vector3(1.05, 1.05, 1.05);
+        }
+    },
+    {
+        meshID: 'truck',
+        vehicleID: 'truck',
+        folder: 'assets/truck/',
+        file: 'truck2.babylon',
+        chartColor: '#ffa500',
+        order: 2,
+        editMesh: (mesh, scene) => {
+            mesh.position.y -= 20;
+            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
+        }
     }
-}, {
-    meshID: 'transporter',
-    vehicleID: 'transporter',
-    folder: 'assets/transporter/',
-    file: 'transporter.babylon',
-    chartColor: '#00ff00',
-    order: 3,
-    editMesh: (mesh) => {
-        mesh.position.y -= 20;
-        mesh.scaling = new BABYLON.Vector3(0.92, 0.92, 0.92);
-    }
-}, {
-    meshID: 'bus',
-    vehicleID: 'bus',
-    folder: 'assets/bus/',
-    file: 'bus.babylon',
-    chartColor: '#0000ff',
-    order: 1,
-    editMesh: (mesh) => {
-        mesh.position.y -= 20;
-        mesh.scaling = new BABYLON.Vector3(1.05, 1.05, 1.05);
-    }
-}, {
-    meshID: 'truck',
-    vehicleID: 'truck',
-    folder: 'assets/truck/',
-    file: 'truck2.babylon',
-    chartColor: '#ffa500',
-    order: 2,
-    editMesh: (mesh) => {
-        mesh.position.y -= 20;
-        mesh.scaling = new BABYLON.Vector3(1, 1, 1);
-    }
-}];
+];
 
 BABYLON.Mesh.prototype.createSurfacePoints = function (pointDensity) {
     const positions = this.getVerticesData(BABYLON.VertexBuffer.PositionKind);
