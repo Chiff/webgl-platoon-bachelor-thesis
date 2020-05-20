@@ -62,22 +62,8 @@ export class CarPathAnim {
                 z: point.z,
                 duration
             }, 'point' + p).call(() => {
-                $(`.c3-shapes-${chartName} circle.c3-shape-${chartIndexes[p]}`).animate({
-                    r: 2.5
-                }, {
-                    duration: 400,
-                    step: (now) => {
-                        $(this).attr('r', now);
-                    }
-                });
-                $(`.c3-shapes-${chartName} circle.c3-shape-${chartIndexes[(p + variables.skipFrames) % variables.totalPathPoints]}`).animate({
-                    r: 9
-                }, {
-                    duration: duration,
-                    step: (now) => {
-                        $(this).attr('r', now);
-                    }
-                });
+                $(`.c3-shapes-${chartName} circle.c3-shape-${chartIndexes[p]}`).attr('r', variables.chartCircleSize);
+                $(`.c3-shapes-${chartName} circle.c3-shape-${chartIndexes[(p + variables.skipFrames) % variables.totalPathPoints]}`).attr('r', variables.chartCircleSizeActive);
             });
 
 

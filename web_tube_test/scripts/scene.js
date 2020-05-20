@@ -96,6 +96,21 @@ export default class Scene {
         ground.material = groundMaterial;
         ground.isPickable = false;
 
+        const backGround = BABYLON.MeshBuilder.CreateGround('backGround', {
+            width: 5 * variables.mapDimension,
+            height: 5 * variables.mapDimension,
+            subdivisions: 1
+        }, this.scene);
+
+        const backGroundMaterial = groundMaterial.clone('backGroundMaterial');
+        backGroundMaterial.ambientTexture.uScale = 50 * 5;
+        backGroundMaterial.ambientTexture.vScale = 50 * 5;
+
+        backGround.material = backGroundMaterial;
+        backGround.isPickable = false;
+        backGround.position.y = -0.1
+
+        groundMaterial.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
         this.ground = ground;
     }
 

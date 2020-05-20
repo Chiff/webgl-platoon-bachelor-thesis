@@ -11,7 +11,7 @@ export const variables = {
 
     debug: false,
     cameraSettings: {
-        upperLimit: 1200,
+        upperLimit: 300,
         lowerLimit: 0
     },
 
@@ -44,6 +44,8 @@ export const variables = {
     },
 
     chartId: '#chart',
+    chartCircleSize: 2,
+    chartCircleSizeActive: 10,
     chart: null,
     chartCars: null
 };

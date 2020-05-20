@@ -119,6 +119,8 @@ const drawChart = (data) => {
             }
         }
     });
+
+    $(`circle.c3-circle`).attr('r', variables.chartCircleSize)
 };
 
 export const getVehicle = (number) => Object.values(SIMULATION_DATA.points).map(e => e[number]);
