@@ -50,7 +50,8 @@ export class Vehicle {
         this.meshes.krl = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_rl'))[0];
         this.meshes.krr = this.meshes.body.getChildMeshes(true, (node) => node.id.includes('_koleso_rr'))[0];
 
-        const wheelSize = this.meshes.kfl.getBoundingInfo().boundingBox.extendSize.y * this.meshes.body.scaling.y * this.meshes.kfl.scaling.y;
+        const WHEEL_SIZE_CORRECTION = 0.05;
+        const wheelSize = this.meshes.kfl.getBoundingInfo().boundingBox.extendSize.y * this.meshes.body.scaling.y * this.meshes.kfl.scaling.y + WHEEL_SIZE_CORRECTION;
 
         vehicle.position.x = carPath[0].x;
         vehicle.position.y = carPath[0].y;
@@ -120,7 +121,7 @@ export class Vehicle {
     }
 }
 
-export const onVehicleLoad = (vehicle, obj, i, carPathAnim, isDebug) => {
+export const onVehicleLoad = (vehicle, obj, i, carPathAnim) => {
     vehicle.addFollowPath(carPathAnim, i);
     const $controls = $('.controls');
 

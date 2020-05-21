@@ -15,7 +15,6 @@ export const createCamera = (myScene) => {
     }
 
     camera.allowUpsideDown = false;
-    // camera.maxZ = 150;
 
     myScene.camera = camera;
 };

@@ -1,6 +1,6 @@
-import Scene from './scripts/scene.js';
 import { availablePaths, getFormData, variables } from './scripts/utils.js';
 import { resetCameraPositon } from './scripts/camera.js';
+import Simulation from './scripts/simulation.js';
 
 const loadPaths = () => {
     availablePaths.forEach(json => {
@@ -29,7 +29,7 @@ $('#inputForm').submit(function (e) {
     const params = getFormData($this);
     $.get(params.url, function (e) {
         params.pathSettings = e;
-        window.SCENE = new Scene(params);
+        window.SCENE = new Simulation(params);
         window.vars = variables;
     });
 

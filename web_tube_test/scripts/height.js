@@ -31,12 +31,6 @@ export function initTerrainDraw(scene, path) {
     ctx.scale(variables.pathInfo.scale.x, variables.pathInfo.scale.y);
 
     for (let i = 0; i < points.length - 1; i += 2) {
-        // debug bodov
-        // var box1 = BABYLON.MeshBuilder.CreateBox('box', {height: 5}, scene);
-        // box1.position = new BABYLON.Vector3(points[i].x, points[i].y, points[i].z);
-        // var box2 = BABYLON.MeshBuilder.CreateBox('box', {height: 5}, scene);
-        // box2.position = new BABYLON.Vector3(points[i + 1].x, points[i + 1].y, points[i + 1].z);
-
         ctx.moveTo(points[i].x, points[i].z);
         ctx.lineTo(points[i + 1].x, points[i + 1].z);
     }
@@ -46,6 +40,7 @@ export function initTerrainDraw(scene, path) {
     document.getElementById('imgSave').src = mapCanvas.toDataURL();
     $('#terrain').hide();
 
-    if (!variables.debug)
+    if (!variables.debug) {
         $('#imgSave').hide();
+    }
 }
