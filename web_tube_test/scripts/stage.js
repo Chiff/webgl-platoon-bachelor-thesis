@@ -19,17 +19,20 @@ export const createGround = (simulation) => {
         groundMaterial.wireframe = true;
     }
 
-    const ground = BABYLON.Mesh.CreateGroundFromHeightMap(
-        'ground',
-        document.getElementById('imgSave').src,
-        variables.mapDimension, variables.mapDimension, 200, 0, 5,
-        simulation.scene,
-        false
-    );
-    // myGround.rotation.y +=  Math.PI;
-    ground.diffuseColor = BABYLON.Color3.Black();
-    ground.material = groundMaterial;
-    ground.isPickable = false;
+    let ground = null
+    if (!variables.lowPerformance) {
+        ground = BABYLON.Mesh.CreateGroundFromHeightMap(
+            'ground',
+            document.getElementById('imgSave').src,
+            variables.mapDimension, variables.mapDimension, 200, 0, 5,
+            simulation.scene,
+            false
+        );
+        // myGround.rotation.y +=  Math.PI;
+        ground.diffuseColor = BABYLON.Color3.Black();
+        ground.material = groundMaterial;
+        ground.isPickable = false;
+    }
 
     const backGround = BABYLON.MeshBuilder.CreateGround('backGround', {
         width: variables.mapDimension * 2,
@@ -46,7 +49,7 @@ export const createGround = (simulation) => {
     backGround.position.y = -0.1;
 
     groundMaterial.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
-    simulation.ground = ground;
+    simulation.ground = ground || backGround;
 }
 
 

@@ -62,7 +62,10 @@ export default class Simulation {
             textureOffset: {x: 0.89, y: 0},
             showCurve: variables.debug
         });
-        createVegetation(this.scene);
+
+        if (!variables.lowPerformance) {
+            createVegetation(this.scene);
+        }
     }
 
     createSkyBox() {
@@ -127,6 +130,7 @@ export default class Simulation {
         variables.pathInfo.scale = params.pathSettings.scale || {x: 1, y: 1};
         variables.pathInfo.timeScale = params.pathSettings.timeScale || 1;
         variables.debug = params.debug == 'true';
+        variables.lowPerformance = params.lowPerformance == 'true';
 
         variables.dist = params.dist || 20;
         variables.simScale = params.simScale || 0;

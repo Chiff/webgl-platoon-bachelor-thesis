@@ -8,6 +8,7 @@ export const variables = {
     startFrames: 50,
     skipFrames: 2,
     distByFrame: 10,
+    lowPerformance: false,
 
     debug: false,
     maxCanvasHeight: 600,
@@ -49,7 +50,7 @@ export const variables = {
     chartCircleSize: 2,
     chartCircleSizeActive: 10,
     chart: null,
-    chartCars: null,
+    chartCars: null
 };
 
 export const availablePaths = [{
@@ -76,7 +77,7 @@ export const vehicleObjects = [
             mesh.scaling = new BABYLON.Vector3(1, 1, 1);
             // scene.getMaterialByName('lambo.Body').diffuseColor.r = 0;
 
-            console.log(mesh)
+            console.log(mesh);
         }
     },
     {
