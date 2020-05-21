@@ -7,21 +7,12 @@ export let SIMULATION_DATA = {
     points: []
 };
 
-// export const MATLAB_FILES = {
-//     INIT: {filename: 'Ch5_cfparams2.m', returnValue: 'G,L'},
-//     SET_PARAMS: {filename: 'init2.m', returnValue: 'acc'}
-// };
-//
-// export const MATLAB_SCRIPTS = {
-//     setDistance: (number) => ({command: `G = ${parseFloat(number)}`, returnValue: 'G'})
-// };
-
 export const SIMULINK_FILES = {
     PLATOON: {filename: 'platoon1h', returnValue: 'speeds'},
     BOUNCE: {filename: 'bounce', returnValue: 'Position'}
 };
 
-// promise result is ignored
+// promise result is ignored rn
 export const loadData = () => new Promise(resolve => {
     if (variables.offlineMode) {
         return $.get(variables.offlineDataPath, function (data) {
@@ -64,8 +55,6 @@ export const loadData = () => new Promise(resolve => {
 });
 
 const drawChart = (data) => {
-    // console.warn(data);
-
     const points = Object.values(data.points);
     const xp = [];
 
@@ -159,34 +148,6 @@ const parseData = (data) => {
 
     return SIMULATION_DATA;
 };
-
-// const runFile = (MATLAB_FILE) => new Promise((resolve, reject) => {
-//     $.ajax({
-//         url: variables.serverInfo.url + variables.serverInfo.paths.RUN_FILE.api,
-//         type: variables.serverInfo.paths.RUN_FILE.type,
-//         data: {
-//             api_key: variables.serverInfo.api_key,
-//             file_name: MATLAB_FILE.filename,
-//             ret_vals: MATLAB_FILE.returnValue
-//         },
-//         success: resolve,
-//         error: reject
-//     });
-// });
-
-// const runScript = (MATLAB_SCRIPT) => new Promise((resolve, reject) => {
-//     $.ajax({
-//         url: variables.serverInfo.url + variables.serverInfo.paths.RUN_SCRIPT.api,
-//         type: variables.serverInfo.paths.RUN_SCRIPT.type,
-//         data: {
-//             api_key: variables.serverInfo.api_key,
-//             script: MATLAB_SCRIPT.command,
-//             ret_vals: MATLAB_SCRIPT.returnValue
-//         },
-//         success: resolve,
-//         error: reject
-//     });
-// });
 
 const runSimulink = (SIMULINK_OPERATION, SIMULINK_FILE) => new Promise((resolve, reject) => {
     const data = {

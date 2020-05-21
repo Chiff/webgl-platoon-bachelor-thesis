@@ -55,7 +55,7 @@ export default class Scene {
         this.scene = new BABYLON.Scene(this.engine);
         // this.scene.createDefaultEnvironment();
 
-        const light = new BABYLON.HemisphericLight('hemi', new BABYLON.Vector3(0, 50, 0), this.scene);
+        new BABYLON.HemisphericLight('hemi', new BABYLON.Vector3(0, 50, 0), this.scene);
 
         this.createGround();
         this.road = new Road({
@@ -83,6 +83,10 @@ export default class Scene {
         groundMaterial.ambientTexture.uScale = 50;
         groundMaterial.ambientTexture.vScale = 50;
 
+        if (variables.debug) {
+            groundMaterial.wireframe = true;
+        }
+
         // TODO - 19.4.2019 - create ground with smaller `mapDimension`
         const ground = BABYLON.Mesh.CreateGroundFromHeightMap(
             'ground',
@@ -97,18 +101,18 @@ export default class Scene {
         ground.isPickable = false;
 
         const backGround = BABYLON.MeshBuilder.CreateGround('backGround', {
-            width: 5 * variables.mapDimension,
-            height: 5 * variables.mapDimension,
+            width: variables.mapDimension * 2,
+            height: variables.mapDimension * 2,
             subdivisions: 1
         }, this.scene);
 
         const backGroundMaterial = groundMaterial.clone('backGroundMaterial');
-        backGroundMaterial.ambientTexture.uScale = 50 * 5;
-        backGroundMaterial.ambientTexture.vScale = 50 * 5;
+        backGroundMaterial.ambientTexture.uScale = 50 * 2;
+        backGroundMaterial.ambientTexture.vScale = 50 * 2;
 
         backGround.material = backGroundMaterial;
         backGround.isPickable = false;
-        backGround.position.y = -0.1
+        backGround.position.y = -0.1;
 
         groundMaterial.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
         this.ground = ground;
@@ -229,20 +233,8 @@ export default class Scene {
         });
     }
 
-    createCamera() {
-        const camera = new BABYLON.ArcRotateCamera('Camera', CAMERA_ALPHA, CAMERA_BETA, CAMERA_RADIUS, new BABYLON.Vector3(2, 1, -12), this.scene);
-        camera.attachControl(this.canvas, true);
-
-        camera.upperRadiusLimit = variables.cameraSettings.upperLimit;
-        camera.lowerRadiusLimit = variables.cameraSettings.lowerLimit;
-        camera.allowUpsideDown = false;
-        // camera.maxZ = 150;
-
-        this.camera = camera;
-    }
-
     createSkyBox() {
-        var skybox = BABYLON.MeshBuilder.CreateBox('skyBox', {size: 1000.0}, this.scene);
+        var skybox = BABYLON.MeshBuilder.CreateBox('skyBox', {size: variables.mapDimension * 2}, this.scene);
         var skyboxMaterial = new BABYLON.StandardMaterial('skyBox', this.scene);
         skyboxMaterial.backFaceCulling = false;
         skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture('assets/skybox/skybox', this.scene);
@@ -318,7 +310,7 @@ export default class Scene {
         this.canvas = document.getElementById('renderCanvas');
 
         const w = window.innerWidth;
-        this.canvas.style.height = ((w / 2) - 50) + 'px';
-        this.canvas.style.width = w + 'px';
+        this.canvas.style.height = Math.min((w / 2) - 50, variables.maxCanvasHeight) + 'px';
+        this.canvas.style.width = Math.min(w, variables.maxCanvasWidth) + 'px';
     }
 }

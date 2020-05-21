@@ -10,6 +10,8 @@ export const variables = {
     distByFrame: 10,
 
     debug: false,
+    maxCanvasHeight: 600,
+    maxCanvasWidth: 1200,
     cameraSettings: {
         upperLimit: 300,
         lowerLimit: 0
@@ -47,7 +49,7 @@ export const variables = {
     chartCircleSize: 2,
     chartCircleSizeActive: 10,
     chart: null,
-    chartCars: null
+    chartCars: null,
 };
 
 export const availablePaths = [{

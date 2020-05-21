@@ -53,8 +53,9 @@ canvas {
 
 #container {
     top: 50%;
+    left: 50%;
     position: absolute;
-    transform: translateY(-50%)
+    transform: translate(-50%, -50%)
 }
 
 .input-group * {
@@ -63,15 +64,16 @@ canvas {
 
 .input-group > :first-child {
     margin-bottom: 5px;
-    display: block
+    text-align: left;
+    display: block;
+    color: #333;
 }
 
 .input-group input[type=submit], .input-group > :nth-child(2), button {
-    border: 2px solid transparent;
+    border: 2px solid #333;
     padding: 6px 14px;
-    background: #888;
     border-radius: 4px;
-    color: #fff
+    color: #333
 }
 
 .input-group input[type=submit], .input-group > :nth-child(2) {
@@ -86,9 +88,9 @@ canvas {
 }
 
 .input-group input[type=submit], button:hover {
-    border: 2px solid #fff;
-    background: #fff;
-    color: #333
+    border: 2px solid #333;
+    background: #333;
+    color: white;
 }
 
 .input-group input[type=submit]:hover {
@@ -119,6 +121,12 @@ button + button {
     right: 0;
     background: #333;
     z-index: 999
+}
+
+#inputForm {
+    padding: 20px 20px 0;
+    background: #f1f1f1;
+    border: 1px solid #333;
 }
 
 #inputForm, #loading .loader {
@@ -237,4 +245,88 @@ button + button {
 
 .c3-tooltip td {
     color: #222;
+}
+
+/* Cool infinite background scrolling animation. Twitter: @kootoopas  https://codepen.io/kootoopas/pen/reyqg*/
+@import url(https://fonts.googleapis.com/css?family=Exo:100);
+@-webkit-keyframes bg-scrolling-reverse {
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+@-moz-keyframes bg-scrolling-reverse {
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+@-o-keyframes bg-scrolling-reverse {
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+@keyframes bg-scrolling-reverse {
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+@-webkit-keyframes bg-scrolling {
+    0% {
+        background-position: 50px 50px;
+    }
+}
+
+@-moz-keyframes bg-scrolling {
+    0% {
+        background-position: 50px 50px;
+    }
+}
+
+@-o-keyframes bg-scrolling {
+    0% {
+        background-position: 50px 50px;
+    }
+}
+
+@keyframes bg-scrolling {
+    0% {
+        background-position: 50px 50px;
+    }
+}
+
+body {
+    width: 100vw;
+    height: calc(100vh - 1rem);
+    color: #999;
+    padding-top: 1rem;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC") repeat 0 0;
+    -webkit-animation: bg-scrolling-reverse .92s infinite;
+    -moz-animation: bg-scrolling-reverse .92s infinite;
+    -o-animation: bg-scrolling-reverse .92s infinite;
+    animation: bg-scrolling-reverse .92s infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+    text-align: center;
+}
+
+body::before {
+    content: "INTERAKTÍVNY WEBGL MODEL AUTOMOBILU V KOLÓNE";
+    font-size: 2rem;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.main {
+    position: relative;
+}
+
+#imgSave {
+    position: absolute;
+    bottom: 8px;
+    left: 5px;
 }
