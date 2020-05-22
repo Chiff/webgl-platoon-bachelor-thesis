@@ -84,8 +84,10 @@ export default class Simulation {
         });
 
         if (!variables.lowPerformance) {
-            this.shadowGenerator = new BABYLON.ShadowGenerator(8126, this.light);
+            this.shadowGenerator = new BABYLON.ShadowGenerator(8192, this.light);
             this.shadowGenerator.useExponentialShadowMap = true;
+            this.shadowGenerator.useBlurExponentialShadowMap = true;
+            this.shadowGenerator.blurScale = 1;
             this.shadowGenerator.filteringQuality = BABYLON.ShadowGenerator.QUALITY_HIGH;
 
             this.ground.receiveShadows = true;
