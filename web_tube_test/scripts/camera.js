@@ -1,5 +1,10 @@
 import { variables } from './utils.js';
 
+// Think of this camera as one orbiting its target position, or more imaginatively as a spy satellite orbiting the earth.
+// Its position relative to the target (earth) can be set by three parameters, alpha (radians) the longitudinal rotation,
+// beta (radians) the latitudinal rotation and radius the distance from the target position
+
+// https://d33wubrfki0l68.cloudfront.net/17c747459f49f7cdb9986e2feba5aac9b5a75a11/432f0/img/how_to/camalphabeta.jpg
 // starting camera rotation
 const CAMERA_ALPHA = 6.49;
 const CAMERA_BETA = 1.28;

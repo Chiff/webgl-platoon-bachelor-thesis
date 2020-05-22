@@ -76,7 +76,7 @@ export class CarPathAnim {
             }, 'point' + p);
 
 
-            const wheelRotation = {x: p * 0.5, duration};
+            const wheelRotation = {x: p, duration};
             carTimeline.to(this.meshes.kfl.rotation, wheelRotation, 'point' + p);
             carTimeline.to(this.meshes.kfr.rotation, wheelRotation, 'point' + p);
             carTimeline.to(this.meshes.krl.rotation, wheelRotation, 'point' + p);

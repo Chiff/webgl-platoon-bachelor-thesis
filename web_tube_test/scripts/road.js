@@ -22,9 +22,9 @@ export class Road {
      * @param {RoadSettings} settings
      */
     changeSettings(settings) {
+        this.mesh = null;
         this.material = this.createMaterial();
         this.curve = this.createCurve();
-        this.mesh = null;
     }
 
     /**
@@ -36,8 +36,8 @@ export class Road {
         const mat = new BABYLON.StandardMaterial('mat-' + Date.now(), this.settings.scene);
 
         mat.alpha = 1.0;
-        mat.diffuseColor = new BABYLON.Color3(0.5, 0.5, 1.0);
-        mat.specularColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+        mat.diffuseColor = new BABYLON.Color3(1, 1, 1);
+        mat.specularColor = new BABYLON.Color3(0.1, 0.1, 0.1);
         mat.backFaceCulling = false;
 
 

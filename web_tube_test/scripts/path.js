@@ -46,7 +46,3 @@ export function createGroundPath(path, scene) {
     mesh.dispose();
     return result;
 }
-
-export function createCarPath(path) {
-    return path;
-}

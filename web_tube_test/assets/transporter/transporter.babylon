@@ -3191,6 +3191,6 @@
 ],
 "morphTargetManagers":[],
 "cameras":[],
-"lights":[{"name":"Hemi","id":"Hemi","type":3,"direction":[-0.2207,0.6224,0.751],"groundColor":[0,0,0],"intensity":1,"diffuse":[1,1,1],"specular":[1,1,1]}],
+"lights":[],
 "shadowGenerators":[]
 }
