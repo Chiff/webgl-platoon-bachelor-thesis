@@ -77,7 +77,7 @@ export class Vehicle {
         if (otherCars) {
             this.otherCars = otherCars;
 
-            const MAGIC_MULTIPLIER = 7.5;
+            const MAGIC_MULTIPLIER = 8;
             const goal = (otherCars.length - i - 1) * variables.dist * MAGIC_MULTIPLIER;
             const possibleStartingPoints = [];
             for (let i = 0; i < variables.totalPathPoints; i += variables.skipFrames) {

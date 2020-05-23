@@ -1,3 +1,5 @@
+// https://github.com/loktar00/Javascript-Canvas-Terrain-Generator
+// https://stackoverflow.com/a/8405817
 export default function generateTerrainMap(mapDimension, unitSize, roughness) {
     "use strict";
 

@@ -66,7 +66,6 @@ export class CarPathAnim {
                 $(`.c3-shapes-${chartName} circle.c3-shape-${chartIndexes[(p + variables.skipFrames) % variables.totalPathPoints]}`).attr('r', variables.chartCircleSizeActive);
             });
 
-
             const rotation = BABYLON.Vector3.RotationFromAxis(normals[p], binormals[p], tangents[p]);
             carTimeline.to(this.meshes.body.rotation, {
                 x: rotation.x,
@@ -75,6 +74,10 @@ export class CarPathAnim {
                 duration
             }, 'point' + p);
 
+            if (p === 0) {
+                this.meshes.body.rotation = rotation;
+                this.meshes.body.position = point;
+            }
 
             const wheelRotation = {x: p, duration};
             carTimeline.to(this.meshes.kfl.rotation, wheelRotation, 'point' + p);

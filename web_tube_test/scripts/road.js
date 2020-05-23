@@ -53,11 +53,11 @@ export class Road {
 
     createCurve() {
         const curve = new BABYLON.Curve3(this.settings.path);
-        const invisibleMaterial = new BABYLON.Material('invisibleMaterial', this.scene);
+        const invisibleMaterial = new BABYLON.Material('invisibleMaterial', this.settings.scene);
         invisibleMaterial.alpha = 0;
 
         if (this.settings.showCurve)
-            BABYLON.Mesh.CreateLines('line-' + Date.now(), curve.getPoints(), this.scene);
+            BABYLON.Mesh.CreateLines('line-' + Date.now(), curve.getPoints(), this.settings.scene);
 
         const roadShape = [
             new BABYLON.Vector3(-10, 0.05, 0),
@@ -77,7 +77,7 @@ export class Road {
             path: curve.getPoints(),
             sideOrientation: BABYLON.Mesh.DOUBLESIDE,
             updatable: true
-        }, this.scene);
+        }, this.settings.scene);
         this.mesh.material = this.material;
 
         const roadShield = BABYLON.MeshBuilder.ExtrudeShape('roadShield', {
@@ -85,7 +85,7 @@ export class Road {
             path: curve.getPoints(),
             sideOrientation: BABYLON.Mesh.BACKSIDE,
             updatable: true
-        }, this.scene);
+        }, this.settings.scene);
         roadShield.material = invisibleMaterial;
         roadShield.position.y = -2;
 
@@ -94,7 +94,7 @@ export class Road {
             path: curve.getPoints(),
             sideOrientation: BABYLON.Mesh.DOUBLESIDE,
             updatable: true
-        }, this.scene);
+        }, this.settings.scene);
         roadVegetation.material = invisibleMaterial;
         roadVegetation.position.y = -1;
 

@@ -64,11 +64,11 @@ export default class Simulation {
         this.scene = new BABYLON.Scene(this.engine);
 
         this.lightHemi = new BABYLON.HemisphericLight(UNIQUE_LIGHT + 1, new BABYLON.Vector3(0, 50, 0), this.scene);
-        this.lightHemi.intensity = 0.20;
+        this.lightHemi.intensity = 0.50;
 
-        this.light = new BABYLON.DirectionalLight(UNIQUE_LIGHT + 1, new BABYLON.Vector3(-0.5, -1, -0.5), this.scene);
+        this.light = new BABYLON.DirectionalLight(UNIQUE_LIGHT + 2, new BABYLON.Vector3(-0.5, -1, -0.5), this.scene);
         this.light.position = new BABYLON.Vector3(variables.mapDimension, variables.mapDimension, -variables.mapDimension);
-        this.light.intensity = 2.5;
+        this.light.intensity = 2;
 
         this.createSkyBox();
 
