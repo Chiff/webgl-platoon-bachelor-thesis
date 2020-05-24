@@ -7,6 +7,7 @@
 
 # dependencies
 /node_modules
+/web_tube_test/node_modules
 
 # IDEs and editors
 /.idea

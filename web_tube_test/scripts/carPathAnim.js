@@ -87,7 +87,7 @@ export class CarPathAnim {
         }
 
         const customTimeScale = parseFloat(variables.simScale);
-        const MAGIC_AVG_DURATION = 19;
+        const MAGIC_AVG_DURATION = 19; // seconds
         carTimeline.duration(MAGIC_AVG_DURATION * (customTimeScale ? customTimeScale : variables.pathInfo.timeScale));
 
         this.carTimeline = carTimeline;
