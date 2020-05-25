@@ -4,7 +4,7 @@ export const MAP_CANVAS = () => document.getElementById('terrain');
 export const VOX_CANVAS = () => document.getElementById('voxelview');
 
 export function terrainGeneration(settings) {
-    "use strict";
+    'use strict';
     // Set these variables to adjust how the map is generated
     var mapDimension,
         unitSize = 0, // Power of 2
@@ -17,7 +17,7 @@ export function terrainGeneration(settings) {
         mapType = 0,
         map = 0,
         mapCanvas = MAP_CANVAS(),
-        mapCtx = mapCanvas.getContext("2d"),
+        mapCtx = mapCanvas.getContext('2d'),
         voxCanvas = VOX_CANVAS();
 
     // init
@@ -45,7 +45,7 @@ export function terrainGeneration(settings) {
     }
 
     // Draw everything after the terrain vals are generated
-    drawMap(mapDimension, "terrain", map, mapType);
+    drawMap(mapDimension, 'terrain', map, mapType);
 
     if (genShadows) {
         drawShadowMap(mapDimension, sunX, sunY, sunZ);
@@ -96,8 +96,8 @@ export function terrainGeneration(settings) {
 
     //Create Shadowmap
     function drawShadowMap(size, sunPosX, sunPosY, sunHeight) {
-        var shadowCanvas = document.createElement("canvas"),
-            sCtx = shadowCanvas.getContext("2d"),
+        var shadowCanvas = document.createElement('canvas'),
+            sCtx = shadowCanvas.getContext('2d'),
             x = 0, y = 0,
             idx,
             colorFill = {r: 0, g: 0, b: 0, a: 0},
@@ -166,7 +166,7 @@ export function terrainGeneration(settings) {
     // Draw the map
     function drawMap(size, canvasId, mapData, mapType) {
         var canvas = document.getElementById(canvasId),
-            ctx = canvas.getContext("2d"),
+            ctx = canvas.getContext('2d'),
             x = 0,
             y = 0,
             r = 0, g = 0, b = 0, gamma = 500,
@@ -278,7 +278,7 @@ export function terrainGeneration(settings) {
                 r: r,
                 g: g,
                 b: b
-            }
+            };
         }
     }
 }

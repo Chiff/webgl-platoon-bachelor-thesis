@@ -1,4 +1,5 @@
 import { variables } from './utils.js';
+import { ArcRotateCamera, Vector3 } from '@babylonjs/core';
 
 // Think of this camera as one orbiting its target position, or more imaginatively as a spy satellite orbiting the earth.
 // Its position relative to the target (earth) can be set by three parameters, alpha (radians) the longitudinal rotation,
@@ -11,7 +12,7 @@ const CAMERA_BETA = 1.28;
 const CAMERA_RADIUS = 60;
 
 export const createCamera = (myScene) => {
-    const camera = new BABYLON.ArcRotateCamera('Camera', CAMERA_ALPHA, CAMERA_BETA, CAMERA_RADIUS, new BABYLON.Vector3(2, 1, -12), myScene.scene);
+    const camera = new ArcRotateCamera('Camera', CAMERA_ALPHA, CAMERA_BETA, CAMERA_RADIUS, new Vector3(2, 1, -12), myScene.scene);
     camera.attachControl(myScene.canvas, true);
 
     if (!variables.debug) {
@@ -27,7 +28,7 @@ export const createCamera = (myScene) => {
 export const resetCameraPositon = () => {
     const cam = window.SCENE.camera;
 
-    cam.setPosition(new BABYLON.Vector3(15, 10, 0));
+    cam.setPosition(new Vector3(15, 10, 0));
     cam.setTarget(window.SCENE.ground);
     cam.alpha = CAMERA_ALPHA;
     cam.beta = CAMERA_BETA;

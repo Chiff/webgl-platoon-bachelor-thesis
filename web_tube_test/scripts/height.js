@@ -1,6 +1,8 @@
 import { MAP_CANVAS, terrainGeneration } from './terrain/index.js';
 import { createGroundPath } from './path.js';
 import { variables } from './utils.js';
+import { Vector3 } from '@babylonjs/core';
+import $ from 'jquery';
 
 const TERRAIN_SETTINGS = {
     genShadows: false,
@@ -19,7 +21,7 @@ export function initTerrainDraw(scene, path) {
     terrainGeneration(TERRAIN_SETTINGS);
 
     const ratio = variables.mapDimension / TERRAIN_SETTINGS.mapDimension;
-    const points = createGroundPath(path, scene).map(points => new BABYLON.Vector3(points.x / ratio, points.y / ratio, points.z / ratio));
+    const points = createGroundPath(path, scene).map(points => new Vector3(points.x / ratio, points.y / ratio, points.z / ratio));
 
     const mapCanvas = MAP_CANVAS();
     const ctx = mapCanvas.getContext('2d');

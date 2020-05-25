@@ -1,5 +1,9 @@
 import { variables } from './utils.js';
 import { getVehicle } from './data.js';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector.js';
+import { Curve3, Mesh, Path3D } from '@babylonjs/core';
+import gsap from 'gsap';
+import $ from 'jquery';
 
 export class CarPathAnim {
     constructor(path, mesh, speed, scene, carNumber) {
@@ -17,9 +21,9 @@ export class CarPathAnim {
 
     turboAnimation(carNumber) {
         // path
-        const roadPath = new BABYLON.Curve3(this.path);
+        const roadPath = new Curve3(this.path);
         const roadPathPoints = roadPath.getPoints();
-        const path3d = new BABYLON.Path3D(roadPathPoints);
+        const path3d = new Path3D(roadPathPoints);
 
         const tangents = path3d.getTangents();
         const normals = path3d.getNormals();
@@ -27,8 +31,8 @@ export class CarPathAnim {
 
 
         // speeds
-        const frameCurve = new BABYLON.Curve3(getVehicle(carNumber).map((e, i) => new BABYLON.Vector3(i - variables.mapDimension / 2, e, 0)));
-        const framePath = new BABYLON.Path3D(frameCurve.getPoints());
+        const frameCurve = new Curve3(getVehicle(carNumber).map((e, i) => new Vector3(i - variables.mapDimension / 2, e, 0)));
+        const framePath = new Path3D(frameCurve.getPoints());
 
 
         //animation
@@ -66,7 +70,7 @@ export class CarPathAnim {
                 $(`.c3-shapes-${chartName} circle.c3-shape-${chartIndexes[(p + variables.skipFrames) % variables.totalPathPoints]}`).attr('r', variables.chartCircleSizeActive);
             });
 
-            const rotation = BABYLON.Vector3.RotationFromAxis(normals[p], binormals[p], tangents[p]);
+            const rotation = Vector3.RotationFromAxis(normals[p], binormals[p], tangents[p]);
             carTimeline.to(this.meshes.body.rotation, {
                 x: rotation.x,
                 y: rotation.y,
@@ -93,9 +97,9 @@ export class CarPathAnim {
         this.carTimeline = carTimeline;
 
         if (variables.debug) {
-            BABYLON.Mesh.CreateLines('car-path-' + Date.now(), roadPathPoints, this.scene);
-            this.speedLine = BABYLON.Mesh.CreateLines('car-speed-' + Date.now(), frameCurve.getPoints(), this.scene);
-            this.speedLine.scaling = new BABYLON.Vector3((variables.mapDimension) / frameCurve.getPoints().length, 1, 1);
+            Mesh.CreateLines('car-path-' + Date.now(), roadPathPoints, this.scene);
+            this.speedLine = Mesh.CreateLines('car-speed-' + Date.now(), frameCurve.getPoints(), this.scene);
+            this.speedLine.scaling = new Vector3((variables.mapDimension) / frameCurve.getPoints().length, 1, 1);
             this.speedLine.position.x = variables.mapDimension / 4;
         }
     }

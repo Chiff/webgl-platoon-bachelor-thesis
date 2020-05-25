@@ -1,31 +1,43 @@
 {
-  "name": "webgl_simulation",
-  "version": "1.0.0",
-  "description": "Interaktívna simulácia automobilu v kolóne v Babylon.js",
-  "main": "main.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "scripts": {
-    "server": "live-server --port=9090"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Chiff/bakalarka.git"
-  },
-  "keywords": [
-    "SIMULATION",
-    "WEBGL",
-    "BABYLONJS",
-    "SIMULINK"
-  ],
-  "author": "Martin Filo",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Chiff/bakalarka/issues"
-  },
-  "homepage": "http://147.175.121.211/~filo/bp/",
-  "dependencies": {
-    "live-server": "^1.2.1"
-  }
+    "name": "webgl_simulation",
+    "version": "1.0.0",
+    "description": "Interaktívna simulácia automobilu v kolóne v Babylon.js",
+    "main": "main.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "start": "webpack-dev-server --config webpack/webpack.dev.config.js",
+        "build": "webpack --config webpack/webpack.prod.config.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Chiff/bakalarka.git"
+    },
+    "keywords": [
+        "SIMULATION",
+        "WEBGL",
+        "BABYLONJS",
+        "SIMULINK"
+    ],
+    "author": "Martin Filo",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Chiff/bakalarka/issues"
+    },
+    "homepage": "http://147.175.121.211/~filo/bp/",
+    "dependencies": {
+        "@babylonjs/core": "^4.1.0",
+        "c3": "^0.7.15",
+        "gsap": "^3.2.6",
+        "jquery": "^3.5.1"
+    },
+    "devDependencies": {
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.11",
+        "webpack-dev-server": "^3.7.2",
+        "clean-webpack-plugin": "1.0.1",
+        "copy-webpack-plugin": "^5.0.2",
+        "webpack-merge": "^4.2.2"
+    }
 }

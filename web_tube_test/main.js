@@ -1,6 +1,7 @@
 import { availablePaths, getFormData, variables } from './scripts/utils.js';
 import { resetCameraPositon } from './scripts/camera.js';
 import Simulation from './scripts/simulation.js';
+import $ from 'jquery';
 
 const loadPaths = () => {
     availablePaths.forEach(json => {
@@ -16,26 +17,27 @@ $(document).ready(function () {
     $('#container').hide();
     $('#loading').hide();
     $('#fpsLabel').hide();
-});
 
-$('#inputForm').submit(function (e) {
-    e.preventDefault();
-    const $this = $(this);
+    $('#inputForm').on('submit', function (e) {
+        e.preventDefault();
 
-    $('#container').show();
-    $('#loading').show();
-    $this.hide();
+        const $this = $(this);
 
-    const params = getFormData($this);
-    $.get(params.url, function (e) {
-        params.pathSettings = e;
-        window.SCENE = new Simulation(params);
-        window.vars = variables;
+        $('#container').show();
+        $('#loading').show();
+        $this.hide();
+
+        const params = getFormData($this);
+        $.get(params.url, function (e) {
+            params.pathSettings = e;
+            window.SCENE = new Simulation(params);
+            window.vars = variables;
+        });
+
+        return false;
     });
 
-    return false;
+    window.freeCam = resetCameraPositon;
+    window.restart = () => location.reload();
+    window.defocus = () => variables.chart.focus(variables.chartCars.map(e => e.name));
 });
-
-window.freeCam = resetCameraPositon;
-window.restart = () => location.reload();
-window.defocus = () => variables.chart.focus(variables.chartCars.map(e => e.name))

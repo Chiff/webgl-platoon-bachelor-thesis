@@ -1,5 +1,8 @@
 import { CarPathAnim } from './carPathAnim.js';
 import { variables } from './utils.js';
+import $ from 'jquery';
+import { Color3, Vector3 } from '@babylonjs/core';
+import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader.js';
 
 export class Vehicle {
     constructor(scene, camera) {
@@ -23,7 +26,7 @@ export class Vehicle {
         this.vehicleID = vehicleID;
 
         return new Promise((resolve, reject) => {
-            BABYLON.SceneLoader.Append(objFolder, objFile, this.scene, (newScene) => {
+            SceneLoader.Append(objFolder, objFile, this.scene, (newScene) => {
                 newScene.meshes.map((mesh) => {
                     if (mesh.id.includes(meshID + '_telo')) {
                         customizeMesh(mesh);
@@ -59,7 +62,7 @@ export class Vehicle {
 
         const heightPath = [];
         for (let i = 0; i < carPath.length; i++) {
-            heightPath.push(new BABYLON.Vector3(carPath[i].x, (carPath[i].y + wheelSize), carPath[i].z));
+            heightPath.push(new Vector3(carPath[i].x, (carPath[i].y + wheelSize), carPath[i].z));
         }
 
         this.anim = new CarPathAnim(heightPath, this.meshes, 2, this.scene, carNumber);
@@ -77,18 +80,21 @@ export class Vehicle {
         if (otherCars) {
             this.otherCars = otherCars;
 
-            const MAGIC_MULTIPLIER = 8;
+            const MAGIC_MULTIPLIER = 6;
             const goal = (otherCars.length - i - 1) * variables.dist * MAGIC_MULTIPLIER;
             const possibleStartingPoints = [];
             for (let i = 0; i < variables.totalPathPoints; i += variables.skipFrames) {
                 possibleStartingPoints.push(i);
             }
 
+            // const total = 19
+            // const max = 15
+
             const closest = possibleStartingPoints.reduce(function (prev, curr) {
                 return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
             });
 
-            this.anim.carTimeline.seek('point' + closest);
+            this.anim.carTimeline.seek(0);
         }
     }
 
@@ -112,9 +118,9 @@ export class Vehicle {
         this.camera.lockedTarget = this.meshes.body;
         if (this.anim.speedLine) {
             this.otherCars.forEach(car => {
-                car.anim.speedLine.color = new BABYLON.Color3(1, 1, 1);
+                car.anim.speedLine.color = new Color3(1, 1, 1);
             });
-            this.anim.speedLine.color = new BABYLON.Color3(255, 0, 0);
+            this.anim.speedLine.color = new Color3(255, 0, 0);
         }
 
         variables.chart.focus(this.vehicleID);

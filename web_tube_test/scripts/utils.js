@@ -1,3 +1,7 @@
+import { Mesh, Vector3, VertexBuffer } from '@babylonjs/core';
+import { Scalar } from '@babylonjs/core/Maths/math.scalar.js';
+import $ from 'jquery';
+
 export const variables = {
     mapDimension: 512,
 
@@ -74,7 +78,7 @@ export const vehicleObjects = [
         order: 4,
         editMesh: (mesh, scene) => {
             mesh.position.y -= 20;
-            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
+            mesh.scaling = new Vector3(1, 1, 1);
             // scene.getMaterialByName('lambo.Body').diffuseColor.r = 0;
 
             console.log(mesh);
@@ -89,7 +93,7 @@ export const vehicleObjects = [
         order: 3,
         editMesh: (mesh, scene) => {
             mesh.position.y -= 20;
-            mesh.scaling = new BABYLON.Vector3(0.92, 0.92, 0.92);
+            mesh.scaling = new Vector3(0.92, 0.92, 0.92);
         }
     },
     {
@@ -101,7 +105,7 @@ export const vehicleObjects = [
         order: 1,
         editMesh: (mesh, scene) => {
             mesh.position.y -= 20;
-            mesh.scaling = new BABYLON.Vector3(1.05, 1.05, 1.05);
+            mesh.scaling = new Vector3(1.05, 1.05, 1.05);
         }
     },
     {
@@ -113,16 +117,16 @@ export const vehicleObjects = [
         order: 2,
         editMesh: (mesh, scene) => {
             mesh.position.y -= 20;
-            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
+            mesh.scaling = new Vector3(1, 1, 1);
         }
     }
 ];
 
-BABYLON.Mesh.prototype.createSurfacePoints = function (pointDensity) {
-    const positions = this.getVerticesData(BABYLON.VertexBuffer.PositionKind);
+Mesh.prototype.createSurfacePoints = function (pointDensity) {
+    const positions = this.getVerticesData(VertexBuffer.PositionKind);
     const indices = this.getIndices();
 
-    const point = BABYLON.Vector3.Zero();
+    const point = Vector3.Zero();
     const points = [];
 
     const randX = 0;
@@ -141,12 +145,12 @@ BABYLON.Mesh.prototype.createSurfacePoints = function (pointDensity) {
     let v2X = 0;
     let v2Y = 0;
     let v2Z = 0;
-    const vertex0 = BABYLON.Vector3.Zero();
-    const vertex1 = BABYLON.Vector3.Zero();
-    const vertex2 = BABYLON.Vector3.Zero();
-    const vec0 = BABYLON.Vector3.Zero();
-    const vec1 = BABYLON.Vector3.Zero();
-    const vec2 = BABYLON.Vector3.Zero();
+    const vertex0 = Vector3.Zero();
+    const vertex1 = Vector3.Zero();
+    const vertex2 = Vector3.Zero();
+    const vec0 = Vector3.Zero();
+    const vec1 = Vector3.Zero();
+    const vec2 = Vector3.Zero();
 
     let a = 0; //length of side of triangle
     let b = 0; //length of side of triangle
@@ -185,8 +189,8 @@ BABYLON.Mesh.prototype.createSurfacePoints = function (pointDensity) {
         nbPoints = Math.round(pointDensity * area);
         for (let i = 0; i < nbPoints; i++) {
             //form a point inside the facet v0, v1, v2;
-            lamda = BABYLON.Scalar.RandomRange(0, 1);
-            mu = BABYLON.Scalar.RandomRange(0, 1);
+            lamda = Scalar.RandomRange(0, 1);
+            mu = Scalar.RandomRange(0, 1);
 
             const facetPoint = vertex0.add(vec0.scale(lamda)).add(vec1.scale(lamda * mu));
             points.push(facetPoint);

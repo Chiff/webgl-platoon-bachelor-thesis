@@ -1,18 +1,22 @@
 import { initTerrainDraw } from './height.js';
 import { variables } from './utils.js';
+import { Ray, SceneLoader, SolidParticleSystem, StandardMaterial, Texture, Vector3 } from '@babylonjs/core';
+import { Color3 } from '@babylonjs/core/Maths/math.color.js';
+import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder.js';
+import { Mesh } from '@babylonjs/core/Meshes/mesh.js';
 
 export const createGround = (simulation) => {
     initTerrainDraw(simulation.scene, simulation.path);
 
-    const groundMaterial = new BABYLON.StandardMaterial('groundMaterial', simulation.scene);
+    const groundMaterial = new StandardMaterial('groundMaterial', simulation.scene);
 
     groundMaterial.alpha = 1.0;
-    groundMaterial.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
+    groundMaterial.diffuseColor = new Color3(1.0, 1.0, 1.0);
     groundMaterial.backFaceCulling = false;
-    groundMaterial.specularColor = new BABYLON.Color3(0.035, 0.047, 0.020);
-    groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+    groundMaterial.specularColor = new Color3(0.035, 0.047, 0.020);
+    groundMaterial.specularColor = new Color3(0, 0, 0);
 
-    groundMaterial.ambientTexture = new BABYLON.Texture('assets/grass.png', simulation.scene);
+    groundMaterial.ambientTexture = new Texture('assets/grass.png', simulation.scene);
     groundMaterial.ambientTexture.uScale = 50;
     groundMaterial.ambientTexture.vScale = 50;
 
@@ -20,9 +24,9 @@ export const createGround = (simulation) => {
         groundMaterial.wireframe = true;
     }
 
-    let ground = null
+    let ground = null;
     if (!variables.lowPerformance) {
-        ground = BABYLON.Mesh.CreateGroundFromHeightMap(
+        ground = Mesh.CreateGroundFromHeightMap(
             'ground',
             document.getElementById('imgSave').src,
             variables.mapDimension, variables.mapDimension, 200, 0, 5,
@@ -30,12 +34,12 @@ export const createGround = (simulation) => {
             false
         );
         // myGround.rotation.y +=  Math.PI;
-        ground.diffuseColor = BABYLON.Color3.Black();
+        ground.diffuseColor = Color3.Black();
         ground.material = groundMaterial;
         ground.isPickable = false;
     }
 
-    const backGround = BABYLON.MeshBuilder.CreateGround('backGround', {
+    const backGround = MeshBuilder.CreateGround('backGround', {
         width: variables.mapDimension * 2,
         height: variables.mapDimension * 2,
         subdivisions: 1
@@ -50,14 +54,14 @@ export const createGround = (simulation) => {
     backGround.position.y = -0.1;
 
     simulation.ground = ground || backGround;
-}
+};
 
 
 export const createVegetation = (simulation) => {
-    BABYLON.SceneLoader.Append('assets/foliage/', 'bush.babylon', simulation.scene);
-    BABYLON.SceneLoader.Append('assets/foliage/', 'grass.babylon', simulation.scene);
-    BABYLON.SceneLoader.Append('assets/foliage/', 'tree-1.babylon', simulation.scene);
-    BABYLON.SceneLoader.Append('assets/foliage/', 'tree-2.babylon', simulation.scene);
+    SceneLoader.Append('assets/foliage/', 'bush.babylon', simulation.scene);
+    SceneLoader.Append('assets/foliage/', 'grass.babylon', simulation.scene);
+    SceneLoader.Append('assets/foliage/', 'tree-1.babylon', simulation.scene);
+    SceneLoader.Append('assets/foliage/', 'tree-2.babylon', simulation.scene);
 
     simulation.scene.executeWhenReady(function () {
         const parentSPS = simulation.scene.getMeshByName('roadVegetation');
@@ -73,7 +77,7 @@ export const createVegetation = (simulation) => {
             randomPosition -= (randomPosition % 3);
 
             try {
-                particle.position = new BABYLON.Vector3(
+                particle.position = new Vector3(
                     positions[randomPosition].x,
                     positions[randomPosition].y + y,
                     positions[randomPosition].z
@@ -92,8 +96,8 @@ export const createVegetation = (simulation) => {
 
             const position = {...particle.position};
             position.y = -2;
-            const direction = new BABYLON.Vector3(0, 1, 0);
-            const ray = new BABYLON.Ray(position, direction, 100);
+            const direction = new Vector3(0, 1, 0);
+            const ray = new Ray(position, direction, 100);
 
             const hit = simulation.scene.pickWithRay(ray);
 
@@ -114,56 +118,56 @@ export const createVegetation = (simulation) => {
         // tree 1
         let t = simulation.scene.getMeshByName('tree-1');
 
-        const SPSTree1 = new BABYLON.SolidParticleSystem('SPSTree1', simulation.scene, {updatable: false});
+        const SPSTree1 = new SolidParticleSystem('SPSTree1', simulation.scene, {updatable: false});
         SPSTree1.addShape(t, shapeCount.tree1, {positionFunction: myBuilder});
         const SPSMeshTree = SPSTree1.buildMesh();
         SPSMeshTree.material = t.material;
-        SPSMeshTree.material.specularColor = BABYLON.Color3.Black();
+        SPSMeshTree.material.specularColor = Color3.Black();
         SPSMeshTree.parent = parentSPS;
         SPSMeshTree.isPickable = false;
-        simulation.shadowGenerator.addShadowCaster(SPSMeshTree)
+        simulation.shadowGenerator.addShadowCaster(SPSMeshTree);
 
         t.dispose();
 
         // tree 2
         let t2 = simulation.scene.getMeshByName('tree-2');
 
-        const SPSTree2 = new BABYLON.SolidParticleSystem('SPSTree2', simulation.scene, {updatable: false});
+        const SPSTree2 = new SolidParticleSystem('SPSTree2', simulation.scene, {updatable: false});
         SPSTree2.addShape(t2, shapeCount.tree2, {positionFunction: myBuilder});
         const SPSMeshTree2 = SPSTree2.buildMesh();
         SPSMeshTree2.material = t2.material;
-        SPSMeshTree2.material.specularColor = BABYLON.Color3.Black();
+        SPSMeshTree2.material.specularColor = Color3.Black();
         SPSMeshTree2.parent = parentSPS;
         SPSMeshTree2.isPickable = false;
-        simulation.shadowGenerator.addShadowCaster(SPSMeshTree2)
+        simulation.shadowGenerator.addShadowCaster(SPSMeshTree2);
 
         t2.dispose();
 
         // grass 1
         let g = simulation.scene.getMeshByName('grass-1');
 
-        const SPSGrass1 = new BABYLON.SolidParticleSystem('SPSGrass1', simulation.scene, {updatable: false});
+        const SPSGrass1 = new SolidParticleSystem('SPSGrass1', simulation.scene, {updatable: false});
         SPSGrass1.addShape(g, shapeCount.grass1, {positionFunction: myBuilder});
         const SPSMeshGrass = SPSGrass1.buildMesh();
         SPSMeshGrass.material = t.material;
-        SPSMeshGrass.material.specularColor = BABYLON.Color3.Black();
+        SPSMeshGrass.material.specularColor = Color3.Black();
         SPSMeshGrass.parent = parentSPS;
         SPSMeshGrass.isPickable = false;
-        simulation.shadowGenerator.addShadowCaster(SPSMeshGrass)
+        simulation.shadowGenerator.addShadowCaster(SPSMeshGrass);
 
         g.dispose();
 
         // bush 1
         let b = simulation.scene.getMeshByName('bush-1');
 
-        const SPSBush1 = new BABYLON.SolidParticleSystem('SPSBush1', simulation.scene, {updatable: false});
+        const SPSBush1 = new SolidParticleSystem('SPSBush1', simulation.scene, {updatable: false});
         SPSBush1.addShape(b, shapeCount.bush1, {positionFunction: myBuilder});
         const SPSMeshBush = SPSBush1.buildMesh();
         SPSMeshBush.material = b.material;
-        SPSMeshBush.material.specularColor = BABYLON.Color3.Black();
+        SPSMeshBush.material.specularColor = Color3.Black();
         SPSMeshBush.parent = parentSPS;
         SPSMeshBush.isPickable = false;
-        simulation.shadowGenerator.addShadowCaster(SPSMeshBush)
+        simulation.shadowGenerator.addShadowCaster(SPSMeshBush);
 
         b.dispose();
     });

@@ -5,6 +5,21 @@ import { getPath } from './path.js';
 import { createCamera, resetCameraPositon } from './camera.js';
 import { loadData } from './data.js';
 import { createGround, createVegetation } from './stage.js';
+import $ from 'jquery';
+import gsap from "gsap";
+import {
+    Color3,
+    CubeTexture,
+    DirectionalLight,
+    Engine,
+    HemisphericLight,
+    Scene,
+    ShadowGenerator,
+    StandardMaterial,
+    Texture,
+    Vector3
+} from '@babylonjs/core';
+import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder.js';
 
 const UNIQUE_LIGHT = 'myOnlyLight';
 
@@ -43,7 +58,7 @@ export default class Simulation {
     }
 
     init() {
-        this.engine = new BABYLON.Engine(this.canvas, true);
+        this.engine = new Engine(this.canvas, true);
 
         this.path = getPath();
 
@@ -61,13 +76,13 @@ export default class Simulation {
     }
 
     createScene() {
-        this.scene = new BABYLON.Scene(this.engine);
+        this.scene = new Scene(this.engine);
 
-        this.lightHemi = new BABYLON.HemisphericLight(UNIQUE_LIGHT + 1, new BABYLON.Vector3(0, 50, 0), this.scene);
+        this.lightHemi = new HemisphericLight(UNIQUE_LIGHT + 1, new Vector3(0, 50, 0), this.scene);
         this.lightHemi.intensity = 0.50;
 
-        this.light = new BABYLON.DirectionalLight(UNIQUE_LIGHT + 2, new BABYLON.Vector3(-0.5, -1, -0.5), this.scene);
-        this.light.position = new BABYLON.Vector3(variables.mapDimension, variables.mapDimension, -variables.mapDimension);
+        this.light = new DirectionalLight(UNIQUE_LIGHT + 2, new Vector3(-0.5, -1, -0.5), this.scene);
+        this.light.position = new Vector3(variables.mapDimension, variables.mapDimension, -variables.mapDimension);
         this.light.intensity = 2;
 
         this.createSkyBox();
@@ -84,11 +99,11 @@ export default class Simulation {
         });
 
         if (!variables.lowPerformance) {
-            this.shadowGenerator = new BABYLON.ShadowGenerator(8192, this.light);
+            this.shadowGenerator = new ShadowGenerator(8192, this.light);
             this.shadowGenerator.useExponentialShadowMap = true;
             this.shadowGenerator.useBlurExponentialShadowMap = true;
             this.shadowGenerator.blurScale = 1;
-            this.shadowGenerator.filteringQuality = BABYLON.ShadowGenerator.QUALITY_HIGH;
+            this.shadowGenerator.filteringQuality = ShadowGenerator.QUALITY_HIGH;
 
             this.ground.receiveShadows = true;
             this.road.mesh.receiveShadows = true;
@@ -98,14 +113,14 @@ export default class Simulation {
     }
 
     createSkyBox() {
-        const skyboxMaterial = new BABYLON.StandardMaterial('skyBox', this.scene);
+        const skyboxMaterial = new StandardMaterial('skyBox', this.scene);
         skyboxMaterial.backFaceCulling = false;
-        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture('assets/skybox/skybox', this.scene);
-        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-        skyboxMaterial.specularColor = new BABYLON.Color3(1, 1, 1);
+        skyboxMaterial.reflectionTexture = new CubeTexture('assets/skybox/skybox', this.scene);
+        skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
+        skyboxMaterial.diffuseColor = new Color3(0, 0, 0);
+        skyboxMaterial.specularColor = new Color3(1, 1, 1);
 
-        const skybox = BABYLON.MeshBuilder.CreateBox('skyBox', {size: variables.mapDimension * 2}, this.scene);
+        const skybox = MeshBuilder.CreateBox('skyBox', {size: variables.mapDimension * 2}, this.scene);
         skybox.material = skyboxMaterial;
     }
 
@@ -151,7 +166,7 @@ export default class Simulation {
         variables.debug = params.debug == 'true';
         variables.lowPerformance = params.lowPerformance == 'true';
 
-        variables.dist = params.dist || 20;
+        variables.dist = params.dist || 1;
         variables.simScale = params.simScale || 0;
 
         variables.offlineMode = params.offlineMode == 'true';

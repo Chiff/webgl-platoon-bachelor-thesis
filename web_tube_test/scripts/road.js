@@ -1,11 +1,13 @@
 /**
  * @class Road
  * @param {RoadSettings} settings
- * @param {BABYLON.Material} material
- * @param {BABYLON.Curve3} curve
- * @param {BABYLON.Mesh} mesh
+ * @param {Material} material
+ * @param {Curve3} curve
+ * @param {Mesh} mesh
  * @see RoadSettings
  */
+import { Color3, Curve3, Material, Mesh, MeshBuilder, StandardMaterial, Texture, Vector3 } from '@babylonjs/core';
+
 export class Road {
     /**
      * @constructor
@@ -30,18 +32,18 @@ export class Road {
     /**
      * @private
      * @method createMaterial
-     * @return {BABYLON.StandardMaterial} material
+     * @return {StandardMaterial} material
      */
     createMaterial() {
-        const mat = new BABYLON.StandardMaterial('mat-' + Date.now(), this.settings.scene);
+        const mat = new StandardMaterial('mat-' + Date.now(), this.settings.scene);
 
         mat.alpha = 1.0;
-        mat.diffuseColor = new BABYLON.Color3(1, 1, 1);
-        mat.specularColor = new BABYLON.Color3(0.1, 0.1, 0.1);
+        mat.diffuseColor = new Color3(1, 1, 1);
+        mat.specularColor = new Color3(0.1, 0.1, 0.1);
         mat.backFaceCulling = false;
 
 
-        mat.diffuseTexture = new BABYLON.Texture(this.settings.textureUrl, this.settings.scene);
+        mat.diffuseTexture = new Texture(this.settings.textureUrl, this.settings.scene);
 
         mat.diffuseTexture.uOffset = this.settings.textureOffset.x;
         mat.diffuseTexture.vOffset = this.settings.textureOffset.y;
@@ -52,47 +54,47 @@ export class Road {
     }
 
     createCurve() {
-        const curve = new BABYLON.Curve3(this.settings.path);
-        const invisibleMaterial = new BABYLON.Material('invisibleMaterial', this.settings.scene);
+        const curve = new Curve3(this.settings.path);
+        const invisibleMaterial = new Material('invisibleMaterial', this.settings.scene);
         invisibleMaterial.alpha = 0;
 
         if (this.settings.showCurve)
-            BABYLON.Mesh.CreateLines('line-' + Date.now(), curve.getPoints(), this.settings.scene);
+            Mesh.CreateLines('line-' + Date.now(), curve.getPoints(), this.settings.scene);
 
         const roadShape = [
-            new BABYLON.Vector3(-10, 0.05, 0),
-            new BABYLON.Vector3(5, 0.05, 0)
+            new Vector3(-10, 0.05, 0),
+            new Vector3(5, 0.05, 0)
         ];
         const shieldShape = [
-            new BABYLON.Vector3(-17, 0, 0),
-            new BABYLON.Vector3(12, 0, 0)
+            new Vector3(-17, 0, 0),
+            new Vector3(12, 0, 0)
         ];
         const vegetationShape = [
-            new BABYLON.Vector3(-60, 0, 0),
-            new BABYLON.Vector3(55, 0, 0)
+            new Vector3(-60, 0, 0),
+            new Vector3(55, 0, 0)
         ];
 
-        this.mesh = BABYLON.MeshBuilder.ExtrudeShape('road', {
+        this.mesh = MeshBuilder.ExtrudeShape('road', {
             shape: roadShape,
             path: curve.getPoints(),
-            sideOrientation: BABYLON.Mesh.DOUBLESIDE,
+            sideOrientation: Mesh.DOUBLESIDE,
             updatable: true
         }, this.settings.scene);
         this.mesh.material = this.material;
 
-        const roadShield = BABYLON.MeshBuilder.ExtrudeShape('roadShield', {
+        const roadShield = MeshBuilder.ExtrudeShape('roadShield', {
             shape: shieldShape,
             path: curve.getPoints(),
-            sideOrientation: BABYLON.Mesh.BACKSIDE,
+            sideOrientation: Mesh.BACKSIDE,
             updatable: true
         }, this.settings.scene);
         roadShield.material = invisibleMaterial;
         roadShield.position.y = -2;
 
-        const roadVegetation = BABYLON.MeshBuilder.ExtrudeShape('roadVegetation', {
+        const roadVegetation = MeshBuilder.ExtrudeShape('roadVegetation', {
             shape: vegetationShape,
             path: curve.getPoints(),
-            sideOrientation: BABYLON.Mesh.DOUBLESIDE,
+            sideOrientation: Mesh.DOUBLESIDE,
             updatable: true
         }, this.settings.scene);
         roadVegetation.material = invisibleMaterial;
@@ -117,8 +119,8 @@ export class Road {
 
 /**
  * @typedef {Object} RoadSettings
- * @property {BABYLON.Vector3[]} path
- * @property {BABYLON.Scene} scene
+ * @property {Vector3[]} path
+ * @property {Scene} scene
  * @property {URL} textureUrl
  * @property {Point2D} textureOffset
  * @property {Point2D} textureScale

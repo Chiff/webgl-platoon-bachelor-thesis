@@ -1,5 +1,7 @@
 import { variables, vehicleObjects } from './utils.js';
 import { carSort } from './vehicle.js';
+import $ from 'jquery';
+import c3 from 'c3';
 
 export let SIMULATION_DATA = {
     frames: -1,
@@ -8,8 +10,8 @@ export let SIMULATION_DATA = {
 };
 
 export const SIMULINK_FILES = {
-    PLATOON: {filename: 'platoon1h', returnValue: 'speeds'},
-    BOUNCE: {filename: 'bounce', returnValue: 'Position'}
+    PLATOON: {filename: 'platoon1h', returnValue: 'speeds'}
+    // BOUNCE: {filename: 'bounce', returnValue: 'Position'}
 };
 
 // promise result is ignored rn
@@ -25,11 +27,11 @@ export const loadData = () => new Promise(resolve => {
     let response = null;
     acquireLock(SIMULINK_FILES.PLATOON).then(() => {
         console.warn('[acquireLock] success');
-        return runSimulink(variables.serverInfo.paths.SIMULINK_LIST, SIMULINK_FILES.PLATOON);
+        // return runSimulink(variables.serverInfo.paths.SIMULINK_LIST, SIMULINK_FILES.PLATOON);
+        return new Promise(resolve => resolve('ignored'));
     }).then((data) => {
         console.warn('[SIMULINK_LIST]', data);
-        // return Promise.all(parameters.map((e) => mapParams(e, variables.dist)));
-        return new Promise(resolve => resolve('TODO - SET DISTANCE PARAMETER!'));
+        return Promise.all(parameters.map((e) => mapParams(e, variables.dist)));
     }).then((data) => {
         console.warn('[parameters]', data);
         return runSimulink(variables.serverInfo.paths.SIMULINK_RUN, SIMULINK_FILES.PLATOON);
@@ -109,7 +111,7 @@ const drawChart = (data) => {
         }
     });
 
-    $(`circle.c3-circle`).attr('r', variables.chartCircleSize)
+    $(`circle.c3-circle`).attr('r', variables.chartCircleSize);
 };
 
 export const getVehicle = (number) => Object.values(SIMULATION_DATA.points).map(e => e[number]);
@@ -182,27 +184,6 @@ const acquireLock = (SIMULINK_FILE) => new Promise((resolve, reject) => {
     }).catch(e => reject(e));
 });
 
-// https://www.mathworks.com/matlabcentral/answers/330745-matlab-engine-api-for-python-changing-parameters-of-the-running-simulation
-// http://www.ece.northwestern.edu/local-apps/matlabhelp/toolbox/simulink/slref/set_param.html
-
-// $.ajax({
-//     type: 'POST',
-//     url: 'https://147.175.121.229/api/simulink/block/set-param',
-//     data: {
-//         block: "1",
-//         param: "Value",
-//         value: "-3",
-//         api_key: 'a2efddcf-adfc-484f-a17b-5c3d676cacb6'
-//     }
-// });
-
-// WS TEST
-// api_key: "a2efddcf-adfc-484f-a17b-5c3d676cacb6"
-// block_to_change: 1
-// command: "set_param"
-// param: "Value"
-// ret_vals: ["Position"]
-// value: "-3"
 const setParam = (SIMULINK_FILE, block, param, value) => new Promise((resolve, reject) => {
     const data = {
         api_key: variables.serverInfo.api_key,
@@ -225,46 +206,47 @@ const setParam = (SIMULINK_FILE, block, param, value) => new Promise((resolve, r
 
 const REPLACE_KEY = '_TO_BE_REPLACED_';
 const parameters = [{
-    block: `${SIMULINK_FILES.PLATOON.filename}/v01/GG1`,
+    block: '28', //`${SIMULINK_FILES.PLATOON.filename}/v01/GG1`,
     param: 'Value',
     value: `${REPLACE_KEY}`
 }, {
-    block: `${SIMULINK_FILES.PLATOON.filename}/v12/GG1`,
+    block: '54', //`${SIMULINK_FILES.PLATOON.filename}/v12/GG1`,
     param: 'Value',
     value: `${REPLACE_KEY}`
 }, {
-    block: `${SIMULINK_FILES.PLATOON.filename}/v23/GG1`,
+    block: '79', //`${SIMULINK_FILES.PLATOON.filename}/v23/GG1`,
     param: 'Value',
     value: `${REPLACE_KEY}`
 }, {
-    block: `${SIMULINK_FILES.PLATOON.filename}/v34/GG1`,
+    block: '104', //`${SIMULINK_FILES.PLATOON.filename}/v34/GG1`,
     param: 'Value',
     value: `${REPLACE_KEY}`
 }, {
-    block: `${SIMULINK_FILES.PLATOON.filename}/v01/Integrator1`,
+    block: '30', //`${SIMULINK_FILES.PLATOON.filename}/v01/Integrator1`,
     param: 'InitialCondition',
-    value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
+    value: `L+3*${REPLACE_KEY}*SL`
+    // value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
 }, {
-    block: `${SIMULINK_FILES.PLATOON.filename}/v12/Integrator1`,
+    block: '56', //`${SIMULINK_FILES.PLATOON.filename}/v12/Integrator1`,
     param: 'InitialCondition',
-    value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
+    value: `L+3*${REPLACE_KEY}*SL`
+    // value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
 }, {
-    block: `${SIMULINK_FILES.PLATOON.filename}/v23/Integrator1`,
+    block: '81', //`${SIMULINK_FILES.PLATOON.filename}/v23/Integrator1`,
     param: 'InitialCondition',
-    value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
+    value: `L+3*${REPLACE_KEY}*SL`
+    // value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
 }, {
-    block: `${SIMULINK_FILES.PLATOON.filename}/v34/Integrator1`,
+    block: '106', //`${SIMULINK_FILES.PLATOON.filename}/v34/Integrator1`,
     param: 'InitialCondition',
-    value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
+    value: `L+3*${REPLACE_KEY}*SL`
+    // value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
 }];
 
 const mapParams = (parameter, input) => new Promise((resolve, reject) => {
     setParam(SIMULINK_FILES.PLATOON, parameter.block, parameter.param, parameter.value.replace(REPLACE_KEY, input.toString())).then(data => {
         resolve(data);
     }).catch(error => {
-        // TODO - 05/05/2020 - toto je len test ci nahodou API nevratila nespravny error code
-        // console.warn(error);
-        // resolve(error);
         reject(error);
     });
 });

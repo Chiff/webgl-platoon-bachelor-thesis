@@ -1,9 +1,9 @@
 // https://github.com/loktar00/Javascript-Canvas-Terrain-Generator
 // https://stackoverflow.com/a/8405817
 export default function generateTerrainMap(mapDimension, unitSize, roughness) {
-    "use strict";
+    'use strict';
 
-    var map = create2DArray(mapDimension+1, mapDimension+1);
+    var map = create2DArray(mapDimension + 1, mapDimension + 1);
     startDisplacement(map, mapDimension);
     return map;
 
@@ -13,9 +13,9 @@ export default function generateTerrainMap(mapDimension, unitSize, roughness) {
             x = 0,
             y = 0;
 
-        for (x = 0; x < d1; x ++) {
+        for (x = 0; x < d1; x++) {
             data[x] = [];
-            for (y = 0; y < d2; y ++) {
+            for (y = 0; y < d2; y++) {
                 data[x][y] = 0;
             }
         }
@@ -23,7 +23,7 @@ export default function generateTerrainMap(mapDimension, unitSize, roughness) {
     }
 
     // Starts off the map generation, seeds the first 4 corners
-    function startDisplacement(map, mapDimension){
+    function startDisplacement(map, mapDimension) {
         var topRight = 0,
             topLeft = 0,
             bottomRight = 0,
@@ -70,7 +70,7 @@ export default function generateTerrainMap(mapDimension, unitSize, roughness) {
     }
 
     // Workhorse of the terrain generation.
-    function midpointDisplacment(dimension){
+    function midpointDisplacment(dimension) {
         var newDimension = dimension / 2,
             topRight = 0,
             topLeft = 0,
@@ -80,9 +80,9 @@ export default function generateTerrainMap(mapDimension, unitSize, roughness) {
             x = 0, y = 0,
             i = 0, j = 0;
 
-        if (newDimension > unitSize){
-            for(i = newDimension; i <= mapDimension; i += newDimension){
-                for(j = newDimension; j <= mapDimension; j += newDimension){
+        if (newDimension > unitSize) {
+            for (i = newDimension; i <= mapDimension; i += newDimension) {
+                for (j = newDimension; j <= mapDimension; j += newDimension) {
                     x = i - (newDimension / 2);
                     y = j - (newDimension / 2);
 
@@ -97,36 +97,36 @@ export default function generateTerrainMap(mapDimension, unitSize, roughness) {
                     center = map[x][y];
 
                     // Top
-                    if(j - (newDimension * 2) + (newDimension / 2) > 0){
+                    if (j - (newDimension * 2) + (newDimension / 2) > 0) {
                         map[x][j - newDimension] = (topLeft + topRight + center + map[x][j - dimension + (newDimension / 2)]) / 4 + displace(dimension);
-                    }else{
+                    } else {
                         map[x][j - newDimension] = (topLeft + topRight + center) / 3 + displace(dimension);
                     }
 
                     map[x][j - newDimension] = normalize(map[x][j - newDimension]);
 
                     // Bottom
-                    if(j + (newDimension / 2) < mapDimension){
+                    if (j + (newDimension / 2) < mapDimension) {
                         map[x][j] = (bottomLeft + bottomRight + center + map[x][j + (newDimension / 2)]) / 4 + displace(dimension);
-                    }else{
+                    } else {
                         map[x][j] = (bottomLeft + bottomRight + center) / 3 + displace(dimension);
                     }
 
                     map[x][j] = normalize(map[x][j]);
 
                     //Right
-                    if(i + (newDimension / 2) < mapDimension){
+                    if (i + (newDimension / 2) < mapDimension) {
                         map[i][y] = (topRight + bottomRight + center + map[i + (newDimension / 2)][y]) / 4 + displace(dimension);
-                    }else{
+                    } else {
                         map[i][y] = (topRight + bottomRight + center) / 3 + displace(dimension);
                     }
 
                     map[i][y] = normalize(map[i][y]);
 
                     // Left
-                    if(i - (newDimension * 2) + (newDimension / 2) > 0){
+                    if (i - (newDimension * 2) + (newDimension / 2) > 0) {
                         map[i - newDimension][y] = (topLeft + bottomLeft + center + map[i - dimension + (newDimension / 2)][y]) / 4 + displace(dimension);
-                    }else{
+                    } else {
                         map[i - newDimension][y] = (topLeft + bottomLeft + center) / 3 + displace(dimension);
                     }
 
@@ -138,13 +138,13 @@ export default function generateTerrainMap(mapDimension, unitSize, roughness) {
     }
 
     // Random function to offset the center
-    function displace(num){
+    function displace(num) {
         var max = num / (mapDimension + mapDimension) * roughness;
         return (Math.random() - 0.5) * max;
     }
 
     // Normalize the value to make sure its within bounds
-    function normalize(value){
+    function normalize(value) {
         return Math.max(Math.min(value, 1), 0);
     }
 }
