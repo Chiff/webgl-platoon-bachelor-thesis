@@ -19,7 +19,8 @@ module.exports = {
     plugins: [
         new CopyWebpackPlugin([
             {from: '**/**.*', context: 'assets', to: 'assets'},
-            {from: '**/*.{html,css}', context: './', ignore: ['**/node_modules/**']}
+            {from: '**/*.{html,css}', context: './', ignore: ['**/node_modules/**']},
+            {from: 'c3/c3.css', context: 'node_modules', to: 'node_modules/c3'}
         ])
     ]
 };

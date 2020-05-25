@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Sen&display=swap');
+@import "node_modules/c3/c3.css";
+
 @-webkit-keyframes pulse {
     0%, 40% {
         background: #fff
