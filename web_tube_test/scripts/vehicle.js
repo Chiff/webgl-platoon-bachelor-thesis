@@ -79,22 +79,7 @@ export class Vehicle {
         // otherCars is used only first time
         if (otherCars) {
             this.otherCars = otherCars;
-
-            const MAGIC_MULTIPLIER = 6;
-            const goal = (otherCars.length - i - 1) * variables.dist * MAGIC_MULTIPLIER;
-            const possibleStartingPoints = [];
-            for (let i = 0; i < variables.totalPathPoints; i += variables.skipFrames) {
-                possibleStartingPoints.push(i);
-            }
-
-            // const total = 19
-            // const max = 15
-
-            const closest = possibleStartingPoints.reduce(function (prev, curr) {
-                return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
-            });
-
-            this.anim.carTimeline.seek(0);
+            this.anim.carTimeline.seek((otherCars.length - i - 1) * variables.dist);
         }
     }
 

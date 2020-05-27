@@ -148,6 +148,7 @@ const parseData = (data) => {
         points: parsed
     };
 
+    console.warn(SIMULATION_DATA);
     return SIMULATION_DATA;
 };
 
@@ -222,6 +223,11 @@ const parameters = [{
     param: 'Value',
     value: `${REPLACE_KEY}`
 }, {
+    block: '1', //`${SIMULINK_FILES.PLATOON.filename}/Integrator`,
+    param: 'InitialCondition',
+    value: `L+4*${REPLACE_KEY}*SL`
+    // value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
+}, {
     block: '30', //`${SIMULINK_FILES.PLATOON.filename}/v01/Integrator1`,
     param: 'InitialCondition',
     value: `L+3*${REPLACE_KEY}*SL`
@@ -229,17 +235,17 @@ const parameters = [{
 }, {
     block: '56', //`${SIMULINK_FILES.PLATOON.filename}/v12/Integrator1`,
     param: 'InitialCondition',
-    value: `L+3*${REPLACE_KEY}*SL`
+    value: `L+2*${REPLACE_KEY}*SL`
     // value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
 }, {
     block: '81', //`${SIMULINK_FILES.PLATOON.filename}/v23/Integrator1`,
     param: 'InitialCondition',
-    value: `L+3*${REPLACE_KEY}*SL`
+    value: `L+1*${REPLACE_KEY}*SL`
     // value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
 }, {
     block: '106', //`${SIMULINK_FILES.PLATOON.filename}/v34/Integrator1`,
     param: 'InitialCondition',
-    value: `L+3*${REPLACE_KEY}*SL`
+    value: `L+0*${REPLACE_KEY}*SL`
     // value: `strcat("L+3*","${REPLACE_KEY}","*SL")`
 }];
 

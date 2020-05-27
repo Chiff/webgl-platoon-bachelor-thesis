@@ -31,7 +31,8 @@ export class CarPathAnim {
 
 
         // speeds
-        const frameCurve = new Curve3(getVehicle(carNumber).map((e, i) => new Vector3(i - variables.mapDimension / 2, e, 0)));
+        const mphToMps = (mph) => mph / 2.237;
+        const frameCurve = new Curve3(getVehicle(carNumber).map((e, i) => new Vector3(i, mphToMps(e), 0)));
         const framePath = new Path3D(frameCurve.getPoints());
 
 
@@ -41,23 +42,27 @@ export class CarPathAnim {
         carTimeline.repeat(0);
         carTimeline.pause();
 
+
         // chart point for each roadPathPoint
         const chartName = variables.chartCars[carNumber].name;
-        const chartIndexes = [];
-        const allChartPoints = variables.chartCars[carNumber].data;
-        const step = (allChartPoints.length - 1) / (variables.totalPathPoints);
-
-        for (let i = 0; i < variables.totalPathPoints; i++) {
-            const index = Math.round(step * i);
-            chartIndexes.push(index);
-        }
-
-        chartIndexes.push(allChartPoints.length - 1);
+        let prevIndex = 0;
 
         // speed to path
+        const debugInfo = [];
         for (let p = 0; p < roadPathPoints.length; p += variables.skipFrames) {
-            const speedAtTime = framePath.getPointAt(p / roadPathPoints.length).y;
-            const duration = this.speedToTime(speedAtTime);
+            const frameInfo = framePath.getPointAt(p / roadPathPoints.length);
+
+            const distance = path3d.getDistanceAt((p + variables.skipFrames) / roadPathPoints.length) - path3d.getDistanceAt(p / roadPathPoints.length);
+            const speed = frameInfo.y;
+            const duration = this.speedToTime(distance, speed);
+
+            debugInfo.push({
+                p,
+                i: frameInfo.x,
+                speed: frameInfo.y,
+                duration,
+                distance
+            });
 
             const point = roadPathPoints[p];
             carTimeline.to(this.meshes.body.position, {
@@ -66,8 +71,12 @@ export class CarPathAnim {
                 z: point.z,
                 duration
             }, 'point' + p).call(() => {
-                $(`.c3-shapes-${chartName} circle.c3-shape-${chartIndexes[p]}`).attr('r', variables.chartCircleSize);
-                $(`.c3-shapes-${chartName} circle.c3-shape-${chartIndexes[(p + variables.skipFrames) % variables.totalPathPoints]}`).attr('r', variables.chartCircleSizeActive);
+                const graphIndex = Math.round(frameInfo.x / variables.skipFrames) % variables.chartCars[carNumber].data.length;
+
+                $(`.c3-shapes-${chartName} circle.c3-shape-${prevIndex}`).attr('r', variables.chartCircleSize);
+                $(`.c3-shapes-${chartName} circle.c3-shape-${graphIndex}`).attr('r', variables.chartCircleSizeActive);
+
+                prevIndex = graphIndex;
             });
 
             const rotation = Vector3.RotationFromAxis(normals[p], binormals[p], tangents[p]);
@@ -91,7 +100,7 @@ export class CarPathAnim {
         }
 
         const customTimeScale = parseFloat(variables.simScale);
-        const MAGIC_AVG_DURATION = 19; // seconds
+        const MAGIC_AVG_DURATION = 22; // seconds
         carTimeline.duration(MAGIC_AVG_DURATION * (customTimeScale ? customTimeScale : variables.pathInfo.timeScale));
 
         this.carTimeline = carTimeline;
@@ -101,10 +110,11 @@ export class CarPathAnim {
             this.speedLine = Mesh.CreateLines('car-speed-' + Date.now(), frameCurve.getPoints(), this.scene);
             this.speedLine.scaling = new Vector3((variables.mapDimension) / frameCurve.getPoints().length, 1, 1);
             this.speedLine.position.x = variables.mapDimension / 4;
+            console.log(carNumber, debugInfo);
         }
     }
 
-    speedToTime(speed) {
-        return variables.distByFrame / speed;
+    speedToTime(distance, speed) {
+        return (distance * variables.distanceMultiplier) / speed;
     }
 }

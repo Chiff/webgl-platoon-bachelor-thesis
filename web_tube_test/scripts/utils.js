@@ -3,28 +3,42 @@ import { Scalar } from '@babylonjs/core/Maths/math.scalar.js';
 import $ from 'jquery';
 
 export const variables = {
+    // size of ground
     mapDimension: 512,
 
+    // user inputs
     dist: null,
     simScale: null,
-
-    totalPathPoints: 200,
-    startFrames: 50,
-    skipFrames: 2,
-    distByFrame: 10,
     lowPerformance: false,
-
     debug: false,
+    offlineMode: true,
+
+    // overrides length of Road path
+    totalPathPoints: 200,
+
+    // prepends and appends animation frames based on first and last speed
+    startFrames: 50,
+
+    // totalPathPoints/skipFrames = animationFrameCount
+    skipFrames: 2,
+
+    // internal variable that defines speed of car
+    distanceMultiplier: 1,
+
+    // defines size of canvas on screen
     maxCanvasHeight: 600,
     maxCanvasWidth: 1200,
+
+    // locks camera zoom
     cameraSettings: {
         upperLimit: 300,
         lowerLimit: 0
     },
 
-    offlineMode: true,
+    // defines path to offline data set for simulation
     offlineDataPath: 'assets/test.json',
 
+    // self explanatory...
     serverInfo: {
         url: 'https://147.175.121.229/',
         api_key: 'bc3d8dc1-e6f6-4ad6-bc31-85c25b814fcb',
@@ -39,6 +53,7 @@ export const variables = {
         }
     },
 
+    // internal variable that stores information about Road
     pathInfo: {
         url: null,
         name: null,
@@ -50,10 +65,17 @@ export const variables = {
         }
     },
 
+    // c3 target element
     chartId: '#chart',
+
+    // radius of chart circles for active frame and default state
     chartCircleSize: 2,
     chartCircleSizeActive: 10,
+
+    // internal variable that stores information about c3
     chart: null,
+
+    // data for c3 columns
     chartCars: null
 };
 
@@ -80,8 +102,6 @@ export const vehicleObjects = [
             mesh.position.y -= 20;
             mesh.scaling = new Vector3(1, 1, 1);
             // scene.getMaterialByName('lambo.Body').diffuseColor.r = 0;
-
-            console.log(mesh);
         }
     },
     {

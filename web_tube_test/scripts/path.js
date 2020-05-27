@@ -3,8 +3,6 @@ import { Curve3, Mesh, Vector3, VertexBuffer } from '@babylonjs/core';
 import { MeshBuilder } from '@babylonjs/core/Meshes/meshBuilder.js';
 
 export function getPath() {
-    // return variables.pathInfo.points.map(point => new Vector3(point.x, point.y, point.z));
-
     const path = [];
     const fullPath = variables.pathInfo.points;
     const step = (variables.pathInfo.points.length - 1) / (variables.totalPathPoints);
