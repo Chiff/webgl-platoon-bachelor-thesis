@@ -9,7 +9,7 @@ import { ArcRotateCamera, Vector3 } from '@babylonjs/core';
 // starting camera rotation
 const CAMERA_ALPHA = 6.49;
 const CAMERA_BETA = 1.28;
-const CAMERA_RADIUS = 60;
+const CAMERA_RADIUS = variables.cameraSettings.upperLimit;
 
 export const createCamera = (myScene) => {
     const camera = new ArcRotateCamera('Camera', CAMERA_ALPHA, CAMERA_BETA, CAMERA_RADIUS, new Vector3(2, 1, -12), myScene.scene);
@@ -21,6 +21,7 @@ export const createCamera = (myScene) => {
     }
 
     camera.allowUpsideDown = false;
+    camera.upperBetaLimit = Math.PI / 2 - 0.01
 
     myScene.camera = camera;
 };
@@ -32,4 +33,5 @@ export const resetCameraPositon = () => {
     cam.setTarget(window.SCENE.ground);
     cam.alpha = CAMERA_ALPHA;
     cam.beta = CAMERA_BETA;
+    cam.radius = CAMERA_RADIUS;
 };
